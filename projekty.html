@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projekty – Opieka i Troska Krzysztof Prot</title>
+  <meta name="description" content="Projekt Najlepsze wsparcie dla seniorów – wsparcie w domu! Bezpłatna opieka dla seniorów 60+ z powiatu ostrowskiego." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --primary:       #7A1C1C;
+      --primary-dark:  #5C1414;
+      --primary-light: #F5E8E8;
+      --accent:        #3CAA3C;
+      --accent-dark:   #2D852D;
+      --accent-light:  #E8F5E8;
+      --bg:            #FAF9F7;
+      --surface:       #FFFFFF;
+      --text:          #1A1A1A;
+      --text-muted:    #555555;
+      --border:        #DDD5D5;
+      --radius:        10px;
+      --transition:    0.2s ease;
+    }
+
+    /* Accessibility overrides */
+    body.high-contrast {
+      --primary: #5A0000; --primary-light: #FFD0D0;
+      --accent: #1A6E1A; --accent-light: #C8F0C8;
+      --bg: #fff; --surface: #fff; --text: #000; --text-muted: #222; --border: #000;
+    }
+    body.grayscale { filter: grayscale(100%); }
+    body.large-text    { font-size: 1.35rem !important; }
+    body.larger-text   { font-size: 1.6rem  !important; }
+    body.underline-links a { text-decoration: underline !important; }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      font-size: 1.2rem;
+      line-height: 1.85;
+      color: var(--text);
+      background: var(--bg);
+    }
+
+    img  { max-width: 100%; display: block; }
+    a    { color: var(--primary); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    ul   { list-style: none; padding: 0; }
+
+    .container {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* Skip link */
+    .skip-link {
+      position: absolute; top: -100px; left: 1rem;
+      background: var(--primary); color: #fff;
+      padding: 0.5rem 1rem; border-radius: 8px;
+      font-weight: 700; z-index: 9999; transition: top 0.2s;
+    }
+    .skip-link:focus { top: 1rem; }
+
+    /* ── WCAG floating button ── */
+    #a11y-toggle {
+      position: fixed;
+      left: 1.25rem;
+      top: calc(72px + 0.75rem);
+      z-index: 1000;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      padding: 0.55rem 1rem;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 700;
+      font-family: 'Lato', sans-serif;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      box-shadow: 0 4px 14px rgba(122,28,28,0.3);
+      transition: all var(--transition);
+    }
+    #a11y-toggle:hover, #a11y-toggle:focus {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+      outline: 3px solid var(--primary-light);
+    }
+
+    #a11y-panel {
+      position: fixed;
+      left: 1.25rem;
+      top: calc(72px + 0.75rem + 42px + 0.5rem);
+      z-index: 999;
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      width: 280px;
+      box-shadow: 0 8px 32px rgba(122,28,28,0.15);
+      border: 1px solid var(--border);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-6px) scale(0.97);
+      transition: opacity 0.22s ease, transform 0.22s ease;
+    }
+    #a11y-panel.open { opacity: 1; pointer-events: auto; transform: none; }
+
+    #a11y-panel h2 {
+      font-size: 1rem; font-weight: 700; color: var(--primary);
+      margin-bottom: 1rem; padding-bottom: 0.6rem;
+      border-bottom: 2px solid var(--primary-light);
+    }
+    .a11y-section { margin-bottom: 1rem; }
+    .a11y-section-label {
+      font-size: 0.78rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.07em; color: var(--text-muted); margin-bottom: 0.4rem;
+    }
+    .a11y-btn {
+      display: block; width: 100%; padding: 0.55rem 0.8rem; margin-bottom: 0.3rem;
+      background: var(--bg); border: 2px solid var(--border); border-radius: 7px;
+      cursor: pointer; font-size: 0.95rem; font-weight: 600; color: var(--text);
+      text-align: left; font-family: 'Lato', sans-serif; transition: all var(--transition);
+    }
+    .a11y-btn:hover, .a11y-btn:focus { background: var(--primary-light); border-color: var(--primary); }
+    .a11y-btn.active { background: var(--primary); color: #fff; border-color: var(--primary-dark); }
+    .font-controls { display: flex; gap: 0.4rem; align-items: center; }
+    .font-controls button {
+      flex: 1; padding: 0.5rem 0; background: var(--bg); border: 2px solid var(--border);
+      border-radius: 7px; cursor: pointer; font-size: 1rem; font-weight: 700;
+      font-family: 'Lato', sans-serif; color: var(--text); transition: all var(--transition);
+    }
+    .font-controls button:hover { background: var(--primary-light); border-color: var(--primary); }
+    .font-size-label {
+      flex: 1.2; text-align: center; font-size: 0.85rem; font-weight: 700;
+      color: var(--primary); background: var(--primary-light); border-radius: 7px; padding: 0.5rem 0;
+    }
+    #a11y-reset {
+      width: 100%; margin-top: 0.5rem; padding: 0.55rem; background: transparent;
+      border: 2px solid var(--border); border-radius: 7px; cursor: pointer;
+      font-size: 0.9rem; font-weight: 600; color: var(--text-muted);
+      font-family: 'Lato', sans-serif; transition: all var(--transition);
+    }
+    #a11y-reset:hover { border-color: var(--accent); color: var(--accent-dark); background: var(--accent-light); }
+
+    /* ── NAVBAR ── */
+    #navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 900;
+      background: rgba(250,249,247,0.97); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--border);
+    }
+    #navbar.scrolled { box-shadow: 0 2px 16px rgba(122,28,28,0.09); }
+    .nav-inner {
+      max-width: 1140px; margin: 0 auto; padding: 0 1.5rem;
+      display: flex; align-items: center; justify-content: space-between; height: 72px;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 0.7rem; }
+    .nav-logo img { height: 46px; width: auto; }
+    .nav-logo-name { font-family: 'Merriweather', serif; font-size: 1rem; font-weight: 700; color: var(--primary); }
+    .nav-logo-sub  { font-size: 0.76rem; color: var(--text-muted); }
+    .nav-links { display: flex; align-items: center; gap: 0.2rem; }
+    .nav-links a {
+      padding: 0.45rem 0.85rem; border-radius: 7px;
+      font-size: 0.95rem; font-weight: 600; color: var(--text);
+      transition: all var(--transition);
+    }
+    .nav-links a:hover, .nav-links a:focus { background: var(--primary-light); color: var(--primary); text-decoration: none; }
+    .nav-links a.active { color: var(--primary); background: var(--primary-light); }
+    .nav-cta {
+      background: var(--primary) !important; color: #fff !important;
+      border-radius: 50px !important; padding: 0.45rem 1.1rem !important;
+    }
+    .nav-cta:hover { background: var(--primary-dark) !important; }
+    #menu-toggle {
+      display: none; background: none; border: 2px solid var(--border);
+      padding: 0.35rem 0.6rem; border-radius: 7px; cursor: pointer;
+      font-family: 'Lato', sans-serif; font-size: 0.9rem; color: var(--text);
+    }
+    #menu-toggle:focus { outline: 3px solid var(--primary); }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      padding-top: calc(72px + 3rem);
+      padding-bottom: 2rem;
+      border-bottom: 3px solid var(--primary-light);
+      margin-bottom: 3rem;
+    }
+    .breadcrumb {
+      font-size: 0.95rem; color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+    .breadcrumb a { color: var(--primary); font-weight: 700; }
+    .breadcrumb span { margin: 0 0.4rem; color: var(--border); }
+    .page-header h1 {
+      font-family: 'Merriweather', serif;
+      font-size: 2.2rem;
+      color: var(--primary);
+      line-height: 1.25;
+      margin-bottom: 0.5rem;
+    }
+
+    /* ── MAIN CONTENT ── */
+    main {
+      padding-bottom: 5rem;
+    }
+
+    /* Project status bar */
+    .project-status {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+    .status-badge {
+      background: var(--accent);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 0.3rem 1rem;
+      border-radius: 50px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .status-dates {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    /* Project title */
+    .project-title {
+      font-family: 'Merriweather', serif;
+      font-size: 1.75rem;
+      color: var(--text);
+      line-height: 1.3;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Divider */
+    .divider {
+      border: none;
+      border-top: 2px solid var(--primary-light);
+      margin: 2.5rem 0;
+    }
+
+    /* Section headings */
+    .proj-heading {
+      font-family: 'Merriweather', serif;
+      font-size: 1.3rem;
+      color: var(--primary);
+      margin-bottom: 0.75rem;
+    }
+
+    /* Body text */
+    .proj-text {
+      font-size: 1.2rem;
+      color: var(--text);
+      line-height: 1.85;
+      margin-bottom: 1rem;
+    }
+
+    /* Simple bullet list */
+    .proj-list {
+      margin: 0.5rem 0 1rem 0;
+    }
+    .proj-list li {
+      font-size: 1.2rem;
+      line-height: 1.75;
+      padding: 0.35rem 0 0.35rem 1.6rem;
+      position: relative;
+      color: var(--text);
+      border-bottom: 1px solid var(--primary-light);
+    }
+    .proj-list li:last-child { border-bottom: none; }
+    .proj-list li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0.85rem;
+      width: 10px; height: 10px;
+      background: var(--primary);
+      border-radius: 50%;
+    }
+
+    /* Free badge – prominent */
+    .free-banner {
+      background: var(--accent);
+      color: #fff;
+      text-align: center;
+      font-family: 'Merriweather', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      padding: 1.25rem 1.5rem;
+      border-radius: var(--radius);
+      margin: 2.5rem 0;
+    }
+
+    /* Flyers */
+    .flyers-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin-bottom: 0.5rem;
+    }
+    .flyer-wrap {
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: border-color var(--transition), box-shadow var(--transition);
+      display: block;
+    }
+    .flyer-wrap:hover, .flyer-wrap:focus {
+      border-color: var(--primary);
+      box-shadow: 0 4px 20px rgba(122,28,28,0.12);
+      outline: none;
+    }
+    .flyer-wrap img { width: 100%; height: auto; display: block; }
+    .flyer-caption {
+      text-align: center;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--primary);
+      padding: 0.6rem;
+      background: var(--primary-light);
+    }
+    .flyer-hint {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: 0.5rem;
+    }
+
+    /* Downloads */
+    .download-list { display: flex; flex-direction: column; gap: 0.65rem; }
+    .download-link {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.25rem;
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+      transition: all var(--transition);
+    }
+    .download-link:hover, .download-link:focus {
+      border-color: var(--primary);
+      background: var(--primary-light);
+      color: var(--primary);
+      text-decoration: none;
+      outline: 3px solid var(--primary-light);
+      outline-offset: 2px;
+    }
+    .dl-icon {
+      width: 40px; height: 40px; flex-shrink: 0;
+      background: var(--primary-light);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--primary);
+    }
+    .dl-icon svg { width: 20px; height: 20px; }
+    .dl-meta { flex: 1; }
+    .dl-name  { font-size: 1.1rem; font-weight: 700; color: var(--text); }
+    .dl-desc  { font-size: 0.88rem; color: var(--text-muted); font-weight: 400; }
+    .dl-badge {
+      background: var(--primary); color: #fff;
+      font-size: 0.72rem; font-weight: 700;
+      padding: 0.2rem 0.5rem; border-radius: 5px;
+      letter-spacing: 0.05em; flex-shrink: 0;
+    }
+
+    /* Contact block */
+    .contact-block { margin-bottom: 1rem; }
+    .contact-block strong {
+      display: block;
+      font-size: 1.1rem;
+      color: var(--text);
+      margin-bottom: 0.2rem;
+    }
+    .contact-block a {
+      display: block;
+      font-size: 1.1rem;
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    /* EU note */
+    .eu-note {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--border);
+      margin-top: 2rem;
+    }
+
+    /* Back link */
+    .back-link {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      color: var(--primary); font-weight: 700; font-size: 1rem;
+      margin-top: 2.5rem;
+      transition: gap var(--transition);
+    }
+    .back-link:hover { gap: 0.75rem; text-decoration: underline; }
+    .back-link svg { width: 16px; height: 16px; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #1A0A0A; color: rgba(255,255,255,0.65);
+      padding: 1.75rem 0;
+    }
+    .footer-inner {
+      max-width: 1140px; margin: 0 auto; padding: 0 1.5rem;
+      display: flex; justify-content: space-between;
+      align-items: center; flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-logo-row { display: flex; align-items: center; gap: 0.65rem; }
+    .footer-logo-row img { height: 34px; }
+    .footer-name { font-family: 'Merriweather', serif; font-size: 0.9rem; font-weight: 700; color: #fff; }
+    .footer-sub  { font-size: 0.72rem; color: rgba(255,255,255,0.45); }
+    footer p { font-size: 0.85rem; }
+
+    /* Fade-in */
+    .fade-in { opacity: 0; transform: translateY(16px); transition: opacity 0.5s ease, transform 0.5s ease; }
+    .fade-in.visible { opacity: 1; transform: none; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-links.open {
+        display: flex; flex-direction: column;
+        position: absolute; top: 72px; left: 0; right: 0;
+        background: var(--surface); border-bottom: 1px solid var(--border);
+        padding: 1rem; box-shadow: 0 4px 16px rgba(122,28,28,0.08);
+      }
+      #menu-toggle { display: block; }
+      .flyers-grid { grid-template-columns: 1fr; }
+      .footer-inner { flex-direction: column; text-align: center; }
+      .page-header h1 { font-size: 1.75rem; }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Przejdź do treści</a>
+
+  <!-- WCAG button -->
+  <button id="a11y-toggle" aria-label="Panel dostępności WCAG" aria-expanded="false" aria-controls="a11y-panel">WCAG</button>
+
+  <div id="a11y-panel" role="region" aria-label="Panel dostępności" aria-hidden="true">
+    <h2>Dostępność</h2>
+    <div class="a11y-section">
+      <div class="a11y-section-label">Rozmiar tekstu</div>
+      <div class="font-controls">
+        <button onclick="changeFontSize(-1)" aria-label="Zmniejsz">A−</button>
+        <div class="font-size-label" id="font-size-display" aria-live="polite">Normalny</div>
+        <button onclick="changeFontSize(1)"  aria-label="Zwiększ">A+</button>
+      </div>
+    </div>
+    <div class="a11y-section">
+      <div class="a11y-section-label">Wygląd</div>
+      <button class="a11y-btn" id="btn-contrast"  onclick="toggleClass('high-contrast','btn-contrast')"  aria-pressed="false">Wysoki kontrast</button>
+      <button class="a11y-btn" id="btn-grayscale" onclick="toggleClass('grayscale','btn-grayscale')"     aria-pressed="false">Skala szarości</button>
+      <button class="a11y-btn" id="btn-links"     onclick="toggleClass('underline-links','btn-links')"   aria-pressed="false">Podkreślenie linków</button>
+      <button class="a11y-btn" id="btn-motion"    onclick="toggleMotion()"                               aria-pressed="false">Ogranicz animacje</button>
+    </div>
+    <button id="a11y-reset" onclick="resetA11y()">Przywróć domyślne</button>
+  </div>
+
+  <!-- NAVBAR -->
+  <header>
+    <nav id="navbar" aria-label="Nawigacja główna">
+      <div class="nav-inner">
+        <a href="index.html" class="nav-logo" aria-label="Opieka i Troska – strona główna">
+          <img src="opiekalogo.png" alt="Logo fundacji" />
+          <div>
+            <div class="nav-logo-name">Opieka i Troska</div>
+            <div class="nav-logo-sub">Krzysztof Prot</div>
+          </div>
+        </a>
+        <button id="menu-toggle" aria-label="Otwórz menu" aria-expanded="false" aria-controls="nav-menu">Menu</button>
+        <ul class="nav-links" id="nav-menu" role="list">
+          <li><a href="index.html#o-nas">O nas</a></li>
+          <li><a href="index.html#uslugi">Usługi</a></li>
+          <li><a href="projekty.html" class="active">Projekty</a></li>
+          <li><a href="index.html#krzysztof-prot">Założyciel</a></li>
+          <li><a href="index.html#kontakt" class="nav-cta">Kontakt</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Ścieżka">
+        <a href="index.html">Strona główna</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">Projekty</span>
+      </nav>
+      <h1>Nasze projekty</h1>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <main id="main-content">
+    <div class="container">
+
+      <!-- Status -->
+      <div class="project-status fade-in">
+        <span class="status-badge">Aktywny projekt</span>
+        <span class="status-dates">1 lipca 2025 – 31 sierpnia 2026</span>
+      </div>
+
+      <!-- Title -->
+      <h2 class="project-title fade-in">
+        Najlepsze wsparcie dla seniorów – wsparcie w domu!
+      </h2>
+
+      <p class="proj-text fade-in">
+        Projekt realizowany wspólnie przez <strong>Opieka i Troska Krzysztof Prot</strong>
+        oraz <strong>Fundację NIC DWA RAZY</strong>. Jest dofinansowany ze środków
+        Europejskiego Funduszu Społecznego Plus (EFS+) w ramach Programu
+        Fundusze Europejskie dla Mazowsza 2021–2027.
+      </p>
+
+      <hr class="divider" />
+
+      <!-- Cel -->
+      <h3 class="proj-heading fade-in">Cel projektu</h3>
+      <p class="proj-text fade-in">
+        Celem projektu jest zwiększenie dostępu do usług opiekuńczych,
+        specjalistycznych i asystenckich dla:
+      </p>
+      <ul class="proj-list fade-in" role="list">
+        <li>32 osób powyżej 60. roku życia</li>
+        <li>15 opiekunów faktycznych</li>
+      </ul>
+      <p class="proj-text fade-in">
+        Projekt obejmuje gminy: <strong>Andrzejewo, Szulborze Wielkie,
+        Zaręby Kościelne, Boguty Pianki</strong> oraz <strong>Ostrów Mazowiecka</strong>.
+      </p>
+
+      <hr class="divider" />
+
+      <!-- Dla kogo -->
+      <h3 class="proj-heading fade-in">Dla kogo jest projekt?</h3>
+      <ul class="proj-list fade-in" role="list">
+        <li>Osoby w wieku 60 lat i więcej, które potrzebują wsparcia w codziennym życiu</li>
+        <li>Opiekunowie faktyczni tych osób</li>
+      </ul>
+
+      <hr class="divider" />
+
+      <!-- Co oferujemy -->
+      <h3 class="proj-heading fade-in">Co oferujemy uczestnikom?</h3>
+      <ul class="proj-list fade-in" role="list">
+        <li>Opiekę w miejscu zamieszkania</li>
+        <li>Pomoc asystenta osoby niesamodzielnej</li>
+        <li>Wsparcie pielęgniarki, fizjoterapeuty i pracownika socjalnego</li>
+        <li>Pomoc psychologiczną i edukacyjną dla opiekunów</li>
+        <li>Indywidualne podejście do każdego uczestnika</li>
+      </ul>
+
+      <!-- Free banner -->
+      <div class="free-banner fade-in" role="note">
+        Udział w projekcie jest całkowicie bezpłatny!
+      </div>
+
+      <hr class="divider" />
+
+      <!-- Ulotki -->
+      <h3 class="proj-heading fade-in">Ulotki informacyjne</h3>
+      <p class="proj-text fade-in">Kliknij ulotkę, aby zobaczyć ją w pełnym rozmiarze.</p>
+
+      <div class="flyers-grid fade-in">
+        <a href="images/ulotka1.png" target="_blank" rel="noopener noreferrer"
+           class="flyer-wrap" aria-label="Otwórz ulotkę strona 1 (nowa karta)">
+          <img src="images/ulotka1.png"
+               alt="Ulotka projektu – strona 1: cel projektu, co oferujemy" loading="lazy" />
+          <div class="flyer-caption">Strona 1</div>
+        </a>
+        <a href="images/ulotka2.png" target="_blank" rel="noopener noreferrer"
+           class="flyer-wrap" aria-label="Otwórz ulotkę strona 2 (nowa karta)">
+          <img src="images/ulotka2.png"
+               alt="Ulotka projektu – strona 2: bezpłatny udział, kontakt, logotypy EU" loading="lazy" />
+          <div class="flyer-caption">Strona 2</div>
+        </a>
+      </div>
+      <p class="flyer-hint fade-in">Kliknij, aby powiększyć</p>
+
+      <hr class="divider" />
+
+      <!-- Dokumenty -->
+      <h3 class="proj-heading fade-in">Dokumenty do pobrania</h3>
+      <p class="proj-text fade-in">
+        Poniżej znajdziesz dokumenty potrzebne do zgłoszenia się do projektu.
+        Kliknij, aby pobrać.
+      </p>
+
+      <div class="download-list fade-in" role="list">
+        <a href="dokumenty/regulamin-rekrutacji.pdf" download class="download-link" role="listitem">
+          <div class="dl-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+              <line x1="12" y1="18" x2="12" y2="12"/>
+              <polyline points="9 15 12 18 15 15"/>
+            </svg>
+          </div>
+          <div class="dl-meta">
+            <div class="dl-name">Regulamin rekrutacji</div>
+            <div class="dl-desc">Zasady i kryteria uczestnictwa w projekcie</div>
+          </div>
+          <span class="dl-badge">PDF</span>
+        </a>
+
+        <a href="dokumenty/deklaracja-uczestnictwa.pdf" download class="download-link" role="listitem">
+          <div class="dl-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+              <line x1="12" y1="18" x2="12" y2="12"/>
+              <polyline points="9 15 12 18 15 15"/>
+            </svg>
+          </div>
+          <div class="dl-meta">
+            <div class="dl-name">Deklaracja uczestnictwa</div>
+            <div class="dl-desc">Formularz zgłoszenia do projektu</div>
+          </div>
+          <span class="dl-badge">PDF</span>
+        </a>
+
+        <a href="dokumenty/oswiadczenie-rodo.pdf" download class="download-link" role="listitem">
+          <div class="dl-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+              <line x1="12" y1="18" x2="12" y2="12"/>
+              <polyline points="9 15 12 18 15 15"/>
+            </svg>
+          </div>
+          <div class="dl-meta">
+            <div class="dl-name">Oświadczenie RODO</div>
+            <div class="dl-desc">Zgoda na przetwarzanie danych osobowych</div>
+          </div>
+          <span class="dl-badge">PDF</span>
+        </a>
+
+        <a href="dokumenty/barthel.pdf" download class="download-link" role="listitem">
+          <div class="dl-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+              <line x1="12" y1="18" x2="12" y2="12"/>
+              <polyline points="9 15 12 18 15 15"/>
+            </svg>
+          </div>
+          <div class="dl-meta">
+            <div class="dl-name">Skala Barthel</div>
+            <div class="dl-desc">Formularz oceny sprawności funkcjonalnej</div>
+          </div>
+          <span class="dl-badge">PDF</span>
+        </a>
+      </div>
+
+      <hr class="divider" />
+
+      <!-- Kontakt -->
+      <h3 class="proj-heading fade-in">Kontakt w sprawie projektu</h3>
+
+      <div class="contact-block fade-in">
+        <strong>Opieka i Troska – Krzysztof Prot</strong>
+        <a href="tel:+48666508289">+48 666 508 289</a>
+        <a href="mailto:prototypek@gmail.com">prototypek@gmail.com</a>
+      </div>
+
+      <div class="contact-block fade-in">
+        <strong>Fundacja NIC DWA RAZY</strong>
+        <a href="tel:+48509323086">+48 509 323 086</a>
+        <a href="mailto:fundacjanicdwarazy@gmail.com">fundacjanicdwarazy@gmail.com</a>
+      </div>
+
+      <p class="eu-note fade-in">
+        Projekt realizowany w ramach Programu Fundusze Europejskie dla Mazowsza 2021–2027,
+        Działanie: Usługi społeczne i zdrowotne.
+        Projekt współfinansowany ze środków Europejskiego Funduszu Społecznego Plus (EFS+).
+      </p>
+
+      <a href="index.html" class="back-link fade-in" aria-label="Wróć do strony głównej">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="19" y1="12" x2="5" y2="12"/>
+          <polyline points="12 19 5 12 12 5"/>
+        </svg>
+        Wróć do strony głównej
+      </a>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-logo-row">
+        <img src="opiekalogo.png" alt="Logo Fundacji Opieka i Troska" />
+        <div>
+          <div class="footer-name">Opieka i Troska</div>
+          <div class="footer-sub">Krzysztof Prot</div>
+        </div>
+      </div>
+      <p>© 2024 Fundacja Opieka i Troska – Krzysztof Prot. Wszelkie prawa zastrzeżone.</p>
+    </div>
+  </footer>
+
+  <script>
+    /* WCAG */
+    let fontLevel = 0;
+    const fontLabels = ['Normalny','Duży','Bardzo duży'];
+    const fontClasses = ['','large-text','larger-text'];
+
+    function changeFontSize(d) {
+      const next = Math.min(2, Math.max(0, fontLevel + d));
+      if (next === fontLevel) return;
+      document.body.classList.remove(fontClasses[fontLevel]);
+      fontLevel = next;
+      document.body.classList.add(fontClasses[fontLevel]);
+      document.getElementById('font-size-display').textContent = fontLabels[fontLevel];
+      save();
+    }
+    function toggleClass(cls, btnId) {
+      const on = document.body.classList.toggle(cls);
+      const b  = document.getElementById(btnId);
+      b.classList.toggle('active', on);
+      b.setAttribute('aria-pressed', String(on));
+      save();
+    }
+    function toggleMotion() {
+      const on = document.body.classList.toggle('reduce-motion');
+      const b  = document.getElementById('btn-motion');
+      b.classList.toggle('active', on);
+      b.setAttribute('aria-pressed', String(on));
+      if (on) document.documentElement.style.setProperty('scroll-behavior','auto');
+      else    document.documentElement.style.removeProperty('scroll-behavior');
+      save();
+    }
+    function resetA11y() {
+      ['high-contrast','grayscale','underline-links','reduce-motion','large-text','larger-text']
+        .forEach(c => document.body.classList.remove(c));
+      fontLevel = 0;
+      document.getElementById('font-size-display').textContent = 'Normalny';
+      ['btn-contrast','btn-grayscale','btn-links','btn-motion'].forEach(id => {
+        const b = document.getElementById(id);
+        if (b) { b.classList.remove('active'); b.setAttribute('aria-pressed','false'); }
+      });
+      document.documentElement.style.removeProperty('scroll-behavior');
+      try { localStorage.removeItem('a11y'); } catch(e){}
+    }
+    function save() {
+      try { localStorage.setItem('a11y', JSON.stringify({ fontLevel,
+        contrast: document.body.classList.contains('high-contrast'),
+        gray:     document.body.classList.contains('grayscale'),
+        links:    document.body.classList.contains('underline-links'),
+        motion:   document.body.classList.contains('reduce-motion') })); } catch(e){}
+    }
+    function loadA11y() {
+      try {
+        const s = JSON.parse(localStorage.getItem('a11y') || 'null');
+        if (!s) return;
+        if (s.fontLevel > 0) changeFontSize(s.fontLevel);
+        if (s.contrast) toggleClass('high-contrast','btn-contrast');
+        if (s.gray)     toggleClass('grayscale','btn-grayscale');
+        if (s.links)    toggleClass('underline-links','btn-links');
+        if (s.motion)   toggleMotion();
+      } catch(e){}
+    }
+
+    const toggle = document.getElementById('a11y-toggle');
+    const panel  = document.getElementById('a11y-panel');
+    toggle.addEventListener('click', () => {
+      const open = panel.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', String(open));
+      panel.setAttribute('aria-hidden', String(!open));
+    });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && panel.classList.contains('open')) {
+        panel.classList.remove('open');
+        toggle.setAttribute('aria-expanded','false');
+        panel.setAttribute('aria-hidden','true');
+        toggle.focus();
+      }
+    });
+
+    /* Navbar scroll shadow */
+    window.addEventListener('scroll', () => {
+      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 20);
+    }, { passive: true });
+
+    /* Mobile menu */
+    const mt = document.getElementById('menu-toggle');
+    const nm = document.getElementById('nav-menu');
+    mt.addEventListener('click', () => {
+      const open = nm.classList.toggle('open');
+      mt.setAttribute('aria-expanded', String(open));
+      mt.textContent = open ? 'Zamknij' : 'Menu';
+    });
+    nm.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      nm.classList.remove('open'); mt.setAttribute('aria-expanded','false'); mt.textContent = 'Menu';
+    }));
+
+    /* Fade-in on scroll */
+    const io = new IntersectionObserver(entries =>
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+      { threshold: 0.08 }
+    );
+    document.querySelectorAll('.fade-in').forEach(el => io.observe(el));
+
+    loadA11y();
+  </script>
+</body>
+</html>

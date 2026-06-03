@@ -1,0 +1,2245 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Opieka i Troska – Krzysztof Prot</title>
+  <meta name="description" content="Fundacja Opieka i Troska – profesjonalne usługi opiekuńcze i specjalistyczne dla osób starszych i niepełnosprawnych. Założona przez Krzysztofa Prota." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  <style>
+    /* ========================================
+       CSS CUSTOM PROPERTIES & RESET
+    ======================================== */
+    :root {
+      --primary: #7A1C1C;
+      --primary-dark: #5C1414;
+      --primary-light: #F5E8E8;
+      --accent: #3CAA3C;
+      --accent-dark: #2D852D;
+      --accent-light: #E8F5E8;
+      --bg: #FAF9F7;
+      --surface: #FFFFFF;
+      --text: #1A1A1A;
+      --text-muted: #5A5A5A;
+      --border: #E0D8D8;
+      --font-base: 1.125rem;
+      --font-sm: 0.95rem;
+      --font-lg: 1.35rem;
+      --font-xl: 1.75rem;
+      --font-2xl: 2.25rem;
+      --font-3xl: 3rem;
+      --radius: 12px;
+      --shadow: 0 4px 20px rgba(122, 28, 28, 0.07);
+      --shadow-lg: 0 8px 40px rgba(122, 28, 28, 0.13);
+      --transition: 0.25s ease;
+    }
+
+    /* ACCESSIBILITY MODES */
+    body.high-contrast {
+      --primary: #5A0000;
+      --primary-dark: #3A0000;
+      --primary-light: #FFD0D0;
+      --accent: #1A6E1A;
+      --accent-dark: #0A4A0A;
+      --accent-light: #C8F0C8;
+      --bg: #FFFFFF;
+      --surface: #FFFFFF;
+      --text: #000000;
+      --text-muted: #333333;
+      --border: #000000;
+    }
+
+    body.grayscale { filter: grayscale(100%); }
+
+    body.large-text {
+      --font-base: 1.35rem;
+      --font-sm: 1.1rem;
+      --font-lg: 1.6rem;
+      --font-xl: 2rem;
+      --font-2xl: 2.7rem;
+      --font-3xl: 3.6rem;
+    }
+
+    body.larger-text {
+      --font-base: 1.6rem;
+      --font-sm: 1.3rem;
+      --font-lg: 1.9rem;
+      --font-xl: 2.4rem;
+      --font-2xl: 3.1rem;
+      --font-3xl: 4.1rem;
+    }
+
+    body.underline-links a { text-decoration: underline !important; text-underline-offset: 3px; }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      font-size: var(--font-base);
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.75;
+    }
+
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+
+    .container { max-width: 1140px; margin: 0 auto; padding: 0 1.5rem; }
+    .section { padding: 5rem 0; }
+
+    .section-label {
+      font-size: var(--font-sm);
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent-dark);
+      margin-bottom: 0.6rem;
+    }
+
+    .section-title {
+      font-family: 'Merriweather', serif;
+      font-size: var(--font-2xl);
+      color: var(--text);
+      line-height: 1.3;
+      margin-bottom: 1rem;
+    }
+
+    .section-subtitle {
+      font-size: var(--font-lg);
+      color: var(--text-muted);
+      max-width: 620px;
+      line-height: 1.65;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.85rem 2rem;
+      border-radius: 50px;
+      font-size: var(--font-base);
+      font-weight: 700;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: all var(--transition);
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    .btn-primary:hover, .btn-primary:focus {
+      background: var(--primary-dark);
+      border-color: var(--primary-dark);
+      outline: 3px solid var(--primary-light);
+      outline-offset: 2px;
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--primary);
+      border-color: var(--primary);
+    }
+
+    .btn-outline:hover, .btn-outline:focus {
+      background: var(--primary-light);
+      outline: 3px solid var(--primary-light);
+      outline-offset: 2px;
+    }
+
+    /* ========================================
+       ACCESSIBILITY PANEL
+    ======================================== */
+    #a11y-toggle {
+      position: fixed;
+      left: 1.25rem;
+      top: calc(72px + 0.75rem);
+      z-index: 1000;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      padding: 0.6rem 1rem 0.6rem 0.75rem;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 700;
+      font-family: 'Lato', sans-serif;
+      box-shadow: 0 4px 16px rgba(122, 28, 28, 0.35);
+      transition: all var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      writing-mode: horizontal-tb;
+    }
+
+    #a11y-toggle:hover, #a11y-toggle:focus {
+      background: var(--primary-dark);
+      box-shadow: 0 6px 20px rgba(122, 28, 28, 0.45);
+      transform: translateY(-1px);
+      outline: 3px solid var(--primary-light);
+    }
+
+    #a11y-toggle svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+
+    #a11y-panel {
+      position: fixed;
+      left: 1.25rem;
+      top: calc(72px + 0.75rem + 44px + 0.5rem);
+      z-index: 999;
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 1.75rem 1.5rem;
+      width: 300px;
+      box-shadow: 0 8px 40px rgba(122, 28, 28, 0.18);
+      border: 1px solid var(--border);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-8px) scale(0.97);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    #a11y-panel.open {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0) scale(1);
+    }
+
+    #a11y-panel h2 {
+      font-size: var(--font-base);
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 2px solid var(--primary-light);
+    }
+
+    .a11y-section { margin-bottom: 1.5rem; }
+
+    .a11y-section-label {
+      font-size: var(--font-sm);
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.6rem;
+    }
+
+    .a11y-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      width: 100%;
+      padding: 0.65rem 0.9rem;
+      margin-bottom: 0.4rem;
+      background: var(--bg);
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: var(--font-sm);
+      font-weight: 600;
+      color: var(--text);
+      transition: all var(--transition);
+      text-align: left;
+      font-family: 'Lato', sans-serif;
+    }
+
+    .a11y-btn:hover, .a11y-btn:focus {
+      background: var(--primary-light);
+      border-color: var(--primary);
+      color: var(--primary-dark);
+      outline: 2px solid var(--primary);
+      outline-offset: 1px;
+    }
+
+    .a11y-btn.active {
+      background: var(--primary);
+      border-color: var(--primary-dark);
+      color: #fff;
+    }
+
+    .font-controls { display: flex; align-items: center; gap: 0.5rem; }
+
+    .font-controls button {
+      flex: 1;
+      padding: 0.55rem 0;
+      background: var(--bg);
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: var(--font-base);
+      font-weight: 700;
+      color: var(--text);
+      transition: all var(--transition);
+      font-family: 'Lato', sans-serif;
+    }
+
+    .font-controls button:hover, .font-controls button:focus {
+      background: var(--primary-light);
+      border-color: var(--primary);
+      outline: 2px solid var(--primary);
+      outline-offset: 1px;
+    }
+
+    .font-controls .font-size-display {
+      flex: 1.2;
+      text-align: center;
+      font-weight: 700;
+      color: var(--primary);
+      font-size: var(--font-sm);
+      padding: 0.55rem 0;
+      background: var(--primary-light);
+      border-radius: 8px;
+      border: 2px solid var(--primary-light);
+    }
+
+    #a11y-reset {
+      width: 100%;
+      padding: 0.65rem;
+      background: transparent;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: var(--font-sm);
+      font-weight: 600;
+      color: var(--text-muted);
+      transition: all var(--transition);
+      margin-top: 0.5rem;
+      font-family: 'Lato', sans-serif;
+    }
+
+    #a11y-reset:hover, #a11y-reset:focus {
+      border-color: var(--accent);
+      color: var(--accent-dark);
+      background: var(--accent-light);
+      outline: 2px solid var(--accent);
+      outline-offset: 1px;
+    }
+
+    /* ========================================
+       NAVIGATION
+    ======================================== */
+    #navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 900;
+      background: rgba(250, 249, 247, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      transition: box-shadow var(--transition);
+    }
+
+    #navbar.scrolled { box-shadow: 0 2px 20px rgba(122, 28, 28, 0.1); }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .nav-logo img {
+      height: 48px;
+      width: auto;
+    }
+
+    .nav-logo-text { line-height: 1.2; }
+
+    .nav-logo-name {
+      font-family: 'Merriweather', serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .nav-logo-sub {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .nav-links a {
+      padding: 0.5rem 0.9rem;
+      border-radius: 8px;
+      font-size: var(--font-sm);
+      font-weight: 600;
+      color: var(--text);
+      transition: all var(--transition);
+    }
+
+    .nav-links a:hover, .nav-links a:focus {
+      background: var(--primary-light);
+      color: var(--primary);
+      outline: 2px solid var(--primary-light);
+    }
+
+    .nav-links a.active { color: var(--primary); }
+
+    .nav-contact-btn {
+      background: var(--primary) !important;
+      color: #fff !important;
+      padding: 0.5rem 1.2rem !important;
+      border-radius: 50px !important;
+    }
+
+    .nav-contact-btn:hover, .nav-contact-btn:focus {
+      background: var(--primary-dark) !important;
+      color: #fff !important;
+    }
+
+    #menu-toggle {
+      display: none;
+      background: none;
+      border: 2px solid var(--border);
+      cursor: pointer;
+      padding: 0.4rem 0.6rem;
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 1.2rem;
+      font-family: 'Lato', sans-serif;
+    }
+
+    #menu-toggle:focus { outline: 3px solid var(--primary); }
+
+    /* ========================================
+       HERO
+    ======================================== */
+    #hero {
+      padding-top: 72px;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      background: linear-gradient(135deg, #FDF5F5 0%, #FAF9F7 55%, #F0F8F0 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    #hero::before {
+      content: '';
+      position: absolute;
+      top: -10%;
+      right: -5%;
+      width: 55%;
+      height: 120%;
+      background: radial-gradient(ellipse, rgba(122, 28, 28, 0.04) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--primary-light);
+      color: var(--primary);
+      font-size: var(--font-sm);
+      font-weight: 700;
+      padding: 0.4rem 1rem;
+      border-radius: 50px;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.04em;
+      border: 1px solid rgba(122, 28, 28, 0.15);
+    }
+
+    .hero-badge::before {
+      content: '';
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+
+    .hero-title {
+      font-family: 'Merriweather', serif;
+      font-size: var(--font-3xl);
+      line-height: 1.2;
+      color: var(--text);
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-title span { color: var(--primary); }
+
+    .hero-desc {
+      font-size: var(--font-lg);
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 2.5rem;
+      max-width: 540px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 3rem;
+    }
+
+    .hero-stats { display: flex; gap: 2.5rem; }
+
+    .hero-stat-number {
+      font-family: 'Merriweather', serif;
+      font-size: var(--font-xl);
+      font-weight: 700;
+      color: var(--primary);
+      line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+
+    .hero-stat-label {
+      font-size: var(--font-sm);
+      color: var(--text-muted);
+    }
+
+    .hero-visual {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .hero-logo-frame {
+      background: var(--surface);
+      border-radius: 24px;
+      padding: 3rem 2.5rem;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.25rem;
+      max-width: 360px;
+      width: 100%;
+      position: relative;
+    }
+
+    .hero-logo-frame img {
+      width: 220px;
+      height: auto;
+    }
+
+    .hero-logo-tagline {
+      font-family: 'Merriweather', serif;
+      font-size: var(--font-base);
+      color: var(--text-muted);
+      text-align: center;
+      font-style: italic;
+      line-height: 1.5;
+    }
+
+    .hero-logo-badge {
+      position: absolute;
+      top: -14px;
+      right: 20px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 0.4rem 0.9rem;
+      border-radius: 50px;
+      box-shadow: 0 4px 12px rgba(60, 170, 60, 0.35);
+    }
+
+    /* ========================================
+       ABOUT
+    ======================================== */
+    #o-nas { background: var(--surface); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .about-img-frame {
+      background: linear-gradient(135deg, var(--primary-light) 0%, #EDD8D8 100%);
+      border-radius: 24px;
+      padding: 3.5rem 2.5rem;
+      text-align: center;
+      min-height: 320px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 1.25rem;
+      position: relative;
+    }
+
+    .about-img-frame .about-logo {
+      width: 160px;
+      height: auto;
+      filter: drop-shadow(0 4px 12px rgba(122, 28, 28, 0.2));
+    }
+
+    .about-img-frame blockquote {
+      font-family: 'Merriweather', serif;
+      font-size: var(--font-base);
+      color: var(--primary-dark);
+      font-style: italic;
+      line-height: 1.6;
+      max-width: 280px;
+      border-left: 3px solid var(--accent);
+      padding-left: 1rem;
+      text-align: left;
+    }
+
+    .about-accent-card {
+      position: absolute;
+      bottom: -20px;
+      right: -20px;
+      background: var(--accent);
+      color: #fff;
+      padding: 1rem 1.25rem;
+      border-radius: var(--radius);
+      box-shadow: 0 8px 24px rgba(60, 170, 60, 0.3);
+    }
+
+    .about-accent-card .number {
+      font-family: 'Merriweather', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: 0.2rem;
+    }
+
+    .about-accent-card .label {
+      font-size: 0.78rem;
+      opacity: 0.92;
+    }
+
+    .about-content .section-subtitle { margin-bottom: 2rem; max-width: 100%; }
+
+    .about-values { display: flex; flex-direction: column; gap: 1rem; }
+
+    .about-value { display: flex; gap: 1rem; align-items: flex-start; }
+
+    .about-value-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--primary-light);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 0.85rem;
+      font-weight: 900;
+      color: var(--primary);
+      letter-spacing: -0.05em;
+    }
+
+    .about-value-text h4 { font-weight: 700; color: var(--text); margin-bottom: 0.2rem; }
+    .about-value-text p { font-size: var(--font-sm); color: var(--text-muted); line-height: 1.6; }
+
+    /* ========================================
+       SERVICES
+    ======================================== */
+    #uslugi { background: var(--bg); }
+
+    .services-header {
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto 3.5rem;
+    }
+
+    .services-header .section-subtitle { margin: 0 auto; }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .service-card {
+      background: var(--surface);
+      border-radius: 20px;
+      padding: 2.5rem;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      transition: all var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: var(--primary);
+    }
+
+    .service-card.green::before { background: var(--accent); }
+
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .service-icon {
+      width: 56px;
+      height: 56px;
+      background: var(--primary-light);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.25rem;
+    }
+
+    .service-card.green .service-icon { background: var(--accent-light); }
+
+    .service-icon svg { width: 28px; height: 28px; }
+
+    .service-card h3 {
+      font-family: 'Merriweather', serif;
+      font-size: var(--font-xl);
+      margin-bottom: 0.75rem;
+      color: var(--text);
+    }
+
+    .service-card > p {
+      color: var(--text-muted);
+      font-size: var(--font-sm);
+      margin-bottom: 1.5rem;
+      line-height: 1.7;
+    }
+
+    .service-items { display: flex; flex-direction: column; gap: 0.6rem; }
+
+    .service-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: var(--font-sm);
+      color: var(--text);
+    }
+
+    .service-item-dot {
+      width: 20px;
+      height: 20px;
+      background: var(--primary-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .service-item-dot::after {
+      content: '';
+      width: 8px;
+      height: 5px;
+      border-left: 2px solid var(--primary);
+      border-bottom: 2px solid var(--primary);
+      transform: rotate(-45deg) translateY(-1px);
+      display: block;
+    }
+
+    .service-card.green .service-item-dot { background: var(--accent-light); }
+    .service-card.green .service-item-dot::after { border-color: var(--accent-dark); }
+
+    /* ========================================
+       PROJEKTY
+    ======================================== */
+    #projekty { background: var(--surface); }
+
+    .projekty-header {
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto 3rem;
+    }
+
+    .project-placeholder {
+      background: var(--bg);
+      border: 2px dashed var(--border);
+      border-radius: 20px;
+      padding: 4rem 2rem;
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .project-placeholder-icon {
+      width: 64px;
+      height: 64px;
+      background: var(--primary-light);
+      border-radius: 16px;
+      margin: 0 auto 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .project-placeholder-icon svg { width: 32px; height: 32px; }
+
+    .project-placeholder h3 {
+      font-family: 'Merriweather', serif;
+      font-size: var(--font-xl);
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .project-placeholder p {
+      color: var(--text-muted);
+      font-size: var(--font-sm);
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    /* ========================================
+       KRZYSZTOF PROT
+    ======================================== */
+    #krzysztof-prot {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: #fff;
+    }
+
+    #krzysztof-prot .section-label { color: #90D890; }
+    #krzysztof-prot .section-title { color: #fff; }
+
+    .founder-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .founder-avatar {
+      width: 100%;
+      max-width: 340px;
+      aspect-ratio: 4/5;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 1.25rem;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .founder-avatar-initials {
+      width: 90px;
+      height: 90px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Merriweather', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .founder-avatar .avatar-name {
+      font-family: 'Merriweather', serif;
+      font-size: var(--font-lg);
+      color: #fff;
+    }
+
+    .founder-avatar .avatar-title {
+      font-size: var(--font-sm);
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .founder-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      justify-content: center;
+      padding: 0 1rem;
+    }
+
+    .founder-badge {
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: #fff;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 0.35rem 0.8rem;
+      border-radius: 50px;
+    }
+
+    .founder-content { padding-top: 0.5rem; }
+
+    .founder-content .section-subtitle {
+      color: rgba(255, 255, 255, 0.85);
+      margin-bottom: 2rem;
+      max-width: 100%;
+    }
+
+    .founder-content p {
+      color: rgba(255, 255, 255, 0.85);
+      font-size: var(--font-sm);
+      line-height: 1.75;
+      margin-bottom: 1.25rem;
+    }
+
+    .founder-highlights {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .founder-highlight {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius);
+      padding: 1.1rem 1.25rem;
+    }
+
+    .founder-highlight-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 10px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .founder-highlight-icon svg { width: 20px; height: 20px; }
+
+    .founder-highlight-text h4 {
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+      color: #fff;
+    }
+
+    .founder-highlight-text p {
+      font-size: 0.88rem;
+      color: rgba(255, 255, 255, 0.72);
+      margin-bottom: 0;
+    }
+
+    /* ========================================
+       CONTACT
+    ======================================== */
+    #kontakt { background: var(--bg); }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      margin-top: 2rem;
+    }
+
+    .contact-item { display: flex; gap: 1rem; align-items: center; }
+
+    .contact-item-icon {
+      width: 50px;
+      height: 50px;
+      background: var(--primary-light);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .contact-item-icon svg { width: 22px; height: 22px; }
+
+    .contact-item-text .label {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.1rem;
+    }
+
+    .contact-item-text .value {
+      font-weight: 700;
+      color: var(--text);
+      font-size: var(--font-base);
+    }
+
+    .contact-item-text a.value { color: var(--primary); }
+    .contact-item-text a.value:hover { text-decoration: underline; }
+
+    .contact-form-card {
+      background: var(--surface);
+      border-radius: 20px;
+      padding: 2.5rem;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    .contact-form-card h3 {
+      font-family: 'Merriweather', serif;
+      font-size: var(--font-lg);
+      margin-bottom: 1.5rem;
+      color: var(--text);
+    }
+
+    .form-group { margin-bottom: 1.25rem; }
+
+    .form-group label {
+      display: block;
+      font-size: var(--font-sm);
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.4rem;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      font-size: var(--font-base);
+      font-family: 'Lato', sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      transition: border-color var(--transition);
+      line-height: 1.5;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-light);
+    }
+
+    .form-group textarea { resize: vertical; min-height: 110px; }
+
+    .form-submit {
+      width: 100%;
+      padding: 0.9rem;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      font-size: var(--font-base);
+      font-weight: 700;
+      cursor: pointer;
+      transition: all var(--transition);
+      font-family: 'Lato', sans-serif;
+    }
+
+    .form-submit:hover, .form-submit:focus {
+      background: var(--primary-dark);
+      outline: 3px solid var(--primary-light);
+      outline-offset: 2px;
+    }
+
+    /* ========================================
+       FOOTER
+    ======================================== */
+    footer {
+      background: #1A0A0A;
+      color: rgba(255, 255, 255, 0.7);
+      padding: 3rem 0 1.5rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-logo { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; }
+    .footer-logo img { height: 42px; width: auto; }
+
+    .footer-brand-name {
+      font-family: 'Merriweather', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .footer-brand-sub { font-size: 0.78rem; color: rgba(255, 255, 255, 0.5); }
+
+    .footer-brand p {
+      font-size: var(--font-sm);
+      margin-top: 0.75rem;
+      line-height: 1.7;
+      max-width: 300px;
+    }
+
+    .footer-col h4 {
+      color: #fff;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      font-size: var(--font-sm);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .footer-col a {
+      display: block;
+      font-size: var(--font-sm);
+      color: rgba(255, 255, 255, 0.6);
+      margin-bottom: 0.4rem;
+      transition: color var(--transition);
+    }
+
+    .footer-col a:hover, .footer-col a:focus { color: #fff; }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: var(--font-sm);
+    }
+
+    /* ========================================
+       PROJECT CARD
+    ======================================== */
+    .project-preview-card {
+      background: var(--surface);
+      border-radius: 20px;
+      padding: 2.5rem;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .project-card {
+      background: var(--surface);
+      border-radius: 20px;
+      padding: 2.5rem;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .project-card-top {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+      flex-wrap: wrap;
+    }
+
+    .project-tag {
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 0.3rem 0.85rem;
+      border-radius: 50px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .project-dates {
+      font-size: var(--font-sm);
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .project-title {
+      font-family: 'Merriweather', serif;
+      font-size: var(--font-xl);
+      color: var(--primary);
+      margin-bottom: 1rem;
+      line-height: 1.3;
+    }
+
+    .project-lead {
+      font-size: var(--font-sm);
+      color: var(--text-muted);
+      line-height: 1.75;
+      margin-bottom: 1.75rem;
+      padding-bottom: 1.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .project-details-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .project-detail-box {
+      background: var(--bg);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+    }
+
+    .project-detail-box p,
+    .project-detail-box ul {
+      font-size: var(--font-sm);
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-top: 0.5rem;
+    }
+
+    .project-detail-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--primary);
+    }
+
+    .project-list li {
+      position: relative;
+      padding-left: 1rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .project-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.6em;
+      width: 5px;
+      height: 5px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+
+    .project-offers {
+      background: var(--primary-light);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .project-offers-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem 1.5rem;
+      margin-top: 0.75rem;
+    }
+
+    .project-offers-list li {
+      font-size: var(--font-sm);
+      color: var(--text);
+      display: flex;
+      gap: 0.5rem;
+      align-items: flex-start;
+    }
+
+    .project-offers-list li::before {
+      content: '';
+      width: 18px;
+      height: 18px;
+      background: var(--primary);
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 0.2em;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolyline points='20 6 9 17 4 12' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-size: 12px;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    .project-free-badge {
+      background: var(--accent);
+      color: #fff;
+      text-align: center;
+      font-weight: 700;
+      font-size: var(--font-lg);
+      padding: 1rem 1.5rem;
+      border-radius: var(--radius);
+      margin-bottom: 2rem;
+      font-family: 'Merriweather', serif;
+    }
+
+    .project-flyers { margin-bottom: 2rem; }
+
+    .project-flyers-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+
+    .project-flyers-grid a {
+      display: block;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 2px solid var(--border);
+      transition: all var(--transition);
+      text-align: center;
+    }
+
+    .project-flyers-grid a:hover,
+    .project-flyers-grid a:focus {
+      border-color: var(--primary);
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-2px);
+      outline: 3px solid var(--primary-light);
+    }
+
+    .project-flyers-grid img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .project-flyers-grid span {
+      display: block;
+      padding: 0.6rem;
+      font-size: var(--font-sm);
+      font-weight: 700;
+      color: var(--primary);
+      background: var(--primary-light);
+    }
+
+    .project-contacts {
+      background: var(--bg);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .project-contacts-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .project-contact-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      font-size: var(--font-sm);
+    }
+
+    .project-contact-item strong {
+      color: var(--text);
+      margin-bottom: 0.25rem;
+    }
+
+    .project-contact-item a {
+      color: var(--primary);
+    }
+
+    .project-contact-item a:hover { text-decoration: underline; }
+
+    .project-eu-text {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--border);
+      line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+      .project-details-grid,
+      .project-offers-list,
+      .project-flyers-grid,
+      .project-contacts-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ========================================
+       DOWNLOADS
+    ======================================== */
+    .downloads-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .download-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.1rem 1.25rem;
+      transition: all var(--transition);
+      text-decoration: none;
+    }
+
+    .download-item:hover, .download-item:focus {
+      border-color: var(--primary);
+      box-shadow: var(--shadow);
+      transform: translateY(-2px);
+      outline: 3px solid var(--primary-light);
+      outline-offset: 2px;
+    }
+
+    .download-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--primary-light);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--primary);
+    }
+
+    .download-icon svg { width: 22px; height: 22px; }
+
+    .download-text { flex: 1; }
+
+    .download-name {
+      font-weight: 700;
+      color: var(--text);
+      font-size: var(--font-base);
+      margin-bottom: 0.15rem;
+    }
+
+    .download-desc {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .download-badge {
+      background: var(--primary);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.2rem 0.55rem;
+      border-radius: 5px;
+      letter-spacing: 0.06em;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 768px) {
+      .downloads-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ========================================
+       SCROLL ANIMATIONS
+    ======================================== */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* ========================================
+       TOAST
+    ======================================== */
+    #toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: var(--accent);
+      color: #fff;
+      padding: 1rem 1.5rem;
+      border-radius: var(--radius);
+      font-weight: 700;
+      font-size: var(--font-sm);
+      box-shadow: var(--shadow-lg);
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      z-index: 9999;
+    }
+
+    #toast.show { transform: translateY(0); opacity: 1; }
+
+    /* Skip link */
+    .skip-link {
+      position: absolute;
+      top: -100px;
+      left: 1rem;
+      background: var(--primary);
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-weight: 700;
+      z-index: 9999;
+      transition: top 0.2s;
+    }
+
+    .skip-link:focus { top: 1rem; }
+
+    /* ========================================
+       RESPONSIVE
+    ======================================== */
+    @media (max-width: 1024px) {
+      .hero-grid, .about-grid, .founder-grid, .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+      }
+
+      .hero-visual { display: none; }
+      .about-visual { order: -1; }
+      .about-accent-card { right: 0; bottom: -16px; }
+      .services-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .founder-avatar { max-width: 280px; margin: 0 auto; }
+    }
+
+    @media (max-width: 768px) {
+      :root { --font-2xl: 1.75rem; --font-3xl: 2.25rem; }
+
+      .section { padding: 3.5rem 0; }
+      .nav-links { display: none; }
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 72px;
+        left: 0; right: 0;
+        background: var(--surface);
+        border-bottom: 1px solid var(--border);
+        padding: 1rem;
+        gap: 0.25rem;
+        box-shadow: var(--shadow);
+      }
+
+      #menu-toggle { display: flex; }
+      .hero-stats { gap: 1.5rem; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+      #a11y-panel { width: 270px; }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Przejdź do głównej treści</a>
+
+  <!-- ========================================
+       ACCESSIBILITY PANEL
+  ======================================== -->
+  <button
+    id="a11y-toggle"
+    aria-label="Otwórz panel dostępności WCAG"
+    aria-expanded="false"
+    aria-controls="a11y-panel"
+    title="Panel dostępności WCAG"
+  >
+    WCAG
+  </button>
+
+  <div id="a11y-panel" role="region" aria-label="Panel dostępności" aria-hidden="true">
+    <h2>Panel dostępności</h2>
+
+    <div class="a11y-section">
+      <div class="a11y-section-label">Rozmiar tekstu</div>
+      <div class="font-controls">
+        <button onclick="changeFontSize(-1)" aria-label="Zmniejsz czcionkę">A−</button>
+        <div class="font-size-display" id="font-size-display" aria-live="polite">Normalny</div>
+        <button onclick="changeFontSize(1)" aria-label="Zwiększ czcionkę">A+</button>
+      </div>
+    </div>
+
+    <div class="a11y-section">
+      <div class="a11y-section-label">Wygląd</div>
+      <button class="a11y-btn" id="btn-contrast" onclick="toggleContrast()" aria-pressed="false">Wysoki kontrast</button>
+      <button class="a11y-btn" id="btn-grayscale" onclick="toggleGrayscale()" aria-pressed="false">Skala szarości</button>
+      <button class="a11y-btn" id="btn-links" onclick="toggleUnderlineLinks()" aria-pressed="false">Podkreślenie linków</button>
+      <button class="a11y-btn" id="btn-motion" onclick="toggleReduceMotion()" aria-pressed="false">Ogranicz animacje</button>
+    </div>
+
+    <button id="a11y-reset" onclick="resetA11y()">Przywróć domyślne</button>
+  </div>
+
+  <!-- ========================================
+       NAVIGATION
+  ======================================== -->
+  <header>
+    <nav id="navbar" aria-label="Nawigacja główna">
+      <div class="container">
+        <div class="nav-inner">
+          <a href="#hero" class="nav-logo" aria-label="Opieka i Troska – strona główna">
+            <img src="opiekalogo.png" alt="Logo Fundacji Opieka i Troska" />
+            <div class="nav-logo-text">
+              <div class="nav-logo-name">Opieka i Troska</div>
+              <div class="nav-logo-sub">Krzysztof Prot</div>
+            </div>
+          </a>
+
+          <button id="menu-toggle" aria-label="Otwórz menu" aria-expanded="false" aria-controls="nav-menu">
+            Menu
+          </button>
+
+          <ul class="nav-links" id="nav-menu" role="list">
+            <li><a href="#o-nas">O nas</a></li>
+            <li><a href="#uslugi">Usługi</a></li>
+            <li><a href="#projekty">Projekty</a></li>
+            <li><a href="#krzysztof-prot">Założyciel</a></li>
+            <li><a href="#kontakt" class="nav-contact-btn">Kontakt</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <!-- ========================================
+         HERO
+    ======================================== -->
+    <section id="hero" aria-labelledby="hero-heading">
+      <div class="container">
+        <div class="hero-grid">
+          <div class="hero-text">
+            <div class="hero-badge">Fundacja Opieka i Troska</div>
+            <h1 class="hero-title" id="hero-heading">
+              Profesjonalna opieka<br />
+              <span>z sercem i troską</span>
+            </h1>
+            <p class="hero-desc">
+              Zapewniamy kompleksowe wsparcie dla osób starszych i niepełnosprawnych.
+              Nasze opiekunki i specjaliści są tu po to, by każdy mógł żyć
+              godnie i komfortowo – we własnym domu.
+            </p>
+            <div class="hero-actions">
+              <a href="#kontakt" class="btn btn-primary">Skontaktuj się z nami</a>
+              <a href="#uslugi" class="btn btn-outline">Nasze usługi</a>
+            </div>
+            <div class="hero-stats" role="list" aria-label="Kluczowe liczby">
+              <div class="hero-stat" role="listitem">
+                <div class="hero-stat-number">2</div>
+                <div class="hero-stat-label">rodzaje usług</div>
+              </div>
+              <div class="hero-stat" role="listitem">
+                <div class="hero-stat-number">100%</div>
+                <div class="hero-stat-label">zaangażowania</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-visual" aria-hidden="true">
+            <div class="hero-logo-frame">
+              <div class="hero-logo-badge">Fundacja non-profit</div>
+              <img src="opiekalogo.png" alt="Logo Fundacji Opieka i Troska" />
+              <p class="hero-logo-tagline">
+                Godne życie w domu – dla każdego, kto potrzebuje wsparcia.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================
+         O NAS
+    ======================================== -->
+    <section id="o-nas" class="section" aria-labelledby="onas-heading">
+      <div class="container">
+        <div class="about-grid">
+          <div class="about-visual fade-up" aria-hidden="true">
+            <div class="about-img-frame">
+              <img src="opiekalogo.png" alt="" class="about-logo" />
+              <blockquote>
+                "Każdy człowiek zasługuje na godne życie pełne troski i szacunku"
+              </blockquote>
+            </div>
+            <div class="about-accent-card">
+              <div class="number">Non-profit</div>
+              <div class="label">Z sercem dla każdego</div>
+            </div>
+          </div>
+
+          <div class="about-content fade-up">
+            <p class="section-label">O nas</p>
+            <h2 class="section-title" id="onas-heading">Fundacja, która<br />naprawdę dba</h2>
+            <p class="section-subtitle">
+              Fundacja „Opieka i Troska" została założona z przekonania, że każda
+              starsza i niepełnosprawna osoba zasługuje na profesjonalną pomoc,
+              ciepłe traktowanie i poczucie bezpieczeństwa we własnym domu.
+            </p>
+            <div class="about-values" role="list" aria-label="Nasze wartości">
+              <div class="about-value fade-up" role="listitem">
+                <div class="about-value-icon" aria-hidden="true">OT</div>
+                <div class="about-value-text">
+                  <h4>Empatia i szacunek</h4>
+                  <p>Traktujemy każdą osobę indywidualnie, z pełnym szacunkiem dla jej godności i prywatności.</p>
+                </div>
+              </div>
+              <div class="about-value fade-up" role="listitem">
+                <div class="about-value-icon" aria-hidden="true">OT</div>
+                <div class="about-value-text">
+                  <h4>Bezpieczeństwo i zaufanie</h4>
+                  <p>Nasi opiekunowie są starannie dobrani i przeszkoleni, aby rodziny mogły mieć pełne zaufanie.</p>
+                </div>
+              </div>
+              <div class="about-value fade-up" role="listitem">
+                <div class="about-value-icon" aria-hidden="true">OT</div>
+                <div class="about-value-text">
+                  <h4>Samodzielność i godność</h4>
+                  <p>Pomagamy zachować jak największą niezależność w codziennym życiu – we własnym domu.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================
+         USŁUGI
+    ======================================== -->
+    <section id="uslugi" class="section" aria-labelledby="uslugi-heading">
+      <div class="container">
+        <div class="services-header fade-up">
+          <p class="section-label">Co oferujemy</p>
+          <h2 class="section-title" id="uslugi-heading">Nasze usługi</h2>
+          <p class="section-subtitle">
+            Oferujemy dwa rodzaje usług – podstawowe usługi opiekuńcze oraz
+            specjalistyczne, realizowane przez wykwalifikowanych specjalistów.
+          </p>
+        </div>
+
+        <div class="services-grid">
+          <article class="service-card fade-up" aria-labelledby="usluga1-heading">
+            <div class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#7A1C1C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                <polyline points="9 22 9 12 15 12 15 22"/>
+              </svg>
+            </div>
+            <h3 id="usluga1-heading">Usługi opiekuńcze</h3>
+            <p>
+              Wysyłamy doświadczone opiekunki do osób starszych lub niepełnosprawnych.
+              Pomagamy w codziennych czynnościach, zapewniając komfort i bezpieczeństwo
+              w domu podopiecznego.
+            </p>
+            <ul class="service-items" role="list">
+              <li class="service-item"><span class="service-item-dot" aria-hidden="true"></span>Pomoc w utrzymaniu higieny osobistej</li>
+              <li class="service-item"><span class="service-item-dot" aria-hidden="true"></span>Pomoc przy ubieraniu się i rozbieraniu</li>
+              <li class="service-item"><span class="service-item-dot" aria-hidden="true"></span>Wsparcie przy przemieszczaniu się</li>
+              <li class="service-item"><span class="service-item-dot" aria-hidden="true"></span>Zakupy i załatwianie spraw</li>
+              <li class="service-item"><span class="service-item-dot" aria-hidden="true"></span>Przygotowanie posiłków</li>
+              <li class="service-item"><span class="service-item-dot" aria-hidden="true"></span>Karmienie podopiecznych</li>
+              <li class="service-item"><span class="service-item-dot" aria-hidden="true"></span>Towarzyszenie i wsparcie emocjonalne</li>
+            </ul>
+          </article>
+
+          <article class="service-card green fade-up" aria-labelledby="usluga2-heading">
+            <div class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#2D852D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+              </svg>
+            </div>
+            <h3 id="usluga2-heading">Specjalistyczne usługi opiekuńcze</h3>
+            <p>
+              Zapewniamy opiekę realizowaną przez specjalistów z dziedzin medycznych
+              i rehabilitacyjnych, dostosowaną do indywidualnych potrzeb zdrowotnych
+              podopiecznego.
+            </p>
+            <ul class="service-items" role="list">
+              <li class="service-item"><span class="service-item-dot" aria-hidden="true"></span>Fizjoterapia i rehabilitacja</li>
+              <li class="service-item"><span class="service-item-dot" aria-hidden="true"></span>Opieka pielęgniarska</li>
+              <li class="service-item"><span class="service-item-dot" aria-hidden="true"></span>Terapia zajęciowa</li>
+              <li class="service-item"><span class="service-item-dot" aria-hidden="true"></span>Wsparcie psychologiczne</li>
+              <li class="service-item"><span class="service-item-dot" aria-hidden="true"></span>Specjalistyczne zabiegi pielęgnacyjne</li>
+              <li class="service-item"><span class="service-item-dot" aria-hidden="true"></span>Doradztwo medyczne</li>
+              <li class="service-item"><span class="service-item-dot" aria-hidden="true"></span>Monitorowanie stanu zdrowia</li>
+            </ul>
+          </article>
+        </div>
+
+        <div style="text-align:center; margin-top: 2.5rem;" class="fade-up">
+          <p style="color: var(--text-muted); font-size: var(--font-sm); margin-bottom: 1.25rem;">
+            Masz pytania dotyczące usług? Skontaktuj się z nami – chętnie doradzimy.
+          </p>
+          <a href="#kontakt" class="btn btn-primary">Zapytaj o usługi</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================
+         PROJEKTY
+    ======================================== -->
+    <section id="projekty" class="section" aria-labelledby="projekty-heading">
+      <div class="container">
+
+        <div class="projekty-header fade-up">
+          <p class="section-label">Projekty</p>
+          <h2 class="section-title" id="projekty-heading">Nasze projekty</h2>
+          <p class="section-subtitle" style="margin: 0 auto;">
+            Realizujemy projekt, który realnie poprawia jakość życia seniorów i osób niesamodzielnych
+            w ich własnym domu.
+          </p>
+        </div>
+
+        <div class="project-preview-card fade-up">
+          <div class="project-card-top">
+            <div class="project-tag">Aktywny projekt</div>
+            <div class="project-dates">01.07.2025 – 31.08.2026</div>
+          </div>
+          <h3 class="project-title">Najlepsze wsparcie dla seniorów – wsparcie w domu!</h3>
+          <p style="color: var(--text-muted); font-size: var(--font-sm); line-height: 1.75; margin-bottom: 1.5rem;">
+            Projekt realizowany wspólnie przez <strong style="color:var(--text)">Opieka i Troska Krzysztof Prot</strong>
+            oraz <strong style="color:var(--text)">Fundację NIC DWA RAZY</strong>.
+            Celem jest zwiększenie dostępu do usług opiekuńczych i specjalistycznych
+            dla 32 seniorów oraz 15 opiekunów faktycznych z terenu powiatu ostrowskiego.
+            Udział jest całkowicie bezpłatny.
+          </p>
+          <a href="projekty.html" class="btn btn-primary">
+            Zobacz szczegóły projektu
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================
+         KRZYSZTOF PROT
+    ======================================== -->
+    <section id="krzysztof-prot" class="section" aria-labelledby="prot-heading">
+      <div class="container">
+        <div class="founder-grid">
+          <div class="founder-visual fade-up">
+            <div class="founder-avatar">
+              <div class="founder-avatar-initials">KP</div>
+              <div class="avatar-name">Krzysztof Prot</div>
+              <div class="avatar-title">Założyciel fundacji</div>
+              <div class="founder-badges" role="list">
+                <span class="founder-badge" role="listitem">Pedagog</span>
+                <span class="founder-badge" role="listitem">Krwiodawca</span>
+                <span class="founder-badge" role="listitem">Działacz społeczny</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="founder-content fade-up">
+            <p class="section-label">Założyciel</p>
+            <h2 class="section-title" id="prot-heading">Krzysztof Prot</h2>
+            <p class="section-subtitle">
+              Założyciel Fundacji „Opieka i Troska" – człowiek, dla którego pomoc
+              innym to nie tylko praca, ale powołanie.
+            </p>
+            <p>
+              Krzysztof Prot jest pedagogiem z wieloletnim doświadczeniem w pracy
+              z młodzieżą. Wspiera młodych ludzi w trudnych momentach życia,
+              pomagając im znaleźć właściwą drogę i odbudować wiarę we własne siły.
+              Jego podejście opiera się na głębokim zrozumieniu drugiego człowieka
+              i bezwarunkowej gotowości do pomocy.
+            </p>
+            <p>
+              Powodowany tą samą empatią, założył Fundację „Opieka i Troska",
+              której misją jest zapewnienie godnej opieki osobom starszym
+              i niepełnosprawnym. Wierzy, że każdy człowiek – niezależnie od wieku
+              czy sprawności – zasługuje na szacunek i troskę.
+            </p>
+
+            <div class="founder-highlights" role="list">
+              <div class="founder-highlight fade-up" role="listitem">
+                <div class="founder-highlight-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                  </svg>
+                </div>
+                <div class="founder-highlight-text">
+                  <h4>Regularny krwiodawca</h4>
+                  <p>
+                    Krzysztof regularnie oddaje krew, dając żywy przykład hojności
+                    i solidarności z potrzebującymi. To symboliczny gest, który
+                    pięknie odzwierciedla jego charakter.
+                  </p>
+                </div>
+              </div>
+
+              <div class="founder-highlight fade-up" role="listitem">
+                <div class="founder-highlight-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                    <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+                  </svg>
+                </div>
+                <div class="founder-highlight-text">
+                  <h4>Pedagog z powołania</h4>
+                  <p>
+                    Pracuje z młodzieżą w trudnych sytuacjach życiowych, oferując
+                    wsparcie, kierunek i wiarę w lepsze jutro.
+                  </p>
+                </div>
+              </div>
+
+              <div class="founder-highlight fade-up" role="listitem">
+                <div class="founder-highlight-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/>
+                    <line x1="2" y1="12" x2="22" y2="12"/>
+                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                  </svg>
+                </div>
+                <div class="founder-highlight-text">
+                  <h4>Zaangażowanie społeczne</h4>
+                  <p>
+                    Łącząc doświadczenie pedagogiczne z misją społeczną, stworzył
+                    organizację, która naprawdę zmienia życie.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================
+         KONTAKT
+    ======================================== -->
+    <section id="kontakt" class="section" aria-labelledby="kontakt-heading">
+      <div class="container">
+        <div class="contact-grid">
+          <div class="fade-up">
+            <p class="section-label">Kontakt</p>
+            <h2 class="section-title" id="kontakt-heading">Skontaktuj się<br />z nami</h2>
+            <p class="section-subtitle">
+              Masz pytania dotyczące naszych usług? Chętnie odpowiemy
+              na każde pytanie i pomożemy dobrać odpowiednią formę opieki.
+            </p>
+
+            <div class="contact-info" role="list">
+              <div class="contact-item fade-up" role="listitem">
+                <div class="contact-item-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#7A1C1C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                    <circle cx="12" cy="7" r="4"/>
+                  </svg>
+                </div>
+                <div class="contact-item-text">
+                  <div class="label">Założyciel</div>
+                  <div class="value">Krzysztof Prot</div>
+                </div>
+              </div>
+
+              <div class="contact-item fade-up" role="listitem">
+                <div class="contact-item-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#7A1C1C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+                  </svg>
+                </div>
+                <div class="contact-item-text">
+                  <div class="label">Facebook</div>
+                  <a
+                    href="https://www.facebook.com/opiekaitroskakrzysztofprot/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="value"
+                    aria-label="Odwiedź profil fundacji na Facebooku (otwiera się w nowej karcie)"
+                  >
+                    Opieka i Troska – Krzysztof Prot
+                  </a>
+                </div>
+              </div>
+
+              <div class="contact-item fade-up" role="listitem">
+                <div class="contact-item-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#7A1C1C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/>
+                    <line x1="2" y1="12" x2="22" y2="12"/>
+                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                  </svg>
+                </div>
+                <div class="contact-item-text">
+                  <div class="label">Zasięg działalności</div>
+                  <div class="value">Polska</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-form-card fade-up">
+            <h3>Napisz do nas</h3>
+            <form id="contact-form" novalidate aria-label="Formularz kontaktowy">
+              <div class="form-group">
+                <label for="name">Imię i nazwisko <span aria-hidden="true" style="color:var(--primary)">*</span></label>
+                <input type="text" id="name" name="name" required placeholder="np. Jan Kowalski" autocomplete="name" aria-required="true" />
+              </div>
+              <div class="form-group">
+                <label for="phone">Numer telefonu</label>
+                <input type="tel" id="phone" name="phone" placeholder="np. 600 000 000" autocomplete="tel" />
+              </div>
+              <div class="form-group">
+                <label for="email">Adres e-mail</label>
+                <input type="email" id="email" name="email" placeholder="np. jan@example.com" autocomplete="email" />
+              </div>
+              <div class="form-group">
+                <label for="topic">Temat zapytania</label>
+                <select id="topic" name="topic">
+                  <option value="">Wybierz temat...</option>
+                  <option value="opieka">Usługi opiekuńcze</option>
+                  <option value="specjalistyczne">Specjalistyczne usługi opiekuńcze</option>
+                  <option value="inne">Inne</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="message">Wiadomość <span aria-hidden="true" style="color:var(--primary)">*</span></label>
+                <textarea id="message" name="message" required placeholder="Opisz swoją sytuację lub zadaj pytanie..." aria-required="true"></textarea>
+              </div>
+              <button type="submit" class="form-submit">Wyślij wiadomość</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ========================================
+       FOOTER
+  ======================================== -->
+  <footer role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <img src="opiekalogo.png" alt="Logo Fundacji Opieka i Troska" />
+            <div>
+              <div class="footer-brand-name">Opieka i Troska</div>
+              <div class="footer-brand-sub">Krzysztof Prot</div>
+            </div>
+          </div>
+          <p>
+            Fundacja „Opieka i Troska" – profesjonalne usługi opiekuńcze
+            i specjalistyczne dla osób starszych i niepełnosprawnych.
+          </p>
+        </div>
+
+        <nav aria-label="Nawigacja stopki – sekcje">
+          <h4>Strona</h4>
+          <ul role="list">
+            <li><a href="#o-nas">O nas</a></li>
+            <li><a href="#uslugi">Usługi</a></li>
+            <li><a href="#projekty">Projekty</a></li>
+            <li><a href="#krzysztof-prot">Założyciel</a></li>
+          </ul>
+        </nav>
+
+        <nav aria-label="Nawigacja stopki – usługi">
+          <h4>Usługi</h4>
+          <ul role="list">
+            <li><a href="#uslugi">Usługi opiekuńcze</a></li>
+            <li><a href="#uslugi">Specjalistyczne usługi</a></li>
+            <li>
+              <a href="https://www.facebook.com/opiekaitroskakrzysztofprot/" target="_blank" rel="noopener noreferrer">
+                Facebook
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2024 Fundacja Opieka i Troska – Krzysztof Prot. Wszelkie prawa zastrzeżone.</p>
+        <p>Strona zaprojektowana z myślą o dostępności (WCAG 2.1)</p>
+      </div>
+    </div>
+  </footer>
+
+  <div id="toast" role="alert" aria-live="assertive" aria-atomic="true"></div>
+
+  <script>
+    /* ACCESSIBILITY PANEL */
+    let fontLevel = 0;
+    const fontLabels = ['Normalny', 'Duży', 'Bardzo duży'];
+    const fontClasses = ['', 'large-text', 'larger-text'];
+
+    function changeFontSize(delta) {
+      const next = Math.min(2, Math.max(0, fontLevel + delta));
+      if (next === fontLevel) return;
+      document.body.classList.remove(fontClasses[fontLevel]);
+      fontLevel = next;
+      document.body.classList.add(fontClasses[fontLevel]);
+      document.getElementById('font-size-display').textContent = fontLabels[fontLevel];
+      saveA11yState();
+    }
+
+    function toggleContrast() {
+      const active = document.body.classList.toggle('high-contrast');
+      const btn = document.getElementById('btn-contrast');
+      btn.classList.toggle('active', active);
+      btn.setAttribute('aria-pressed', String(active));
+      saveA11yState();
+    }
+
+    function toggleGrayscale() {
+      const active = document.body.classList.toggle('grayscale');
+      const btn = document.getElementById('btn-grayscale');
+      btn.classList.toggle('active', active);
+      btn.setAttribute('aria-pressed', String(active));
+      saveA11yState();
+    }
+
+    function toggleUnderlineLinks() {
+      const active = document.body.classList.toggle('underline-links');
+      const btn = document.getElementById('btn-links');
+      btn.classList.toggle('active', active);
+      btn.setAttribute('aria-pressed', String(active));
+      saveA11yState();
+    }
+
+    function toggleReduceMotion() {
+      const active = document.body.classList.toggle('reduce-motion');
+      const btn = document.getElementById('btn-motion');
+      btn.classList.toggle('active', active);
+      btn.setAttribute('aria-pressed', String(active));
+      if (active) document.documentElement.style.setProperty('scroll-behavior', 'auto');
+      else document.documentElement.style.removeProperty('scroll-behavior');
+      saveA11yState();
+    }
+
+    function resetA11y() {
+      ['high-contrast','grayscale','underline-links','reduce-motion','large-text','larger-text']
+        .forEach(c => document.body.classList.remove(c));
+      fontLevel = 0;
+      document.getElementById('font-size-display').textContent = 'Normalny';
+      ['btn-contrast','btn-grayscale','btn-links','btn-motion'].forEach(id => {
+        const btn = document.getElementById(id);
+        if (btn) { btn.classList.remove('active'); btn.setAttribute('aria-pressed','false'); }
+      });
+      document.documentElement.style.removeProperty('scroll-behavior');
+      try { localStorage.removeItem('a11y-state'); } catch(e) {}
+    }
+
+    function saveA11yState() {
+      try {
+        localStorage.setItem('a11y-state', JSON.stringify({
+          fontLevel,
+          contrast: document.body.classList.contains('high-contrast'),
+          grayscale: document.body.classList.contains('grayscale'),
+          links: document.body.classList.contains('underline-links'),
+          motion: document.body.classList.contains('reduce-motion')
+        }));
+      } catch(e) {}
+    }
+
+    function loadA11yState() {
+      try {
+        const raw = localStorage.getItem('a11y-state');
+        if (!raw) return;
+        const s = JSON.parse(raw);
+        if (s.fontLevel > 0) changeFontSize(s.fontLevel);
+        if (s.contrast) toggleContrast();
+        if (s.grayscale) toggleGrayscale();
+        if (s.links) toggleUnderlineLinks();
+        if (s.motion) toggleReduceMotion();
+      } catch(e) {}
+    }
+
+    const a11yToggle = document.getElementById('a11y-toggle');
+    const a11yPanel = document.getElementById('a11y-panel');
+
+    a11yToggle.addEventListener('click', () => {
+      const isOpen = a11yPanel.classList.toggle('open');
+      a11yToggle.setAttribute('aria-expanded', String(isOpen));
+      a11yPanel.setAttribute('aria-hidden', String(!isOpen));
+    });
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && a11yPanel.classList.contains('open')) {
+        a11yPanel.classList.remove('open');
+        a11yToggle.setAttribute('aria-expanded', 'false');
+        a11yPanel.setAttribute('aria-hidden', 'true');
+        a11yToggle.style.left = '0';
+        a11yToggle.focus();
+      }
+    });
+
+    /* NAVBAR */
+    window.addEventListener('scroll', () => {
+      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 20);
+    }, { passive: true });
+
+    /* MOBILE MENU */
+    const menuToggle = document.getElementById('menu-toggle');
+    const navMenu = document.getElementById('nav-menu');
+
+    menuToggle.addEventListener('click', () => {
+      const isOpen = navMenu.classList.toggle('open');
+      menuToggle.setAttribute('aria-expanded', String(isOpen));
+      menuToggle.textContent = isOpen ? 'Zamknij' : 'Menu';
+    });
+
+    navMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navMenu.classList.remove('open');
+        menuToggle.setAttribute('aria-expanded', 'false');
+        menuToggle.textContent = 'Menu';
+      });
+    });
+
+    /* SCROLL ANIMATIONS */
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    /* CONTACT FORM */
+    document.getElementById('contact-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const message = document.getElementById('message').value.trim();
+      if (!name || !message) { showToast('Proszę wypełnić wymagane pola.', '#7A1C1C'); return; }
+      showToast('Dziękujemy! Skontaktujemy się wkrótce.');
+      this.reset();
+    });
+
+    function showToast(msg, bg = '#3CAA3C') {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.style.background = bg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 4000);
+    }
+
+    /* ACTIVE NAV */
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) current = s.id; });
+      navLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + current));
+    }, { passive: true });
+
+    loadA11yState();
+  </script>
+</body>
+</html>
