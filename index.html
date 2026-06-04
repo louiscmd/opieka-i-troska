@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Opieka i Troska – Krzysztof Prot</title>
-  <meta name="description" content="Fundacja Opieka i Troska – profesjonalne usługi opiekuńcze i specjalistyczne dla osób starszych i niepełnosprawnych. Założona przez Krzysztofa Prota." />
+  <meta name="description" content="Firma Opieka i Troska Krzysztof Prot – profesjonalne usługi opiekuńcze i specjalistyczne dla osób starszych i niepełnosprawnych." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
@@ -138,6 +138,54 @@
       outline: 3px solid var(--primary-light);
       outline-offset: 2px;
     }
+
+    /* ========================================
+       EU FUNDS BAR
+    ======================================== */
+    #eu-bar {
+      position: fixed;
+      top: 72px;
+      left: 0; right: 0;
+      z-index: 890;
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      padding: 0.4rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #eu-bar img {
+      height: 38px;
+      width: auto;
+      max-width: 100%;
+      display: block;
+    }
+
+    /* Push content down to account for both navbar + EU bar */
+    #hero { padding-top: calc(72px + 48px); }
+
+    /* ========================================
+       TEXT JUSTIFICATION
+    ======================================== */
+    p, li, .section-subtitle, .hero-desc,
+    .about-value-text p, .service-card > p,
+    .founder-content p, .contact-item-text .value,
+    .proj-text, .proj-list li {
+      text-align: justify;
+      hyphens: auto;
+      -webkit-hyphens: auto;
+    }
+
+    /* Headings, labels, buttons stay left/center */
+    h1, h2, h3, h4, .section-label, .btn,
+    .hero-title, .section-title, .hero-stat-label,
+    .nav-logo-name, .nav-logo-sub { text-align: left; }
+
+    .services-header, .projekty-header, #kontakt .fade-up > p.section-subtitle {
+      text-align: center;
+    }
+    .services-header p, .projekty-header p { text-align: center; }
 
     /* ========================================
        ACCESSIBILITY PANEL
@@ -1583,6 +1631,11 @@
 <body>
   <a href="#main-content" class="skip-link">Przejdź do głównej treści</a>
 
+  <!-- EU Funds bar -->
+  <div id="eu-bar" role="banner" aria-label="Projekt dofinansowany ze środków Unii Europejskiej">
+    <img src="images/fundusze.png" alt="Fundusze Europejskie dla Mazowsza – Rzeczpospolita Polska – Dofinansowane przez Unię Europejską – Mazowsze" />
+  </div>
+
   <!-- ========================================
        ACCESSIBILITY PANEL
   ======================================== -->
@@ -1710,10 +1763,10 @@
 
           <div class="about-content fade-up">
             <p class="section-label">O nas</p>
-            <h2 class="section-title" id="onas-heading">Fundacja, która<br />naprawdę dba</h2>
+            <h2 class="section-title" id="onas-heading">Firma, która<br />naprawdę dba</h2>
             <p class="section-subtitle">
-              Fundacja „Opieka i Troska" została założona z przekonania, że każda
-              starsza i niepełnosprawna osoba zasługuje na profesjonalną pomoc,
+              Firma „Opieka i Troska" działa z przekonania, że każda starsza
+              i niepełnosprawna osoba zasługuje na profesjonalną pomoc,
               ciepłe traktowanie i poczucie bezpieczeństwa we własnym domu.
             </p>
             <div class="about-values" role="list" aria-label="Nasze wartości">
@@ -2064,7 +2117,7 @@
             </div>
           </div>
           <p>
-            Fundacja „Opieka i Troska" – profesjonalne usługi opiekuńcze
+            Firma „Opieka i Troska" Krzysztof Prot – profesjonalne usługi opiekuńcze
             i specjalistyczne dla osób starszych i niepełnosprawnych.
           </p>
         </div>
@@ -2094,7 +2147,7 @@
       </div>
 
       <div class="footer-bottom">
-        <p>© 2025 Fundacja Opieka i Troska – Krzysztof Prot. Wszelkie prawa zastrzeżone.</p>
+        <p>© 2025 Opieka i Troska Krzysztof Prot. Wszelkie prawa zastrzeżone.</p>
         <p>Strona zaprojektowana z myślą o dostępności (WCAG 2.1)</p>
       </div>
     </div>
@@ -2292,6 +2345,18 @@
     }, { passive: true });
 
     loadA11yState();
+
+    /* Polish orphan prevention – non-breaking space after short words */
+    (function() {
+      const re = /(^| )(i|w|z|a|o|u|do|na|po|za|ze|ku|we|bo|by|że|też|to|go|mu|mi|co|od|ale|lub|czy|nie|jak|gdy|już|tu|no|są) /gi;
+      document.querySelectorAll('p, li, .section-subtitle, .hero-desc').forEach(el => {
+        for (const node of el.childNodes) {
+          if (node.nodeType === 3) {
+            node.textContent = node.textContent.replace(re, (m, pre, w) => (pre||'') + w + ' ');
+          }
+        }
+      });
+    })();
   </script>
 </body>
 </html>

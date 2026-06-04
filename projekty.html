@@ -67,6 +67,31 @@
     }
     .skip-link:focus { top: 1rem; }
 
+    /* ── EU FUNDS BAR ── */
+    #eu-bar {
+      position: fixed;
+      top: 72px; left: 0; right: 0;
+      z-index: 890;
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      padding: 0.4rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #eu-bar img { height: 38px; width: auto; max-width: 100%; }
+    .page-header { padding-top: calc(72px + 48px + 3rem); }
+
+    /* ── TEXT JUSTIFICATION ── */
+    p, li, .proj-text, .proj-list li, .section-subtitle,
+    .page-hero-desc, .contact-block a, .eu-note {
+      text-align: justify;
+      hyphens: auto;
+      -webkit-hyphens: auto;
+    }
+    h1, h2, h3, h4, .page-hero-label, .section-divider-label,
+    .dl-name, .dl-desc, .status-dates { text-align: left; }
+
     /* ── WCAG floating button ── */
     #a11y-toggle {
       position: fixed;
@@ -450,6 +475,11 @@
 <body>
   <a href="#main-content" class="skip-link">Przejdź do treści</a>
 
+  <!-- EU Funds bar -->
+  <div id="eu-bar" role="banner" aria-label="Projekt dofinansowany ze środków Unii Europejskiej">
+    <img src="images/fundusze.png" alt="Fundusze Europejskie dla Mazowsza – Rzeczpospolita Polska – Dofinansowane przez Unię Europejską – Mazowsze" />
+  </div>
+
   <!-- WCAG button -->
   <button id="a11y-toggle" aria-label="Panel dostępności WCAG" aria-expanded="false" aria-controls="a11y-panel">WCAG</button>
 
@@ -715,7 +745,7 @@
           <div class="footer-sub">Krzysztof Prot</div>
         </div>
       </div>
-      <p>© 2024 Fundacja Opieka i Troska – Krzysztof Prot. Wszelkie prawa zastrzeżone.</p>
+      <p>© 2025 Opieka i Troska Krzysztof Prot. Wszelkie prawa zastrzeżone.</p>
     </div>
   </footer>
 
@@ -822,6 +852,18 @@
     document.querySelectorAll('.fade-in').forEach(el => io.observe(el));
 
     loadA11y();
+
+    /* Polish orphan prevention */
+    (function() {
+      const re = /(^| )(i|w|z|a|o|u|do|na|po|za|ze|ku|we|bo|by|że|też|to|go|mu|mi|co|od|ale|lub|czy|nie|jak|gdy|już|tu|no|są) /gi;
+      document.querySelectorAll('p, li, .proj-text').forEach(el => {
+        for (const node of el.childNodes) {
+          if (node.nodeType === 3) {
+            node.textContent = node.textContent.replace(re, (m, pre, w) => (pre||'') + w + '\xa0');
+          }
+        }
+      });
+    })();
   </script>
 </body>
 </html>
