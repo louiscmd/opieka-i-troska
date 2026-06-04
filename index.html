@@ -198,7 +198,7 @@
     #a11y-toggle {
       position: fixed;
       left: 1.25rem;
-      top: calc(72px + 0.75rem);
+      top: calc(72px + 76px + 0.75rem);
       z-index: 1000;
       background: var(--primary);
       color: #fff;
@@ -235,7 +235,7 @@
     #a11y-panel {
       position: fixed;
       left: 1.25rem;
-      top: calc(72px + 0.75rem + 44px + 0.5rem);
+      top: calc(72px + 76px + 0.75rem + 44px + 0.5rem);
       z-index: 999;
       background: var(--surface);
       border-radius: var(--radius);
@@ -396,6 +396,10 @@
       align-items: center;
       justify-content: space-between;
       height: 72px;
+    }
+    #navbar .container {
+      max-width: 100%;
+      padding: 0 2rem;
     }
 
     .nav-logo {
