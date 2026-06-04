@@ -1463,43 +1463,120 @@
     /* ========================================
        RESPONSIVE
     ======================================== */
+
+    /* Tablet */
     @media (max-width: 1024px) {
       .hero-grid, .about-grid, .founder-grid, .contact-grid {
         grid-template-columns: 1fr;
-        gap: 2.5rem;
+        gap: 2rem;
       }
 
-      .hero-visual { display: none; }
+      /* On tablet show photo below text in hero, smaller */
+      .hero-visual {
+        display: flex;
+        justify-content: center;
+      }
+      .hero-photo-frame {
+        max-width: 480px;
+        width: 100%;
+      }
+      .hero-photo-frame img { height: 340px; }
+
       .about-visual { order: -1; }
+      .about-img-frame img { height: 320px; }
       .about-accent-card { right: 0; bottom: -16px; }
       .services-grid { grid-template-columns: 1fr; }
       .footer-grid { grid-template-columns: 1fr 1fr; }
-      .founder-avatar { max-width: 280px; margin: 0 auto; }
+      .founder-avatar { max-width: 240px; margin: 0 auto; }
     }
 
+    /* Mobile */
     @media (max-width: 768px) {
-      :root { --font-2xl: 1.75rem; --font-3xl: 2.25rem; }
+      :root {
+        --font-base: 1rem;
+        --font-sm:   0.9rem;
+        --font-lg:   1.15rem;
+        --font-xl:   1.4rem;
+        --font-2xl:  1.65rem;
+        --font-3xl:  2rem;
+      }
 
-      .section { padding: 3.5rem 0; }
+      .section { padding: 3rem 0; }
+
+      /* Nav */
       .nav-links { display: none; }
       .nav-links.open {
         display: flex;
         flex-direction: column;
         position: absolute;
-        top: 72px;
-        left: 0; right: 0;
+        top: 72px; left: 0; right: 0;
         background: var(--surface);
-        border-bottom: 1px solid var(--border);
-        padding: 1rem;
-        gap: 0.25rem;
-        box-shadow: var(--shadow);
+        border-bottom: 2px solid var(--border);
+        padding: 0.75rem 1rem;
+        gap: 0.2rem;
+        box-shadow: var(--shadow-lg);
+        z-index: 800;
       }
-
+      .nav-links.open a {
+        padding: 0.65rem 0.9rem;
+        font-size: 1rem;
+        border-radius: 8px;
+      }
       #menu-toggle { display: flex; }
+
+      /* WCAG panel */
+      #a11y-panel { width: calc(100vw - 2.5rem); max-width: 300px; }
+
+      /* Hero */
+      #hero { min-height: auto; padding: 6rem 0 3rem; }
+      .hero-grid { gap: 1.75rem; }
+      .hero-title { font-size: 1.8rem; }
+      .hero-desc { font-size: 1rem; margin-bottom: 1.75rem; }
+      .hero-actions { flex-direction: column; gap: 0.75rem; }
+      .hero-actions .btn { width: 100%; justify-content: center; }
       .hero-stats { gap: 1.5rem; }
-      .footer-grid { grid-template-columns: 1fr; }
-      .footer-bottom { flex-direction: column; text-align: center; }
-      #a11y-panel { width: 270px; }
+      .hero-visual { order: -1; }
+      .hero-photo-frame { max-width: 100%; }
+      .hero-photo-frame img { height: 260px; }
+
+      /* About */
+      .about-img-frame img { height: 260px; }
+      .about-accent-card { right: 0.5rem; bottom: -12px; font-size: 0.85rem; padding: 0.75rem 1rem; }
+      .about-values { gap: 0.85rem; }
+
+      /* Services */
+      .services-grid { grid-template-columns: 1fr; gap: 1.25rem; }
+      .service-card { padding: 0 0 1.75rem 0; }
+      .service-card-photo { margin: 0 0 1.5rem 0; width: 100%; height: 210px; border-radius: 0; }
+      .service-icon, .service-card h3, .service-card > p, .service-items {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+      }
+      .service-card h3 { padding-top: 0; }
+
+      /* Projekty */
+      .project-preview-card { padding: 1.5rem; }
+
+      /* Founder */
+      .founder-grid { gap: 1.75rem; }
+      .founder-avatar { aspect-ratio: auto; min-height: 240px; padding: 1.5rem 1rem; }
+      .founder-highlights { gap: 0.75rem; }
+
+      /* Contact */
+      .contact-grid { gap: 2rem; }
+      .contact-form-card { padding: 1.5rem; }
+
+      /* Footer */
+      .footer-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+      .footer-bottom { flex-direction: column; text-align: center; gap: 0.5rem; }
+    }
+
+    /* Small phones */
+    @media (max-width: 400px) {
+      .container { padding: 0 1rem; }
+      .hero-title { font-size: 1.6rem; }
+      .nav-logo-name { font-size: 0.9rem; }
+      .btn { padding: 0.75rem 1.5rem; }
     }
   </style>
 </head>
@@ -1581,7 +1658,6 @@
       <div class="container">
         <div class="hero-grid">
           <div class="hero-text">
-            <div class="hero-badge">Fundacja Opieka i Troska</div>
             <h1 class="hero-title" id="hero-heading">
               Profesjonalna opieka<br />
               <span>z sercem i troską</span>
