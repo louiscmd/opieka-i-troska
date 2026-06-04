@@ -460,7 +460,7 @@
       .nav-links { display: none; }
       .nav-links.open {
         display: flex; flex-direction: column;
-        position: absolute; top: 72px; left: 0; right: 0;
+        position: absolute; top: calc(72px + 42px); left: 0; right: 0;
         background: var(--surface); border-bottom: 1px solid var(--border);
         padding: 1rem; box-shadow: 0 4px 16px rgba(122,28,28,0.08);
       }
@@ -468,6 +468,21 @@
       .flyers-grid { grid-template-columns: 1fr; }
       .footer-inner { flex-direction: column; text-align: center; }
       .page-header h1 { font-size: 1.75rem; }
+
+      /* EU bar – smaller on mobile */
+      #eu-bar { padding: 0.3rem 1rem; }
+      #eu-bar img { height: 32px; }
+
+      /* Page header – account for smaller EU bar */
+      .page-header { padding-top: calc(72px + 42px + 2rem) !important; }
+
+      /* WCAG button */
+      #a11y-toggle { top: calc(72px + 42px + 0.6rem); left: 0.75rem; padding: 0.45rem 0.8rem; font-size: 0.78rem; }
+      #a11y-panel  { top: calc(72px + 42px + 0.6rem + 40px + 0.4rem); left: 0.75rem; }
+
+      /* Downloads and contacts single column */
+      .downloads-grid, .contacts-grid { grid-template-columns: 1fr; }
+      .download-link { padding: 0.85rem 1rem; }
     }
   </style>
 </head>

@@ -1527,6 +1527,8 @@
         grid-template-columns: 1fr;
         gap: 2rem;
       }
+      /* Tablet: EU bar is same height, just ensure hero clears it */
+      #hero { padding-top: calc(72px + 76px + 1rem) !important; }
 
       /* On tablet show photo below text in hero, smaller */
       .hero-visual {
@@ -1626,6 +1628,20 @@
       /* Footer */
       .footer-grid { grid-template-columns: 1fr; gap: 1.5rem; }
       .footer-bottom { flex-direction: column; text-align: center; gap: 0.5rem; }
+
+      /* EU bar – smaller on mobile */
+      #eu-bar { padding: 0.3rem 1rem; }
+      #eu-bar img { height: 32px; }
+
+      /* Hero – account for smaller EU bar (32px img + ~10px padding = ~42px) */
+      #hero { padding: calc(72px + 42px + 1.5rem) 0 3rem !important; }
+
+      /* WCAG button – below smaller EU bar */
+      #a11y-toggle { top: calc(72px + 42px + 0.6rem); left: 0.75rem; padding: 0.45rem 0.8rem; font-size: 0.78rem; }
+      #a11y-panel  { top: calc(72px + 42px + 0.6rem + 40px + 0.4rem); left: 0.75rem; }
+
+      /* Mobile menu – opens below EU bar */
+      .nav-links.open { top: calc(72px + 42px); }
     }
 
     /* Small phones */
