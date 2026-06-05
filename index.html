@@ -841,6 +841,41 @@
     #krzysztof-prot .section-label { color: #90D890; }
     #krzysztof-prot .section-title { color: #fff; }
 
+    /* PARTNERZY */
+    .partners-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 2.5rem;
+      margin-top: 3rem;
+    }
+    .partner-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      padding: 1.5rem 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 160px;
+      max-width: 220px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .partner-card:hover {
+      box-shadow: 0 6px 24px rgba(0,0,0,0.12);
+      transform: translateY(-3px);
+    }
+    .partner-card img {
+      max-width: 140px;
+      max-height: 80px;
+      object-fit: contain;
+      filter: grayscale(30%);
+      transition: filter 0.2s;
+    }
+    .partner-card:hover img { filter: grayscale(0%); }
+
     .founder-grid {
       display: grid;
       grid-template-columns: 1fr 1.6fr;
@@ -1656,6 +1691,12 @@
 <body>
   <a href="#main-content" class="skip-link">Przejdź do głównej treści</a>
 
+  <!-- Announcement bar (admin-controlled) -->
+  <div id="ann-bar" style="display:none;position:fixed;top:calc(72px + 76px);left:0;right:0;z-index:880;padding:0.6rem 1.5rem;text-align:center;font-family:'Lato',sans-serif;font-size:0.95rem;font-weight:700;color:#fff;">
+    <span id="ann-text"></span>
+    <button onclick="document.getElementById('ann-bar').style.display='none'" style="margin-left:1rem;background:rgba(255,255,255,0.25);border:none;color:#fff;border-radius:4px;padding:0.1rem 0.5rem;cursor:pointer;font-size:0.85rem;">✕</button>
+  </div>
+
   <!-- EU Funds bar -->
   <div id="eu-bar" role="banner" aria-label="Projekt dofinansowany ze środków Unii Europejskiej">
     <img src="images/fundusze1.png" alt="Fundusze Europejskie dla Mazowsza – Rzeczpospolita Polska – Dofinansowane przez Unię Europejską – Mazowsze" />
@@ -1705,7 +1746,7 @@
       <div class="container">
         <div class="nav-inner">
           <a href="#hero" class="nav-logo" aria-label="Opieka i Troska – strona główna">
-            <img src="opiekalogo.png" alt="Logo Fundacji Opieka i Troska" />
+            <img src="opiekalogo.png" alt="Logo firmy Opieka i Troska" />
             <div class="nav-logo-text">
               <div class="nav-logo-name">Opieka i Troska</div>
               <div class="nav-logo-sub">Krzysztof Prot</div>
@@ -1721,6 +1762,7 @@
             <li><a href="#uslugi">Usługi</a></li>
             <li><a href="#projekty">Projekty</a></li>
             <li><a href="#krzysztof-prot">Założyciel</a></li>
+            <li><a href="#partnerzy">Partnerzy</a></li>
             <li><a href="#kontakt" class="nav-contact-btn">Kontakt</a></li>
           </ul>
         </div>
@@ -1738,7 +1780,7 @@
           <div class="hero-text">
             <h1 class="hero-title" id="hero-heading">
               Profesjonalna opieka<br />
-              <span>z sercem i troską</span>
+              <span>Z sercem i troską</span>
             </h1>
             <p class="hero-desc">
               Zapewniamy kompleksowe wsparcie dla osób starszych i niepełnosprawnych.<br />
@@ -1955,7 +1997,7 @@
             <p class="section-label">Założyciel</p>
             <h2 class="section-title" id="prot-heading">Krzysztof Prot</h2>
             <p class="section-subtitle">
-              Założyciel Fundacji „Opieka i Troska" – człowiek, dla którego pomoc
+              Założyciel firmy „Opieka i Troska" – człowiek, dla którego pomoc
               innym to nie tylko praca, ale powołanie.
             </p>
             <p>
@@ -2022,6 +2064,32 @@
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================
+         PARTNERZY
+    ======================================== -->
+    <section id="partnerzy" class="section" aria-labelledby="partnerzy-heading">
+      <div class="container">
+        <p class="section-label">Współpraca</p>
+        <h2 class="section-title" id="partnerzy-heading">Nasi partnerzy</h2>
+        <p class="section-subtitle">Działamy ramię w ramię z organizacjami, którym bliskie są te same wartości.</p>
+
+        <div class="partners-grid">
+          <div class="partner-card fade-up">
+            <img src="images/dom-z-sercem.png" alt="Dom z Sercem" />
+          </div>
+          <div class="partner-card fade-up">
+            <img src="images/nic-dwa-razy.png" alt="Nic Dwa Razy" />
+          </div>
+          <div class="partner-card fade-up">
+            <img src="images/logo-dom-med.png" alt="Dom Med" />
+          </div>
+          <div class="partner-card fade-up">
+            <img src="images/mazowsze.png" alt="Mazowsze" />
           </div>
         </div>
       </div>
@@ -2135,7 +2203,7 @@
       <div class="footer-grid">
         <div class="footer-brand">
           <div class="footer-logo">
-            <img src="opiekalogo.png" alt="Logo Fundacji Opieka i Troska" />
+            <img src="opiekalogo.png" alt="Logo firmy Opieka i Troska" />
             <div>
               <div class="footer-brand-name">Opieka i Troska</div>
               <div class="footer-brand-sub">Krzysztof Prot</div>
@@ -2154,6 +2222,7 @@
             <li><a href="#uslugi">Usługi</a></li>
             <li><a href="#projekty">Projekty</a></li>
             <li><a href="#krzysztof-prot">Założyciel</a></li>
+            <li><a href="#partnerzy">Partnerzy</a></li>
           </ul>
         </nav>
 
@@ -2384,224 +2453,366 @@
     })();
   </script>
 
-  <!-- ADMIN PANEL -->
-  <div id="admin-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:9998;backdrop-filter:blur(3px);"></div>
 
-  <div id="admin-login" style="display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:9999;background:#fff;border-radius:16px;padding:2.5rem 2rem;width:340px;max-width:90vw;box-shadow:0 20px 60px rgba(0,0,0,0.25);font-family:'Lato',sans-serif;">
-    <h2 style="font-family:'Merriweather',serif;color:#7A1C1C;margin-bottom:0.25rem;font-size:1.3rem;">Panel administratora</h2>
-    <p style="color:#888;font-size:0.88rem;margin-bottom:1.5rem;">Wprowadź hasło, aby uzyskać dostęp.</p>
-    <input type="password" id="admin-pw" placeholder="Hasło" style="width:100%;padding:0.75rem 1rem;border:2px solid #E0D8D8;border-radius:8px;font-size:1rem;font-family:'Lato',sans-serif;margin-bottom:0.75rem;box-sizing:border-box;" />
-    <div id="admin-pw-err" style="color:#c0392b;font-size:0.85rem;margin-bottom:0.5rem;display:none;">Nieprawidłowe hasło.</div>
-    <div style="display:flex;gap:0.5rem;">
-      <button onclick="adminSubmit()" style="flex:1;background:#7A1C1C;color:#fff;border:none;border-radius:8px;padding:0.75rem;font-size:1rem;font-weight:700;cursor:pointer;font-family:'Lato',sans-serif;">Zaloguj</button>
-      <button onclick="adminCloseLogin()" style="background:#F5E8E8;color:#7A1C1C;border:none;border-radius:8px;padding:0.75rem 1rem;font-size:1rem;font-weight:700;cursor:pointer;font-family:'Lato',sans-serif;">Anuluj</button>
+</body>
+</html>
+
+  <!-- ======================================================
+       ADMIN PANEL
+  ====================================================== -->
+  <div id="adm-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:9998;backdrop-filter:blur(3px);"></div>
+
+  <!-- Login modal -->
+  <div id="adm-login" style="display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:9999;background:#fff;border-radius:16px;padding:2.5rem 2rem;width:340px;max-width:92vw;box-shadow:0 24px 64px rgba(0,0,0,0.22);font-family:'Lato',sans-serif;">
+    <div style="text-align:center;margin-bottom:1.5rem;">
+      <div style="font-size:2rem;margin-bottom:0.5rem;">🔐</div>
+      <h2 style="font-family:'Merriweather',serif;color:#7A1C1C;font-size:1.25rem;margin:0;">Panel administratora</h2>
+      <p style="color:#888;font-size:0.85rem;margin-top:0.35rem;">Tylko dla autoryzowanych użytkowników</p>
+    </div>
+    <input type="password" id="adm-pw" placeholder="Hasło dostępu" style="width:100%;padding:0.8rem 1rem;border:2px solid #E0D8D8;border-radius:10px;font-size:1rem;font-family:'Lato',sans-serif;margin-bottom:0.6rem;box-sizing:border-box;transition:border-color 0.2s;" />
+    <div id="adm-pw-err" style="color:#c0392b;font-size:0.83rem;margin-bottom:0.5rem;display:none;text-align:center;">Nieprawidłowe hasło – spróbuj ponownie</div>
+    <div style="display:flex;gap:0.6rem;">
+      <button onclick="admSubmit()" style="flex:1;background:#7A1C1C;color:#fff;border:none;border-radius:10px;padding:0.8rem;font-size:1rem;font-weight:700;cursor:pointer;font-family:'Lato',sans-serif;transition:background 0.2s;">Zaloguj się</button>
+      <button onclick="admCloseLogin()" style="background:#F5E8E8;color:#7A1C1C;border:none;border-radius:10px;padding:0.8rem 1.1rem;font-size:1rem;font-weight:700;cursor:pointer;font-family:'Lato',sans-serif;">Anuluj</button>
     </div>
   </div>
 
-  <div id="adm" style="display:none;position:fixed;top:0;right:0;bottom:0;z-index:9999;width:440px;max-width:100vw;background:#FAF9F7;box-shadow:-4px 0 40px rgba(0,0,0,0.2);font-family:'Lato',sans-serif;overflow-y:auto;flex-direction:column;">
-    <div style="background:#7A1C1C;padding:1.25rem 1.5rem;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:10;">
-      <div><div style="color:#fff;font-family:'Merriweather',serif;font-size:1.1rem;font-weight:700;">Panel administratora</div><div style="color:rgba(255,255,255,0.7);font-size:0.78rem;">Opieka i Troska – Krzysztof Prot</div></div>
-      <button onclick="document.getElementById('adm').style.display='none'" style="background:rgba(255,255,255,0.15);border:none;color:#fff;border-radius:8px;padding:0.4rem 0.75rem;cursor:pointer;font-size:0.85rem;font-family:'Lato',sans-serif;">✕ Zamknij</button>
+  <!-- Main panel -->
+  <div id="adm-panel" style="display:none;position:fixed;top:0;right:0;bottom:0;z-index:9999;width:500px;max-width:100vw;background:#F4F2EF;box-shadow:-6px 0 48px rgba(0,0,0,0.18);font-family:'Lato',sans-serif;flex-direction:column;">
+
+    <!-- Panel header -->
+    <div style="background:linear-gradient(135deg,#7A1C1C 0%,#5C1414 100%);padding:1rem 1.25rem;display:flex;justify-content:space-between;align-items:center;flex-shrink:0;">
+      <div style="display:flex;align-items:center;gap:0.75rem;">
+        <div style="background:rgba(255,255,255,0.15);border-radius:8px;padding:0.4rem 0.6rem;font-size:1.1rem;">⚙️</div>
+        <div>
+          <div style="color:#fff;font-family:'Merriweather',serif;font-size:1rem;font-weight:700;">Panel administratora</div>
+          <div style="color:rgba(255,255,255,0.65);font-size:0.75rem;">Opieka i Troska – Krzysztof Prot</div>
+        </div>
+      </div>
+      <button onclick="admClose()" style="background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);color:#fff;border-radius:8px;padding:0.4rem 0.85rem;cursor:pointer;font-size:0.85rem;font-weight:600;font-family:'Lato',sans-serif;transition:background 0.2s;">✕ Zamknij</button>
     </div>
-    <div style="background:#fff;border-bottom:1px solid #E0D8D8;padding:0.9rem 1.5rem;display:flex;align-items:center;gap:0.75rem;position:sticky;top:64px;z-index:9;">
-      <button onclick="_applyToPage()" id="adm-pub-btn" style="flex:1;background:#3CAA3C;color:#fff;border:none;border-radius:8px;padding:0.65rem 1rem;font-size:0.95rem;font-weight:700;cursor:pointer;font-family:'Lato',sans-serif;">💾 Zapisz zmiany</button>
-      <div id="adm-pub-st" style="font-size:0.82rem;color:#2D852D;"></div>
+
+    <!-- Save bar -->
+    <div style="background:#fff;border-bottom:2px solid #E0D8D8;padding:0.7rem 1.25rem;display:flex;align-items:center;gap:0.75rem;flex-shrink:0;">
+      <button onclick="admSave()" style="flex:1;background:#3CAA3C;color:#fff;border:none;border-radius:10px;padding:0.65rem 1rem;font-size:0.95rem;font-weight:700;cursor:pointer;font-family:'Lato',sans-serif;transition:background 0.2s;display:flex;align-items:center;justify-content:center;gap:0.5rem;">
+        <span>💾</span> Zapisz zmiany
+      </button>
+      <div id="adm-save-msg" style="font-size:0.85rem;color:#2D852D;font-weight:700;transition:opacity 0.3s;opacity:0;">✓ Zapisano!</div>
     </div>
 
-    <div style="display:flex;overflow-x:auto;background:#fff;border-bottom:2px solid #E0D8D8;padding:0 0.5rem;" id="adm-tabs">
-      <button class="adm-tab actv" onclick="admTab('hero')"     data-t="hero">🏠 Hero</button>
-      <button class="adm-tab"      onclick="admTab('onas')"     data-t="onas">ℹ️ O nas</button>
-      <button class="adm-tab"      onclick="admTab('uslugi')"   data-t="uslugi">🔧 Usługi</button>
-      <button class="adm-tab"      onclick="admTab('proj')"     data-t="proj">📋 Projekty</button>
-      <button class="adm-tab"      onclick="admTab('zaloz')"    data-t="zaloz">👤 Założyciel</button>
-      <button class="adm-tab"      onclick="admTab('kontakt')"  data-t="kontakt">📞 Kontakt</button>
-    </div>
-    <div style="padding:1.5rem;" id="adm-body">
+    <!-- Body: sidebar + content -->
+    <div style="display:flex;flex:1;overflow:hidden;">
 
-      <div id="adm-hero">
-        <div class="adm-sh">Sekcja główna (Hero)</div>
-        <label class="adm-lbl">Tytuł – linia 1</label><input class="adm-in" id="f-h1" />
-        <label class="adm-lbl">Tytuł – linia 2 (bordowa)</label><input class="adm-in" id="f-h2" />
-        <label class="adm-lbl">Opis – zdanie 1</label><input class="adm-in" id="f-d1" />
-        <label class="adm-lbl">Opis – zdanie 2</label><textarea class="adm-in" rows="2" id="f-d2"></textarea>
-        <label class="adm-lbl">Statystyka 1 – liczba</label><input class="adm-in" id="f-s1n" />
-        <label class="adm-lbl">Statystyka 1 – opis</label><input class="adm-in" id="f-s1l" />
-        <label class="adm-lbl">Statystyka 2 – liczba</label><input class="adm-in" id="f-s2n" />
-        <label class="adm-lbl">Statystyka 2 – opis</label><input class="adm-in" id="f-s2l" />
+      <!-- Sidebar navigation -->
+      <div style="width:148px;min-width:148px;background:#fff;border-right:1px solid #E0D8D8;overflow-y:auto;padding:0.75rem 0;">
+
+        <div class="adm-nav-group">TREŚĆ STRONY</div>
+        <button class="adm-nav-btn active" onclick="admSection('hero')"     data-s="hero">     <span>🏠</span> Hero</button>
+        <button class="adm-nav-btn"        onclick="admSection('onas')"     data-s="onas">     <span>ℹ️</span> O nas</button>
+        <button class="adm-nav-btn"        onclick="admSection('uslugi')"   data-s="uslugi">   <span>🔧</span> Usługi</button>
+        <button class="adm-nav-btn"        onclick="admSection('projekty')" data-s="projekty"> <span>📋</span> Projekty</button>
+        <button class="adm-nav-btn"        onclick="admSection('zaloz')"    data-s="zaloz">    <span>👤</span> Założyciel</button>
+
+        <div class="adm-nav-group" style="margin-top:0.5rem;">KONTAKT</div>
+        <button class="adm-nav-btn"        onclick="admSection('kontakt')"  data-s="kontakt">  <span>📞</span> Dane</button>
+        <button class="adm-nav-btn"        onclick="admSection('formularz')" data-s="formularz"><span>📧</span> Formularz</button>
+
+        <div class="adm-nav-group" style="margin-top:0.5rem;">WYGLĄD</div>
+        <button class="adm-nav-btn"        onclick="admSection('kolory')"   data-s="kolory">   <span>🎨</span> Kolory</button>
+        <button class="adm-nav-btn"        onclick="admSection('baner')"    data-s="baner">    <span>📢</span> Baner</button>
+
       </div>
 
-      <div id="adm-onas" style="display:none;">
-        <div class="adm-sh">Sekcja „O nas"</div>
-        <label class="adm-lbl">Tytuł sekcji</label><input class="adm-in" id="f-on-title" />
-        <label class="adm-lbl">Opis główny</label><textarea class="adm-in" rows="3" id="f-on-desc"></textarea>
-        <hr class="adm-hr"/>
-        <label class="adm-lbl">Wartość 1 – tytuł</label><input class="adm-in" id="f-v1t" />
-        <label class="adm-lbl">Wartość 1 – opis</label><textarea class="adm-in" rows="2" id="f-v1d"></textarea>
-        <label class="adm-lbl">Wartość 2 – tytuł</label><input class="adm-in" id="f-v2t" />
-        <label class="adm-lbl">Wartość 2 – opis</label><textarea class="adm-in" rows="2" id="f-v2d"></textarea>
-        <label class="adm-lbl">Wartość 3 – tytuł</label><input class="adm-in" id="f-v3t" />
-        <label class="adm-lbl">Wartość 3 – opis</label><textarea class="adm-in" rows="2" id="f-v3d"></textarea>
-      </div>
+      <!-- Content area -->
+      <div style="flex:1;overflow-y:auto;padding:1.25rem;">
 
-      <div id="adm-uslugi" style="display:none;">
-        <div class="adm-sh" style="color:#7A1C1C;">Usługi opiekuńcze</div>
-        <label class="adm-lbl">Opis</label><textarea class="adm-in" rows="3" id="f-u1d"></textarea>
-        <label class="adm-lbl">Punkty (każdy w nowej linii)</label><textarea class="adm-in" rows="8" id="f-u1i"></textarea>
-        <hr class="adm-hr"/>
-        <div class="adm-sh" style="color:#3CAA3C;">Specjalistyczne usługi</div>
-        <label class="adm-lbl">Opis</label><textarea class="adm-in" rows="3" id="f-u2d"></textarea>
-        <label class="adm-lbl">Punkty (każdy w nowej linii)</label><textarea class="adm-in" rows="8" id="f-u2i"></textarea>
-      </div>
+        <!-- HERO -->
+        <div id="s-hero">
+          <div class="adm-sh">🏠 Sekcja główna (Hero)</div>
+          <label class="adm-lbl">Tytuł – linia 1</label><input class="adm-in" id="f-h1" />
+          <label class="adm-lbl">Tytuł – linia 2 (kolor bordowy)</label><input class="adm-in" id="f-h2" />
+          <label class="adm-lbl">Opis – zdanie 1</label><input class="adm-in" id="f-d1" />
+          <label class="adm-lbl">Opis – zdanie 2</label><textarea class="adm-in" rows="2" id="f-d2"></textarea>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-top:0.5rem;">
+            <div><label class="adm-lbl" style="margin-top:0;">Statystyka 1 – liczba</label><input class="adm-in" id="f-s1n" /></div>
+            <div><label class="adm-lbl" style="margin-top:0;">Statystyka 1 – opis</label><input class="adm-in" id="f-s1l" /></div>
+            <div><label class="adm-lbl" style="margin-top:0;">Statystyka 2 – liczba</label><input class="adm-in" id="f-s2n" /></div>
+            <div><label class="adm-lbl" style="margin-top:0;">Statystyka 2 – opis</label><input class="adm-in" id="f-s2l" /></div>
+          </div>
+        </div>
 
-      <div id="adm-proj" style="display:none;">
-        <div class="adm-sh">Projekt (podgląd na stronie głównej)</div>
-        <label class="adm-lbl">Tytuł projektu</label><input class="adm-in" id="f-pt" />
-        <label class="adm-lbl">Daty realizacji</label><input class="adm-in" id="f-pd" />
-        <label class="adm-lbl">Krótki opis</label><textarea class="adm-in" rows="4" id="f-pp"></textarea>
-      </div>
+        <!-- O NAS -->
+        <div id="s-onas" style="display:none;">
+          <div class="adm-sh">ℹ️ O nas</div>
+          <label class="adm-lbl">Tytuł sekcji</label><input class="adm-in" id="f-on-title" />
+          <label class="adm-lbl">Opis główny</label><textarea class="adm-in" rows="3" id="f-on-desc"></textarea>
+          <hr class="adm-hr"/>
+          <p class="adm-hint">Trzy wartości firmy widoczne po prawej stronie</p>
+          <label class="adm-lbl">Wartość 1 – tytuł</label><input class="adm-in" id="f-v1t" />
+          <label class="adm-lbl">Wartość 1 – opis</label><textarea class="adm-in" rows="2" id="f-v1d"></textarea>
+          <label class="adm-lbl">Wartość 2 – tytuł</label><input class="adm-in" id="f-v2t" />
+          <label class="adm-lbl">Wartość 2 – opis</label><textarea class="adm-in" rows="2" id="f-v2d"></textarea>
+          <label class="adm-lbl">Wartość 3 – tytuł</label><input class="adm-in" id="f-v3t" />
+          <label class="adm-lbl">Wartość 3 – opis</label><textarea class="adm-in" rows="2" id="f-v3d"></textarea>
+        </div>
 
-      <div id="adm-zaloz" style="display:none;">
-        <div class="adm-sh">Sekcja Założyciel</div>
-        <label class="adm-lbl">Imię i nazwisko</label><input class="adm-in" id="f-fn" />
-        <label class="adm-lbl">Rola (pod nazwiskiem)</label><input class="adm-in" id="f-fr" />
-        <label class="adm-lbl">Zdanie wprowadzające</label><textarea class="adm-in" rows="2" id="f-fi"></textarea>
-        <label class="adm-lbl">Akapit 1</label><textarea class="adm-in" rows="3" id="f-fp1"></textarea>
-        <label class="adm-lbl">Akapit 2</label><textarea class="adm-in" rows="3" id="f-fp2"></textarea>
-        <hr class="adm-hr"/>
-        <label class="adm-lbl">Wyróżnienie 1 – tytuł</label><input class="adm-in" id="f-h1t" />
-        <label class="adm-lbl">Wyróżnienie 1 – opis</label><textarea class="adm-in" rows="2" id="f-h1d"></textarea>
-        <label class="adm-lbl">Wyróżnienie 2 – tytuł</label><input class="adm-in" id="f-h2t" />
-        <label class="adm-lbl">Wyróżnienie 2 – opis</label><textarea class="adm-in" rows="2" id="f-h2d"></textarea>
-        <label class="adm-lbl">Wyróżnienie 3 – tytuł</label><input class="adm-in" id="f-h3t" />
-        <label class="adm-lbl">Wyróżnienie 3 – opis</label><textarea class="adm-in" rows="2" id="f-h3d"></textarea>
-      </div>
+        <!-- USŁUGI -->
+        <div id="s-uslugi" style="display:none;">
+          <div class="adm-sh">🔧 Usługi</div>
+          <div style="background:#F5E8E8;border-radius:8px;padding:0.6rem 0.85rem;margin-bottom:1rem;font-size:0.83rem;color:#7A1C1C;font-weight:700;">Usługi opiekuńcze</div>
+          <label class="adm-lbl">Opis usługi</label><textarea class="adm-in" rows="3" id="f-u1d"></textarea>
+          <label class="adm-lbl">Lista punktów (każdy w nowej linii)</label><textarea class="adm-in" rows="8" id="f-u1i"></textarea>
+          <hr class="adm-hr"/>
+          <div style="background:#E8F5E8;border-radius:8px;padding:0.6rem 0.85rem;margin-bottom:1rem;font-size:0.83rem;color:#2D852D;font-weight:700;">Specjalistyczne usługi opiekuńcze</div>
+          <label class="adm-lbl">Opis usługi</label><textarea class="adm-in" rows="3" id="f-u2d"></textarea>
+          <label class="adm-lbl">Lista punktów (każdy w nowej linii)</label><textarea class="adm-in" rows="8" id="f-u2i"></textarea>
+        </div>
 
-      <div id="adm-kontakt" style="display:none;">
-        <div class="adm-sh">Dane kontaktowe</div>
-        <label class="adm-lbl">Numer telefonu</label><input class="adm-in" id="f-phone" />
-        <label class="adm-lbl">Adres e-mail</label><input class="adm-in" id="f-email" />
-        <label class="adm-lbl">Link do Facebooka</label><input class="adm-in" id="f-fb" />
-        <label class="adm-lbl">Zasięg działalności</label><input class="adm-in" id="f-area" />
-        <hr class="adm-hr"/>
-        <label class="adm-lbl">Tekst w stopce</label><textarea class="adm-in" rows="2" id="f-foot"></textarea>
-      </div>
+        <!-- PROJEKTY -->
+        <div id="s-projekty" style="display:none;">
+          <div class="adm-sh">📋 Projekty</div>
+          <p class="adm-hint">Podgląd projektu widoczny na stronie głównej</p>
+          <label class="adm-lbl">Tytuł projektu</label><input class="adm-in" id="f-pt" />
+          <label class="adm-lbl">Daty realizacji</label><input class="adm-in" id="f-pd" />
+          <label class="adm-lbl">Krótki opis</label><textarea class="adm-in" rows="4" id="f-pp"></textarea>
+        </div>
 
-    </div>
-  </div>
+        <!-- ZAŁOŻYCIEL -->
+        <div id="s-zaloz" style="display:none;">
+          <div class="adm-sh">👤 Założyciel</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;">
+            <div><label class="adm-lbl" style="margin-top:0;">Imię i nazwisko</label><input class="adm-in" id="f-fn" /></div>
+            <div><label class="adm-lbl" style="margin-top:0;">Rola / stanowisko</label><input class="adm-in" id="f-fr" /></div>
+          </div>
+          <label class="adm-lbl">Zdanie wprowadzające</label><textarea class="adm-in" rows="2" id="f-fi"></textarea>
+          <label class="adm-lbl">Akapit 1</label><textarea class="adm-in" rows="3" id="f-fp1"></textarea>
+          <label class="adm-lbl">Akapit 2</label><textarea class="adm-in" rows="3" id="f-fp2"></textarea>
+          <hr class="adm-hr"/>
+          <p class="adm-hint">Trzy wyróżnienia (ikony z tekstem)</p>
+          <label class="adm-lbl">Wyróżnienie 1 – tytuł</label><input class="adm-in" id="f-h1t" />
+          <label class="adm-lbl">Wyróżnienie 1 – opis</label><textarea class="adm-in" rows="2" id="f-h1d"></textarea>
+          <label class="adm-lbl">Wyróżnienie 2 – tytuł</label><input class="adm-in" id="f-h2t" />
+          <label class="adm-lbl">Wyróżnienie 2 – opis</label><textarea class="adm-in" rows="2" id="f-h2d"></textarea>
+          <label class="adm-lbl">Wyróżnienie 3 – tytuł</label><input class="adm-in" id="f-h3t" />
+          <label class="adm-lbl">Wyróżnienie 3 – opis</label><textarea class="adm-in" rows="2" id="f-h3d"></textarea>
+        </div>
+
+        <!-- KONTAKT DANE -->
+        <div id="s-kontakt" style="display:none;">
+          <div class="adm-sh">📞 Dane kontaktowe</div>
+          <label class="adm-lbl">Numer telefonu</label><input class="adm-in" id="f-phone" placeholder="+48 000 000 000" />
+          <label class="adm-lbl">Link do Facebooka</label><input class="adm-in" id="f-fb" placeholder="https://facebook.com/..." />
+          <label class="adm-lbl">Zasięg działalności</label><input class="adm-in" id="f-area" placeholder="np. Mazowsze, Polska" />
+          <hr class="adm-hr"/>
+          <label class="adm-lbl">Tekst w stopce</label><textarea class="adm-in" rows="2" id="f-foot"></textarea>
+        </div>
+
+        <!-- FORMULARZ KONTAKTOWY -->
+        <div id="s-formularz" style="display:none;">
+          <div class="adm-sh">📧 Formularz kontaktowy</div>
+          <p class="adm-hint">Wiadomości ze strony będą wysyłane na poniższy adres e-mail.</p>
+          <label class="adm-lbl">Adres e-mail odbiorcy</label>
+          <input class="adm-in" id="f-form-email" type="email" placeholder="twoj@email.com" />
+          <hr class="adm-hr"/>
+          <p class="adm-hint">Etykieta przycisku wysyłania</p>
+          <label class="adm-lbl">Tekst przycisku „Wyślij"</label>
+          <input class="adm-in" id="f-form-btn" placeholder="Wyślij wiadomość" />
+          <hr class="adm-hr"/>
+          <div style="background:#E8F5E8;border-radius:10px;padding:1rem;font-size:0.83rem;color:#2D852D;">
+            <strong>ℹ️ Jak to działa?</strong><br />
+            Po wypełnieniu formularza i kliknięciu „Wyślij", otworzy się program pocztowy z uzupełnioną wiadomością gotową do wysłania na podany adres e-mail.
+          </div>
+        </div>
+
+        <!-- KOLORY -->
+        <div id="s-kolory" style="display:none;">
+          <div class="adm-sh">🎨 Kolory strony</div>
+          <p class="adm-hint">Zmiana kolorów aktualizuje całą stronę natychmiastowo.</p>
+
+          <div style="background:#fff;border:1px solid #E0D8D8;border-radius:12px;padding:1.1rem;margin-bottom:1rem;">
+            <label class="adm-lbl" style="margin-top:0;">Kolor główny (bordowy)</label>
+            <div style="display:flex;align-items:center;gap:0.75rem;margin-top:0.3rem;">
+              <input type="color" id="f-col-primary" value="#7A1C1C" style="width:52px;height:44px;border:2px solid #E0D8D8;border-radius:8px;cursor:pointer;padding:2px;" />
+              <input class="adm-in" id="f-col-primary-hex" placeholder="#7A1C1C" style="margin-top:0;flex:1;" />
+              <button onclick="admResetColor('primary')" style="background:#F5E8E8;color:#7A1C1C;border:none;border-radius:8px;padding:0.5rem 0.7rem;cursor:pointer;font-size:0.8rem;font-weight:700;font-family:'Lato',sans-serif;white-space:nowrap;">Reset</button>
+            </div>
+            <div style="margin-top:0.6rem;height:32px;border-radius:6px;transition:background 0.3s;" id="prev-primary"></div>
+          </div>
+
+          <div style="background:#fff;border:1px solid #E0D8D8;border-radius:12px;padding:1.1rem;margin-bottom:1rem;">
+            <label class="adm-lbl" style="margin-top:0;">Kolor akcentu (zielony)</label>
+            <div style="display:flex;align-items:center;gap:0.75rem;margin-top:0.3rem;">
+              <input type="color" id="f-col-accent" value="#3CAA3C" style="width:52px;height:44px;border:2px solid #E0D8D8;border-radius:8px;cursor:pointer;padding:2px;" />
+              <input class="adm-in" id="f-col-accent-hex" placeholder="#3CAA3C" style="margin-top:0;flex:1;" />
+              <button onclick="admResetColor('accent')" style="background:#E8F5E8;color:#2D852D;border:none;border-radius:8px;padding:0.5rem 0.7rem;cursor:pointer;font-size:0.8rem;font-weight:700;font-family:'Lato',sans-serif;white-space:nowrap;">Reset</button>
+            </div>
+            <div style="margin-top:0.6rem;height:32px;border-radius:6px;transition:background 0.3s;" id="prev-accent"></div>
+          </div>
+
+          <div style="background:#fff;border:1px solid #E0D8D8;border-radius:12px;padding:1rem;">
+            <p style="font-size:0.82rem;color:#888;margin:0;">Podgląd przycisków:</p>
+            <div style="display:flex;gap:0.5rem;margin-top:0.6rem;flex-wrap:wrap;">
+              <div id="prev-btn-primary" style="padding:0.5rem 1rem;border-radius:50px;color:#fff;font-weight:700;font-size:0.85rem;transition:background 0.3s;">Skontaktuj się</div>
+              <div id="prev-btn-accent" style="padding:0.5rem 1rem;border-radius:50px;color:#fff;font-weight:700;font-size:0.85rem;transition:background 0.3s;">Aktywny projekt</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- BANER POWIADOMIEŃ -->
+        <div id="s-baner" style="display:none;">
+          <div class="adm-sh">📢 Baner powiadomień</div>
+          <p class="adm-hint">Pasek widoczny na górze strony z ważnym komunikatem. Możesz go włączyć lub wyłączyć w dowolnym momencie.</p>
+
+          <div style="background:#fff;border:1px solid #E0D8D8;border-radius:12px;padding:1.1rem;margin-bottom:1rem;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.85rem;">
+              <span style="font-weight:700;font-size:0.92rem;">Status banera</span>
+              <label style="display:flex;align-items:center;gap:0.6rem;cursor:pointer;">
+                <span id="baner-status-lbl" style="font-size:0.85rem;color:#888;">Wyłączony</span>
+                <div style="position:relative;width:44px;height:24px;" onclick="admToggleBaner()">
+                  <input type="checkbox" id="f-baner-on" style="opacity:0;position:absolute;width:0;height:0;" />
+                  <div id="baner-track" style="position:absolute;inset:0;background:#E0D8D8;border-radius:50px;transition:background 0.2s;"></div>
+                  <div id="baner-thumb" style="position:absolute;top:2px;left:2px;width:20px;height:20px;background:#fff;border-radius:50%;transition:transform 0.2s;box-shadow:0 1px 4px rgba(0,0,0,0.2);"></div>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <label class="adm-lbl">Tekst komunikatu</label>
+          <textarea class="adm-in" rows="2" id="f-baner-text" placeholder="np. Rekrutujemy opiekunki! Zadzwoń już dziś: +48 666 508 289"></textarea>
+
+          <label class="adm-lbl">Kolor tła banera</label>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0.5rem;margin-top:0.3rem;" id="baner-colors">
+            <div class="baner-col-opt active" data-col="#7A1C1C" onclick="admBanerColor(this)" style="background:#7A1C1C;"></div>
+            <div class="baner-col-opt" data-col="#3CAA3C" onclick="admBanerColor(this)" style="background:#3CAA3C;"></div>
+            <div class="baner-col-opt" data-col="#1E6B8A" onclick="admBanerColor(this)" style="background:#1E6B8A;"></div>
+            <div class="baner-col-opt" data-col="#E8933A" onclick="admBanerColor(this)" style="background:#E8933A;"></div>
+          </div>
+
+          <hr class="adm-hr"/>
+          <div id="baner-preview" style="border-radius:10px;padding:0.75rem 1rem;text-align:center;font-size:0.92rem;font-weight:700;color:#fff;background:#7A1C1C;margin-top:0.5rem;">
+            <span id="baner-preview-text">Podgląd banera pojawi się tutaj</span>
+          </div>
+        </div>
+
+      </div><!-- /content area -->
+    </div><!-- /body -->
+  </div><!-- /panel -->
 
   <style>
-    .adm-tab{background:none;border:none;padding:0.65rem 0.8rem;font-size:0.8rem;font-weight:700;color:#888;cursor:pointer;font-family:'Lato',sans-serif;white-space:nowrap;border-bottom:3px solid transparent;transition:all 0.2s;}
-    .adm-tab:hover{color:#7A1C1C;}
-    .adm-tab.actv{color:#7A1C1C;border-bottom-color:#7A1C1C;}
-    .adm-lbl{display:block;font-size:0.76rem;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:0.06em;margin:0.85rem 0 0.3rem;}
-    .adm-lbl:first-of-type{margin-top:0;}
-    .adm-in{width:100%;padding:0.6rem 0.75rem;border:2px solid #E0D8D8;border-radius:8px;font-size:0.92rem;font-family:'Lato',sans-serif;color:#1A1A1A;background:#fff;box-sizing:border-box;transition:border-color 0.2s;resize:vertical;}
+    .adm-nav-group{padding:0.5rem 1rem 0.3rem;font-size:0.68rem;font-weight:900;color:#aaa;text-transform:uppercase;letter-spacing:0.1em;}
+    .adm-nav-btn{display:flex;align-items:center;gap:0.5rem;width:100%;padding:0.6rem 1rem;background:none;border:none;cursor:pointer;font-size:0.82rem;font-weight:600;color:#555;font-family:'Lato',sans-serif;text-align:left;border-left:3px solid transparent;transition:all 0.15s;}
+    .adm-nav-btn span{font-size:0.95rem;}
+    .adm-nav-btn:hover{background:#F5E8E8;color:#7A1C1C;}
+    .adm-nav-btn.active{background:#FDF0F0;color:#7A1C1C;border-left-color:#7A1C1C;font-weight:700;}
+    .adm-lbl{display:block;font-size:0.73rem;font-weight:700;color:#666;text-transform:uppercase;letter-spacing:0.07em;margin:0.8rem 0 0.3rem;}
+    .adm-in{width:100%;padding:0.6rem 0.75rem;border:2px solid #E0D8D8;border-radius:8px;font-size:0.9rem;font-family:'Lato',sans-serif;color:#1A1A1A;background:#fff;box-sizing:border-box;resize:vertical;transition:border-color 0.2s,box-shadow 0.2s;}
     .adm-in:focus{outline:none;border-color:#7A1C1C;box-shadow:0 0 0 3px #F5E8E8;}
-    .adm-hr{border:none;border-top:1px solid #E0D8D8;margin:1.25rem 0;}
-    .adm-sh{font-family:'Merriweather',serif;color:#7A1C1C;margin-bottom:1.25rem;font-size:1rem;font-weight:700;}
+    .adm-hr{border:none;border-top:1px solid #E8E4E4;margin:1rem 0;}
+    .adm-sh{font-family:'Merriweather',serif;font-size:0.98rem;font-weight:700;color:#1A1A1A;margin-bottom:1rem;padding-bottom:0.6rem;border-bottom:2px solid #E0D8D8;}
+    .adm-hint{font-size:0.8rem;color:#888;margin:0 0 0.85rem;line-height:1.5;}
+    .baner-col-opt{height:32px;border-radius:8px;cursor:pointer;border:3px solid transparent;transition:all 0.2s;}
+    .baner-col-opt.active{border-color:#1A1A1A;transform:scale(1.08);}
   </style>
 
   <script>
-    const _PASS='KrzysztofProt', _REPO='louiscmd/opieka-i-troska';
-    let _unlocked=false, _shiftOn=false;
+    const _PW='KrzysztofProt';
+    let _ok=false,_sh=false,_banerCol='#7A1C1C';
 
+    // Shortcut Shift+A
     document.addEventListener('keydown',e=>{
-      if(e.key==='Shift') _shiftOn=true;
-      if(_shiftOn&&e.key==='A'){e.preventDefault();_openLogin();}
+      if(e.key==='Shift')_sh=true;
+      if(_sh&&e.key==='A'){e.preventDefault();_openLogin();}
     });
-    document.addEventListener('keyup',e=>{if(e.key==='Shift')_shiftOn=false;});
+    document.addEventListener('keyup',e=>{if(e.key==='Shift')_sh=false;});
 
     function _openLogin(){
-      if(_unlocked){_showPanel();return;}
-      document.getElementById('admin-overlay').style.display='block';
-      document.getElementById('admin-login').style.display='block';
-      document.getElementById('admin-pw').value='';
-      document.getElementById('admin-pw-err').style.display='none';
-      setTimeout(()=>document.getElementById('admin-pw').focus(),50);
+      if(_ok){_openPanel();return;}
+      document.getElementById('adm-overlay').style.display='block';
+      document.getElementById('adm-login').style.display='block';
+      document.getElementById('adm-pw').value='';
+      document.getElementById('adm-pw-err').style.display='none';
+      setTimeout(()=>document.getElementById('adm-pw').focus(),60);
     }
-    document.getElementById('admin-pw').addEventListener('keydown',e=>{if(e.key==='Enter')adminSubmit();});
-    function adminSubmit(){
-      if(document.getElementById('admin-pw').value===_PASS){
-        _unlocked=true;
-        document.getElementById('admin-login').style.display='none';
-        document.getElementById('admin-overlay').style.display='none';
-        _loadSaved();_populateFromPage();_showPanel();
-      } else {
-        document.getElementById('admin-pw-err').style.display='block';
-        document.getElementById('admin-pw').select();
+    document.getElementById('adm-pw').addEventListener('keydown',e=>{if(e.key==='Enter')admSubmit();});
+    function admSubmit(){
+      if(document.getElementById('adm-pw').value===_PW){
+        _ok=true;
+        document.getElementById('adm-login').style.display='none';
+        document.getElementById('adm-overlay').style.display='none';
+        _populateFromPage();
+        _loadSaved();
+        _openPanel();
+      }else{
+        document.getElementById('adm-pw-err').style.display='block';
+        document.getElementById('adm-pw').select();
       }
     }
-    function adminCloseLogin(){
-      document.getElementById('admin-login').style.display='none';
-      document.getElementById('admin-overlay').style.display='none';
+    function admCloseLogin(){
+      document.getElementById('adm-login').style.display='none';
+      document.getElementById('adm-overlay').style.display='none';
     }
-    function _showPanel(){
-      document.getElementById('adm').style.display='flex';
-    }
-    function admTab(n){
-      ['hero','onas','uslugi','proj','zaloz','kontakt'].forEach(x=>{
-        document.getElementById('adm-'+x).style.display=x===n?'block':'none';
+    function _openPanel(){document.getElementById('adm-panel').style.display='flex';}
+    function admClose(){document.getElementById('adm-panel').style.display='none';}
+
+    function admSection(n){
+      ['hero','onas','uslugi','projekty','zaloz','kontakt','formularz','kolory','baner'].forEach(x=>{
+        document.getElementById('s-'+x).style.display=x===n?'block':'none';
       });
-      document.querySelectorAll('.adm-tab').forEach(b=>{
-        b.classList.toggle('actv',b.dataset.t===n);
-      });
+      document.querySelectorAll('.adm-nav-btn').forEach(b=>b.classList.toggle('active',b.dataset.s===n));
     }
-    function _g(id){return(document.getElementById(id)||{}).value||'';}
-    function _s(id,v){const el=document.getElementById(id);if(el)el.value=v;}
+
+    const _g=id=>(document.getElementById(id)||{}).value||'';
+    const _sv=(id,v)=>{const el=document.getElementById(id);if(el)el.value=v;};
 
     function _populateFromPage(){
       // Hero
       const ht=document.querySelector('.hero-title');
-      if(ht){const ln=ht.innerText.split('\n');_s('f-h1',ln[0]||'');_s('f-h2',ln[1]||'');}
+      if(ht){const ln=ht.innerText.split('\n');_sv('f-h1',ln[0]||'');_sv('f-h2',ln[1]||'');}
       const hd=document.querySelector('.hero-desc');
-      if(hd){const ln=hd.innerText.split('\n');_s('f-d1',ln[0]||'');_s('f-d2',ln.slice(1).join(' ').trim());}
-      const sns=document.querySelectorAll('.hero-stat-number');
-      const sls=document.querySelectorAll('.hero-stat-label');
-      if(sns[0])_s('f-s1n',sns[0].textContent);if(sls[0])_s('f-s1l',sls[0].textContent);
-      if(sns[1])_s('f-s2n',sns[1].textContent);if(sls[1])_s('f-s2l',sls[1].textContent);
+      if(hd){const ln=hd.innerText.split('\n');_sv('f-d1',ln[0]||'');_sv('f-d2',ln.slice(1).join(' ').trim());}
+      const sns=document.querySelectorAll('.hero-stat-number'),sls=document.querySelectorAll('.hero-stat-label');
+      if(sns[0])_sv('f-s1n',sns[0].textContent);if(sls[0])_sv('f-s1l',sls[0].textContent);
+      if(sns[1])_sv('f-s2n',sns[1].textContent);if(sls[1])_sv('f-s2l',sls[1].textContent);
       // O nas
-      const oh=document.getElementById('onas-heading');if(oh)_s('f-on-title',oh.textContent);
-      const od=document.querySelector('#o-nas .section-subtitle');if(od)_s('f-on-desc',od.textContent.trim());
-      const vt=document.querySelectorAll('.about-value-text h4');
-      const vd=document.querySelectorAll('.about-value-text p');
-      if(vt[0])_s('f-v1t',vt[0].textContent);if(vd[0])_s('f-v1d',vd[0].textContent);
-      if(vt[1])_s('f-v2t',vt[1].textContent);if(vd[1])_s('f-v2d',vd[1].textContent);
-      if(vt[2])_s('f-v3t',vt[2].textContent);if(vd[2])_s('f-v3d',vd[2].textContent);
+      const oh=document.getElementById('onas-heading');if(oh)_sv('f-on-title',oh.textContent);
+      const od=document.querySelector('#o-nas .section-subtitle');if(od)_sv('f-on-desc',od.textContent.trim());
+      const vt=document.querySelectorAll('.about-value-text h4'),vd=document.querySelectorAll('.about-value-text p');
+      [[0,'f-v1t','f-v1d'],[1,'f-v2t','f-v2d'],[2,'f-v3t','f-v3d']].forEach(([i,t,d])=>{
+        if(vt[i])_sv(t,vt[i].textContent);if(vd[i])_sv(d,vd[i].textContent);
+      });
       // Usługi
       const sc=document.querySelectorAll('.service-card > p');
-      if(sc[0])_s('f-u1d',sc[0].textContent.trim());
-      if(sc[1])_s('f-u2d',sc[1].textContent.trim());
+      if(sc[0])_sv('f-u1d',sc[0].textContent.trim());if(sc[1])_sv('f-u2d',sc[1].textContent.trim());
       const sl=document.querySelectorAll('.service-items');
-      if(sl[0])_s('f-u1i',[...sl[0].querySelectorAll('li')].map(l=>l.textContent.trim()).join('\n'));
-      if(sl[1])_s('f-u2i',[...sl[1].querySelectorAll('li')].map(l=>l.textContent.trim()).join('\n'));
-      // Projekt
-      const pt=document.querySelector('.project-title');if(pt)_s('f-pt',pt.textContent.trim());
-      const pd=document.querySelector('.project-dates');if(pd)_s('f-pd',pd.textContent.trim());
-      const pp=document.querySelector('.project-preview-card p');if(pp)_s('f-pp',pp.textContent.trim());
+      if(sl[0])_sv('f-u1i',[...sl[0].querySelectorAll('li')].map(l=>l.textContent.trim()).join('\n'));
+      if(sl[1])_sv('f-u2i',[...sl[1].querySelectorAll('li')].map(l=>l.textContent.trim()).join('\n'));
+      // Projekty
+      const pt=document.querySelector('.project-title');if(pt)_sv('f-pt',pt.textContent.trim());
+      const pd=document.querySelector('.project-dates');if(pd)_sv('f-pd',pd.textContent.trim());
+      const pp=document.querySelector('.project-preview-card p');if(pp)_sv('f-pp',pp.textContent.trim());
       // Założyciel
-      const fn=document.querySelector('.avatar-name');if(fn)_s('f-fn',fn.textContent);
-      const fr=document.querySelector('.avatar-title');if(fr)_s('f-fr',fr.textContent);
-      const fi=document.querySelector('.founder-content .section-subtitle');if(fi)_s('f-fi',fi.textContent.trim());
-      const fp=document.querySelectorAll('.founder-content > p');
-      if(fp[0])_s('f-fp1',fp[0].textContent.trim());if(fp[1])_s('f-fp2',fp[1].textContent.trim());
-      const ht2=document.querySelectorAll('.founder-highlight-text h4');
-      const hd2=document.querySelectorAll('.founder-highlight-text p');
-      if(ht2[0])_s('f-h1t',ht2[0].textContent);if(hd2[0])_s('f-h1d',hd2[0].textContent);
-      if(ht2[1])_s('f-h2t',ht2[1].textContent);if(hd2[1])_s('f-h2d',hd2[1].textContent);
-      if(ht2[2])_s('f-h3t',ht2[2].textContent);if(hd2[2])_s('f-h3d',hd2[2].textContent);
-      // Kontakt
-      const ci=document.querySelectorAll('.contact-item');
-      ci.forEach(item=>{
-        const v=item.querySelector('.value');if(!v)return;
-        const svg=item.querySelector('svg');if(!svg)return;
-        const p=svg.querySelector('path');if(!p)return;
-        const d=p.getAttribute('d')||'';
-        if(d.includes('20 21'))_s('f-phone',v.textContent);
-        else if(d.includes('18 2h'))_s('f-fb',v.href||v.textContent);
-        else if(d.includes('10'))_s('f-area',v.textContent);
+      const fn=document.querySelector('.avatar-name');if(fn)_sv('f-fn',fn.textContent);
+      const fr=document.querySelector('.avatar-title');if(fr)_sv('f-fr',fr.textContent);
+      const fi=document.querySelector('.founder-content .section-subtitle');if(fi)_sv('f-fi',fi.textContent.trim());
+      const fps=document.querySelectorAll('.founder-content > p');
+      if(fps[0])_sv('f-fp1',fps[0].textContent.trim());if(fps[1])_sv('f-fp2',fps[1].textContent.trim());
+      const ht2=document.querySelectorAll('.founder-highlight-text h4'),hd2=document.querySelectorAll('.founder-highlight-text p');
+      [[0,'f-h1t','f-h1d'],[1,'f-h2t','f-h2d'],[2,'f-h3t','f-h3d']].forEach(([i,t,d])=>{
+        if(ht2[i])_sv(t,ht2[i].textContent);if(hd2[i])_sv(d,hd2[i].textContent);
       });
-      _s('f-email','prototypek@gmail.com');
-      const fb=document.querySelector('.footer-brand > p');if(fb)_s('f-foot',fb.textContent.trim());
+      // Kontakt
+      document.querySelectorAll('.contact-item').forEach(item=>{
+        const v=item.querySelector('.value');if(!v)return;
+        const p=item.querySelector('svg path');if(!p)return;
+        const d=p.getAttribute('d')||'';
+        if(d.includes('20 21'))_sv('f-phone',v.textContent);
+        else if(d.includes('18 2h')){_sv('f-fb',v.href||v.textContent);}
+        else if(d.includes('circle cx'))_sv('f-area',v.textContent);
+      });
+      const fb=document.querySelector('.footer-brand > p');if(fb)_sv('f-foot',fb.textContent.trim());
+      // Form email
+      _sv('f-form-email',localStorage.getItem('adm_form_email')||'prototypek@gmail.com');
+      _sv('f-form-btn','Wyślij wiadomość');
     }
 
     function _applyToPage(){
@@ -2610,18 +2821,16 @@
       if(ht)ht.innerHTML=_g('f-h1')+'<br /><span>'+_g('f-h2')+'</span>';
       const hd=document.querySelector('.hero-desc');
       if(hd)hd.innerHTML=_g('f-d1')+'<br />'+_g('f-d2');
-      const sns=document.querySelectorAll('.hero-stat-number');
-      const sls=document.querySelectorAll('.hero-stat-label');
+      const sns=document.querySelectorAll('.hero-stat-number'),sls=document.querySelectorAll('.hero-stat-label');
       if(sns[0])sns[0].textContent=_g('f-s1n');if(sls[0])sls[0].textContent=_g('f-s1l');
       if(sns[1])sns[1].textContent=_g('f-s2n');if(sls[1])sls[1].textContent=_g('f-s2l');
       // O nas
       const oh=document.getElementById('onas-heading');if(oh)oh.textContent=_g('f-on-title');
       const od=document.querySelector('#o-nas .section-subtitle');if(od)od.textContent=_g('f-on-desc');
-      const vt=document.querySelectorAll('.about-value-text h4');
-      const vd=document.querySelectorAll('.about-value-text p');
-      if(vt[0])vt[0].textContent=_g('f-v1t');if(vd[0])vd[0].textContent=_g('f-v1d');
-      if(vt[1])vt[1].textContent=_g('f-v2t');if(vd[1])vd[1].textContent=_g('f-v2d');
-      if(vt[2])vt[2].textContent=_g('f-v3t');if(vd[2])vd[2].textContent=_g('f-v3d');
+      const vt=document.querySelectorAll('.about-value-text h4'),vd=document.querySelectorAll('.about-value-text p');
+      [[0,'f-v1t','f-v1d'],[1,'f-v2t','f-v2d'],[2,'f-v3t','f-v3d']].forEach(([i,t,d])=>{
+        if(vt[i])vt[i].textContent=_g(t);if(vd[i])vd[i].textContent=_g(d);
+      });
       // Usługi
       const sc=document.querySelectorAll('.service-card > p');
       if(sc[0])sc[0].textContent=_g('f-u1d');if(sc[1])sc[1].textContent=_g('f-u2d');
@@ -2629,70 +2838,214 @@
       [['f-u1i',sl[0]],['f-u2i',sl[1]]].forEach(([fid,list])=>{
         if(!list)return;
         const items=_g(fid).split('\n').filter(x=>x.trim());
-        list.innerHTML=items.map(item=>`<li class="service-item"><span class="service-item-dot" aria-hidden="true"></span>${item.trim()}</li>`).join('');
+        list.innerHTML=items.map(it=>`<li class="service-item"><span class="service-item-dot" aria-hidden="true"></span>${it.trim()}</li>`).join('');
       });
-      // Projekt
+      // Projekty
       const pt=document.querySelector('.project-title');if(pt)pt.textContent=_g('f-pt');
-      const pd2=document.querySelector('.project-dates');if(pd2)pd2.textContent=_g('f-pd');
+      const pd=document.querySelector('.project-dates');if(pd)pd.textContent=_g('f-pd');
       const pp=document.querySelector('.project-preview-card p');if(pp)pp.textContent=_g('f-pp');
       // Założyciel
       document.querySelectorAll('.avatar-name').forEach(e=>e.textContent=_g('f-fn'));
-      const fr=document.querySelector('.avatar-title');if(fr)fr.textContent=_g('f-fr');
+      const frt=document.querySelector('.avatar-title');if(frt)frt.textContent=_g('f-fr');
       const fnh2=document.getElementById('prot-heading');if(fnh2)fnh2.textContent=_g('f-fn');
       const fi=document.querySelector('.founder-content .section-subtitle');if(fi)fi.textContent=_g('f-fi');
       const fps=document.querySelectorAll('.founder-content > p');
       if(fps[0])fps[0].textContent=_g('f-fp1');if(fps[1])fps[1].textContent=_g('f-fp2');
-      const ht2=document.querySelectorAll('.founder-highlight-text h4');
-      const hd2=document.querySelectorAll('.founder-highlight-text p');
-      if(ht2[0])ht2[0].textContent=_g('f-h1t');if(hd2[0])hd2[0].textContent=_g('f-h1d');
-      if(ht2[1])ht2[1].textContent=_g('f-h2t');if(hd2[1])hd2[1].textContent=_g('f-h2d');
-      if(ht2[2])ht2[2].textContent=_g('f-h3t');if(hd2[2])hd2[2].textContent=_g('f-h3d');
+      const ht2=document.querySelectorAll('.founder-highlight-text h4'),hd2=document.querySelectorAll('.founder-highlight-text p');
+      [[0,'f-h1t','f-h1d'],[1,'f-h2t','f-h2d'],[2,'f-h3t','f-h3d']].forEach(([i,t,d])=>{
+        if(ht2[i])ht2[i].textContent=_g(t);if(hd2[i])hd2[i].textContent=_g(d);
+      });
       // Kontakt
-      const ci=document.querySelectorAll('.contact-item');
-      ci.forEach(item=>{
+      document.querySelectorAll('.contact-item').forEach(item=>{
         const v=item.querySelector('.value');if(!v)return;
-        const svg=item.querySelector('svg');if(!svg)return;
-        const p=svg.querySelector('path');if(!p)return;
+        const p=item.querySelector('svg path');if(!p)return;
         const d=p.getAttribute('d')||'';
         if(d.includes('20 21'))v.textContent=_g('f-phone');
-        else if(d.includes('18 2h')){v.textContent='Opieka i Troska – Krzysztof Prot';v.href=_g('f-fb');}
-        else if(d.includes('10'))v.textContent=_g('f-area');
+        else if(d.includes('18 2h')){v.href=_g('f-fb');}
+        else if(d.includes('circle cx'))v.textContent=_g('f-area');
       });
       const fb=document.querySelector('.footer-brand > p');if(fb)fb.textContent=_g('f-foot');
-      // Save
+      // Form email → localStorage
+      if(_g('f-form-email'))localStorage.setItem('adm_form_email',_g('f-form-email'));
+      // Submit button text
+      const sub=document.querySelector('.form-submit');
+      if(sub&&_g('f-form-btn'))sub.textContent=_g('f-form-btn');
+    }
+
+    // Colors
+    function _applyColor(type,hex){
+      const root=document.documentElement;
+      if(type==='primary'){
+        root.style.setProperty('--primary',hex);
+        root.style.setProperty('--primary-dark',_darken(hex,0.15));
+        root.style.setProperty('--primary-light',_lighten(hex,0.88));
+      } else {
+        root.style.setProperty('--accent',hex);
+        root.style.setProperty('--accent-dark',_darken(hex,0.15));
+        root.style.setProperty('--accent-light',_lighten(hex,0.88));
+      }
+      document.getElementById('prev-'+type).style.background=hex;
+      document.getElementById('prev-btn-'+type).style.background=hex;
+    }
+    function _darken(hex,amt){
+      let r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);
+      r=Math.max(0,Math.round(r*(1-amt)));g=Math.max(0,Math.round(g*(1-amt)));b=Math.max(0,Math.round(b*(1-amt)));
+      return '#'+[r,g,b].map(x=>x.toString(16).padStart(2,'0')).join('');
+    }
+    function _lighten(hex,amt){
+      let r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);
+      r=Math.min(255,Math.round(r+(255-r)*amt));g=Math.min(255,Math.round(g+(255-g)*amt));b=Math.min(255,Math.round(b+(255-b)*amt));
+      return '#'+[r,g,b].map(x=>x.toString(16).padStart(2,'0')).join('');
+    }
+    function admResetColor(type){
+      const def=type==='primary'?'#7A1C1C':'#3CAA3C';
+      document.getElementById('f-col-'+type).value=def;
+      document.getElementById('f-col-'+type+'-hex').value=def;
+      _applyColor(type,def);
+    }
+    // Sync color picker ↔ hex input
+    document.getElementById('f-col-primary').addEventListener('input',e=>{
+      document.getElementById('f-col-primary-hex').value=e.target.value;
+      _applyColor('primary',e.target.value);
+    });
+    document.getElementById('f-col-primary-hex').addEventListener('input',e=>{
+      const v=e.target.value;
+      if(/^#[0-9A-Fa-f]{6}$/.test(v)){document.getElementById('f-col-primary').value=v;_applyColor('primary',v);}
+    });
+    document.getElementById('f-col-accent').addEventListener('input',e=>{
+      document.getElementById('f-col-accent-hex').value=e.target.value;
+      _applyColor('accent',e.target.value);
+    });
+    document.getElementById('f-col-accent-hex').addEventListener('input',e=>{
+      const v=e.target.value;
+      if(/^#[0-9A-Fa-f]{6}$/.test(v)){document.getElementById('f-col-accent').value=v;_applyColor('accent',v);}
+    });
+    // Init color previews
+    _applyColor('primary','#7A1C1C');
+    _applyColor('accent','#3CAA3C');
+    document.getElementById('f-col-primary-hex').value='#7A1C1C';
+    document.getElementById('f-col-accent-hex').value='#3CAA3C';
+
+    // Banner
+    function admToggleBaner(){
+      const cb=document.getElementById('f-baner-on');
+      cb.checked=!cb.checked;
+      const on=cb.checked;
+      document.getElementById('baner-track').style.background=on?'#3CAA3C':'#E0D8D8';
+      document.getElementById('baner-thumb').style.transform=on?'translateX(20px)':'translateX(0)';
+      document.getElementById('baner-status-lbl').textContent=on?'Włączony':'Wyłączony';
+      document.getElementById('baner-status-lbl').style.color=on?'#2D852D':'#888';
+      const bar=document.getElementById('ann-bar');
+      if(bar){bar.style.display=on?'flex':'none';}
+    }
+    document.getElementById('f-baner-text').addEventListener('input',e=>{
+      document.getElementById('baner-preview-text').textContent=e.target.value||'Podgląd banera';
+      const bt=document.getElementById('ann-text');if(bt)bt.textContent=e.target.value;
+    });
+    function admBanerColor(el){
+      document.querySelectorAll('.baner-col-opt').forEach(x=>x.classList.remove('active'));
+      el.classList.add('active');
+      _banerCol=el.dataset.col;
+      document.getElementById('baner-preview').style.background=_banerCol;
+      const bar=document.getElementById('ann-bar');if(bar)bar.style.background=_banerCol;
+    }
+
+    // SAVE
+    function admSave(){
+      _applyToPage();
+      // Colors
+      const pc=_g('f-col-primary-hex')||'#7A1C1C';
+      const ac=_g('f-col-accent-hex')||'#3CAA3C';
+      _applyColor('primary',pc);_applyColor('accent',ac);
+      // Banner
+      const banerOn=document.getElementById('f-baner-on').checked;
+      const banerText=_g('f-baner-text');
+      const bar=document.getElementById('ann-bar');
+      if(bar){
+        bar.style.display=banerOn?'flex':'none';
+        bar.style.background=_banerCol;
+        const bt=document.getElementById('ann-text');if(bt)bt.textContent=banerText;
+      }
+      // Save everything to localStorage
       const data={};
       document.querySelectorAll('[id^="f-"]').forEach(el=>data[el.id]=el.value);
+      data['adm_baner_on']=banerOn;
+      data['adm_baner_col']=_banerCol;
+      data['adm_col_primary']=pc;
+      data['adm_col_accent']=ac;
       localStorage.setItem('adm_data',JSON.stringify(data));
-      // Show save confirmation
-      const st=document.getElementById('adm-pub-st');
-      if(st){st.textContent='✓ Zapisano';setTimeout(()=>st.textContent='',2500);}
+      localStorage.setItem('adm_form_email',_g('f-form-email'));
+      // Show confirmation
+      const msg=document.getElementById('adm-save-msg');
+      msg.style.opacity='1';
+      setTimeout(()=>msg.style.opacity='0',2200);
     }
 
     function _loadSaved(){
       try{
         const d=JSON.parse(localStorage.getItem('adm_data')||'{}');
-        Object.keys(d).forEach(id=>{const el=document.getElementById(id);if(el)el.value=d[id];});
+        Object.keys(d).forEach(id=>{
+          if(id.startsWith('adm_'))return;
+          const el=document.getElementById(id);if(el)el.value=d[id];
+        });
+        // Colors
+        if(d.adm_col_primary){
+          document.getElementById('f-col-primary').value=d.adm_col_primary;
+          document.getElementById('f-col-primary-hex').value=d.adm_col_primary;
+          _applyColor('primary',d.adm_col_primary);
+        }
+        if(d.adm_col_accent){
+          document.getElementById('f-col-accent').value=d.adm_col_accent;
+          document.getElementById('f-col-accent-hex').value=d.adm_col_accent;
+          _applyColor('accent',d.adm_col_accent);
+        }
+        // Banner
+        if(d.adm_baner_col){
+          _banerCol=d.adm_baner_col;
+          document.querySelectorAll('.baner-col-opt').forEach(x=>{
+            x.classList.toggle('active',x.dataset.col===_banerCol);
+          });
+          document.getElementById('baner-preview').style.background=_banerCol;
+        }
+        if(d.adm_baner_on){
+          document.getElementById('f-baner-on').checked=true;
+          document.getElementById('baner-track').style.background='#3CAA3C';
+          document.getElementById('baner-thumb').style.transform='translateX(20px)';
+          document.getElementById('baner-status-lbl').textContent='Włączony';
+          document.getElementById('baner-status-lbl').style.color='#2D852D';
+          const bar=document.getElementById('ann-bar');
+          if(bar){bar.style.display='flex';bar.style.background=_banerCol;}
+          const bt=document.getElementById('ann-text');
+          if(bt)bt.textContent=d['f-baner-text']||'';
+        }
       }catch(e){}
     }
 
-    // Live preview on input
-    document.querySelectorAll('[id^="f-"]').forEach(el=>{
-      el.addEventListener('input',_applyToPage);
-    });
-
-    // No-op: publish is now handled by _applyToPage + localStorage
-
-    // On page load apply saved content
+    // On page load – apply saved content silently
     (function(){
       try{
         const d=JSON.parse(localStorage.getItem('adm_data')||'{}');
-        if(Object.keys(d).length){
-          Object.keys(d).forEach(id=>{const el=document.getElementById(id);if(el)el.value=d[id];});
-          _applyToPage();
+        if(!Object.keys(d).length)return;
+        Object.keys(d).forEach(id=>{
+          if(id.startsWith('adm_'))return;
+          const el=document.getElementById(id);if(el)el.value=d[id];
+        });
+        if(d.adm_col_primary)_applyColor('primary',d.adm_col_primary);
+        if(d.adm_col_accent)_applyColor('accent',d.adm_col_accent);
+        if(d.adm_baner_on&&d['f-baner-text']){
+          const bar=document.getElementById('ann-bar');
+          if(bar){bar.style.display='flex';bar.style.background=d.adm_baner_col||'#7A1C1C';bar.style.alignItems='center';bar.style.justifyContent='center';}
+          const bt=document.getElementById('ann-text');if(bt)bt.textContent=d['f-baner-text'];
+          _banerCol=d.adm_baner_col||'#7A1C1C';
         }
+        // Apply text content
+        const _g2=id=>(document.getElementById(id)||{}).value||'';
+        const ht=document.querySelector('.hero-title');
+        if(ht&&_g2('f-h1'))ht.innerHTML=_g2('f-h1')+'<br /><span>'+_g2('f-h2')+'</span>';
+        const hd=document.querySelector('.hero-desc');
+        if(hd&&_g2('f-d1'))hd.innerHTML=_g2('f-d1')+'<br />'+_g2('f-d2');
       }catch(e){}
     })();
   </script>
-
 </body>
 </html>
