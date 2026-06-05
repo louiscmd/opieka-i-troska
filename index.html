@@ -2404,21 +2404,10 @@
       <button onclick="document.getElementById('adm').style.display='none'" style="background:rgba(255,255,255,0.15);border:none;color:#fff;border-radius:8px;padding:0.4rem 0.75rem;cursor:pointer;font-size:0.85rem;font-family:'Lato',sans-serif;">✕ Zamknij</button>
     </div>
     <div style="background:#fff;border-bottom:1px solid #E0D8D8;padding:0.9rem 1.5rem;display:flex;align-items:center;gap:0.75rem;position:sticky;top:64px;z-index:9;">
-      <button onclick="adminPublish()" id="adm-pub-btn" style="flex:1;background:#3CAA3C;color:#fff;border:none;border-radius:8px;padding:0.65rem 1rem;font-size:0.95rem;font-weight:700;cursor:pointer;font-family:'Lato',sans-serif;">🚀 Opublikuj zmiany na stronie</button>
-      <div id="adm-pub-st" style="font-size:0.82rem;color:#888;min-width:100px;text-align:right;"></div>
+      <button onclick="_applyToPage()" id="adm-pub-btn" style="flex:1;background:#3CAA3C;color:#fff;border:none;border-radius:8px;padding:0.65rem 1rem;font-size:0.95rem;font-weight:700;cursor:pointer;font-family:'Lato',sans-serif;">💾 Zapisz zmiany</button>
+      <div id="adm-pub-st" style="font-size:0.82rem;color:#2D852D;"></div>
     </div>
-    <div style="background:#FFF8E1;border-bottom:1px solid #FFE082;padding:0.75rem 1.5rem;">
-      <div style="display:flex;justify-content:space-between;align-items:center;cursor:pointer;" onclick="var s=document.getElementById('adm-tok');s.style.display=s.style.display==='none'?'block':'none'">
-        <span style="font-size:0.85rem;font-weight:700;color:#795548;">⚙️ Token GitHub (wymagany do publikacji)</span>
-        <span style="color:#795548;font-size:0.75rem;">▼</span>
-      </div>
-      <div id="adm-tok" style="margin-top:0.75rem;display:none;">
-        <p style="font-size:0.78rem;color:#795548;margin-bottom:0.5rem;">Wpisz token GitHub z uprawnieniem <strong>contents:write</strong>. Zapisywany tylko w tej przeglądarce.</p>
-        <input type="password" id="adm-gh-tok" placeholder="ghp_..." style="width:100%;padding:0.6rem 0.75rem;border:1px solid #FFE082;border-radius:6px;font-size:0.85rem;font-family:'Lato',sans-serif;box-sizing:border-box;margin-bottom:0.5rem;" />
-        <button onclick="localStorage.setItem('adm_tok',document.getElementById('adm-gh-tok').value.trim());document.getElementById('adm-tok-ok').style.display='inline'" style="background:#795548;color:#fff;border:none;border-radius:6px;padding:0.45rem 1rem;font-size:0.82rem;font-weight:700;cursor:pointer;font-family:'Lato',sans-serif;">Zapisz</button>
-        <span id="adm-tok-ok" style="font-size:0.78rem;color:#2D852D;margin-left:0.5rem;display:none;">✓ Zapisano</span>
-      </div>
-    </div>
+
     <div style="display:flex;overflow-x:auto;background:#fff;border-bottom:2px solid #E0D8D8;padding:0 0.5rem;" id="adm-tabs">
       <button class="adm-tab actv" onclick="admTab('hero')"     data-t="hero">🏠 Hero</button>
       <button class="adm-tab"      onclick="admTab('onas')"     data-t="onas">ℹ️ O nas</button>
@@ -2548,8 +2537,6 @@
     }
     function _showPanel(){
       document.getElementById('adm').style.display='flex';
-      const t=localStorage.getItem('adm_tok')||'';
-      document.getElementById('adm-gh-tok').value=t;
     }
     function admTab(n){
       ['hero','onas','uslugi','proj','zaloz','kontakt'].forEach(x=>{
@@ -2676,6 +2663,9 @@
       const data={};
       document.querySelectorAll('[id^="f-"]').forEach(el=>data[el.id]=el.value);
       localStorage.setItem('adm_data',JSON.stringify(data));
+      // Show save confirmation
+      const st=document.getElementById('adm-pub-st');
+      if(st){st.textContent='✓ Zapisano';setTimeout(()=>st.textContent='',2500);}
     }
 
     function _loadSaved(){
@@ -2690,32 +2680,7 @@
       el.addEventListener('input',_applyToPage);
     });
 
-    async function adminPublish(){
-      const btn=document.getElementById('adm-pub-btn');
-      const st=document.getElementById('adm-pub-st');
-      const tok=localStorage.getItem('adm_tok')||document.getElementById('adm-gh-tok').value.trim();
-      if(!tok){st.style.color='#c0392b';st.textContent='⚠️ Dodaj token GitHub';return;}
-      btn.disabled=true;btn.textContent='⏳ Publikowanie...';
-      st.style.color='#888';st.textContent='Łączę z GitHub...';
-      try{
-        const fname='index.html';
-        const url=`https://api.github.com/repos/${_REPO}/contents/${fname}`;
-        const r=await fetch(url,{headers:{Authorization:`token ${tok}`,Accept:'application/vnd.github.v3+json'}});
-        if(!r.ok)throw new Error('Błąd pobierania: '+r.status);
-        const fd=await r.json();
-        const html=document.documentElement.outerHTML;
-        const enc=btoa(unescape(encodeURIComponent(html)));
-        const wr=await fetch(url,{method:'PUT',headers:{Authorization:`token ${tok}`,Accept:'application/vnd.github.v3+json','Content-Type':'application/json'},
-          body:JSON.stringify({message:'Admin update via website',content:enc,sha:fd.sha})});
-        if(!wr.ok){const e=await wr.json();throw new Error(e.message||'Błąd zapisu');}
-        btn.textContent='✅ Opublikowano!';btn.style.background='#2D852D';
-        st.style.color='#2D852D';st.textContent='Strona aktualizuje się (~30s)';
-        setTimeout(()=>{btn.disabled=false;btn.textContent='🚀 Opublikuj zmiany na stronie';btn.style.background='#3CAA3C';st.textContent='';},7000);
-      }catch(err){
-        btn.disabled=false;btn.textContent='🚀 Opublikuj zmiany na stronie';
-        st.style.color='#c0392b';st.textContent='❌ '+err.message;
-      }
-    }
+    // No-op: publish is now handled by _applyToPage + localStorage
 
     // On page load apply saved content
     (function(){
