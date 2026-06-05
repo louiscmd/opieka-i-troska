@@ -864,6 +864,7 @@
     .partner-card:hover {
       box-shadow: 0 6px 24px rgba(0,0,0,0.12);
       transform: translateY(-3px);
+      cursor: pointer;
     }
     .partner-card img {
       width: 100%;
@@ -2077,18 +2078,36 @@
         <p class="section-subtitle">Działamy ramię w ramię z organizacjami, którym bliskie są te same wartości.</p>
 
         <div class="partners-grid">
-          <div class="partner-card">
+          <div class="partner-card" role="button" tabindex="0" aria-label="Powiększ logo Dom z Sercem"
+               onclick="openPartnerLightbox('images/dom-z-sercem.png','Dom z Sercem')"
+               onkeydown="if(event.key==='Enter')openPartnerLightbox('images/dom-z-sercem.png','Dom z Sercem')">
             <img src="images/dom-z-sercem.png" alt="Dom z Sercem" />
           </div>
-          <div class="partner-card">
+          <div class="partner-card" role="button" tabindex="0" aria-label="Powiększ logo Nic Dwa Razy"
+               onclick="openPartnerLightbox('images/nic-dwa-razy.png','Nic Dwa Razy')"
+               onkeydown="if(event.key==='Enter')openPartnerLightbox('images/nic-dwa-razy.png','Nic Dwa Razy')">
             <img src="images/nic-dwa-razy.png" alt="Nic Dwa Razy" />
           </div>
-          <div class="partner-card">
+          <div class="partner-card" role="button" tabindex="0" aria-label="Powiększ logo Dom Med"
+               onclick="openPartnerLightbox('images/logo-dom-med.png','Dom Med')"
+               onkeydown="if(event.key==='Enter')openPartnerLightbox('images/logo-dom-med.png','Dom Med')">
             <img src="images/logo-dom-med.png" alt="Dom Med" />
           </div>
-          <div class="partner-card">
+          <div class="partner-card" role="button" tabindex="0" aria-label="Powiększ logo Mazowsze"
+               onclick="openPartnerLightbox('images/mazowsze.png','Mazowsze')"
+               onkeydown="if(event.key==='Enter')openPartnerLightbox('images/mazowsze.png','Mazowsze')">
             <img src="images/mazowsze.png" alt="Mazowsze" />
           </div>
+        </div>
+
+        <!-- Partner Lightbox -->
+        <div id="partner-lightbox" role="dialog" aria-modal="true"
+             style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:9999;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:1.5rem;">
+          <button onclick="closePartnerLightbox()" aria-label="Zamknij podgląd"
+                  style="position:absolute;top:1.25rem;right:1.5rem;background:none;border:none;color:#fff;font-size:2.2rem;cursor:pointer;line-height:1;">✕</button>
+          <img id="partner-lightbox-img" src="" alt=""
+               style="max-width:80vw;max-height:75vh;border-radius:0.75rem;object-fit:contain;background:#fff;padding:2rem;box-shadow:0 8px 40px rgba(0,0,0,0.5);" />
+          <p id="partner-lightbox-name" style="color:#fff;font-size:1.1rem;font-weight:700;margin:0;"></p>
         </div>
       </div>
     </section>
@@ -2449,6 +2468,25 @@
         }
       });
     })();
+
+    function openPartnerLightbox(src, name) {
+      document.getElementById('partner-lightbox-img').src = src;
+      document.getElementById('partner-lightbox-img').alt = name;
+      document.getElementById('partner-lightbox-name').textContent = name;
+      const lb = document.getElementById('partner-lightbox');
+      lb.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+    function closePartnerLightbox() {
+      document.getElementById('partner-lightbox').style.display = 'none';
+      document.body.style.overflow = '';
+    }
+    document.getElementById('partner-lightbox').addEventListener('click', function(e) {
+      if (e.target === this) closePartnerLightbox();
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closePartnerLightbox();
+    });
   </script>
 
 
@@ -3044,6 +3082,7 @@
         if(hd&&_g2('f-d1'))hd.innerHTML=_g2('f-d1')+'<br />'+_g2('f-d2');
       }catch(e){}
     })();
+
   </script>
 </body>
 </html>

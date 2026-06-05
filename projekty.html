@@ -624,20 +624,34 @@
       <p class="proj-text fade-in">Kliknij ulotkę, aby zobaczyć ją w pełnym rozmiarze.</p>
 
       <div class="flyers-grid fade-in">
-        <a href="images/ulotka1.png" target="_blank" rel="noopener noreferrer"
-           class="flyer-wrap" aria-label="Otwórz ulotkę strona 1 (nowa karta)">
+        <div class="flyer-wrap" role="button" tabindex="0" aria-label="Powiększ ulotkę strona 1"
+             onclick="openLightbox('images/ulotka1.png')" onkeydown="if(event.key==='Enter')openLightbox('images/ulotka1.png')">
           <img src="images/ulotka1.png"
                alt="Ulotka projektu – strona 1: cel projektu, co oferujemy" loading="lazy" />
           <div class="flyer-caption">Strona 1</div>
-        </a>
-        <a href="images/ulotka2.png" target="_blank" rel="noopener noreferrer"
-           class="flyer-wrap" aria-label="Otwórz ulotkę strona 2 (nowa karta)">
+        </div>
+        <div class="flyer-wrap" role="button" tabindex="0" aria-label="Powiększ ulotkę strona 2"
+             onclick="openLightbox('images/ulotka2.png')" onkeydown="if(event.key==='Enter')openLightbox('images/ulotka2.png')">
           <img src="images/ulotka2.png"
                alt="Ulotka projektu – strona 2: bezpłatny udział, kontakt, logotypy EU" loading="lazy" />
           <div class="flyer-caption">Strona 2</div>
-        </a>
+        </div>
       </div>
       <p class="flyer-hint fade-in">Kliknij, aby powiększyć</p>
+
+      <!-- Lightbox -->
+      <div id="lightbox" role="dialog" aria-modal="true" aria-label="Podgląd ulotki"
+           style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:9999;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:1.5rem;">
+        <button onclick="closeLightbox()" aria-label="Zamknij podgląd"
+                style="position:absolute;top:1.25rem;right:1.5rem;background:none;border:none;color:#fff;font-size:2.2rem;cursor:pointer;line-height:1;">✕</button>
+        <img id="lightbox-img" src="" alt="Podgląd ulotki"
+             style="max-width:90vw;max-height:80vh;border-radius:0.75rem;object-fit:contain;box-shadow:0 8px 40px rgba(0,0,0,0.5);" />
+        <a href="index.html"
+           style="background:#7A1C1C;color:#fff;padding:0.75rem 2rem;border-radius:2rem;font-weight:700;text-decoration:none;font-size:1rem;transition:background 0.2s;"
+           onmouseover="this.style.background='#5C1414'" onmouseout="this.style.background='#7A1C1C'">
+          ← Wróć na stronę główną
+        </a>
+      </div>
 
       <hr class="divider" />
 
@@ -866,6 +880,23 @@
     document.querySelectorAll('.fade-in').forEach(el => io.observe(el));
 
     loadA11y();
+
+    function openLightbox(src) {
+      const lb = document.getElementById('lightbox');
+      document.getElementById('lightbox-img').src = src;
+      lb.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+      document.getElementById('lightbox').style.display = 'none';
+      document.body.style.overflow = '';
+    }
+    document.getElementById('lightbox').addEventListener('click', function(e) {
+      if (e.target === this) closeLightbox();
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeLightbox();
+    });
 
     /* Polish orphan prevention */
     (function() {
