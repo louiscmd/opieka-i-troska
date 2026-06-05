@@ -843,27 +843,26 @@
 
     /* PARTNERZY */
     .partners-grid {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      align-items: center;
-      gap: 2.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
       margin-top: 3rem;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
     }
     .partner-card {
       background: #fff;
       border: 1px solid var(--border);
       border-radius: 1rem;
-      padding: 1.5rem;
+      padding: 2rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 200px;
-      height: 120px;
+      height: 160px;
       overflow: hidden;
       box-shadow: 0 2px 12px rgba(0,0,0,0.06);
       transition: box-shadow 0.2s, transform 0.2s;
-      flex-shrink: 0;
     }
     .partner-card:hover {
       box-shadow: 0 6px 24px rgba(0,0,0,0.12);
@@ -2081,16 +2080,16 @@
         <p class="section-subtitle">Działamy ramię w ramię z organizacjami, którym bliskie są te same wartości.</p>
 
         <div class="partners-grid">
-          <div class="partner-card fade-up">
+          <div class="partner-card">
             <img src="images/dom-z-sercem.png" alt="Dom z Sercem" />
           </div>
-          <div class="partner-card fade-up">
+          <div class="partner-card">
             <img src="images/nic-dwa-razy.png" alt="Nic Dwa Razy" />
           </div>
-          <div class="partner-card fade-up">
+          <div class="partner-card">
             <img src="images/logo-dom-med.png" alt="Dom Med" />
           </div>
-          <div class="partner-card fade-up">
+          <div class="partner-card">
             <img src="images/mazowsze.png" alt="Mazowsze" />
           </div>
         </div>
