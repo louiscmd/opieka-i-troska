@@ -1942,7 +1942,7 @@
             <div class="founder-avatar">
               <div class="founder-avatar-initials">KP</div>
               <div class="avatar-name">Krzysztof Prot</div>
-              <div class="avatar-title">Założyciel fundacji</div>
+              <div class="avatar-title">Właściciel firmy</div>
               <div class="founder-badges" role="list">
                 <span class="founder-badge" role="listitem">Pedagog</span>
                 <span class="founder-badge" role="listitem">Krwiodawca</span>
@@ -1966,7 +1966,7 @@
               i bezwarunkowej gotowości do pomocy.
             </p>
             <p>
-              Powodowany tą samą empatią, założył Fundację „Opieka i Troska",
+              Powodowany tą samą empatią, założył firmę „Opieka i Troska",
               której misją jest zapewnienie godnej opieki osobom starszym
               i niepełnosprawnym. Wierzy, że każdy człowiek – niezależnie od wieku
               czy sprawności – zasługuje na szacunek i troskę.
@@ -2068,7 +2068,7 @@
                     target="_blank"
                     rel="noopener noreferrer"
                     class="value"
-                    aria-label="Odwiedź profil fundacji na Facebooku (otwiera się w nowej karcie)"
+                    aria-label="Odwiedź profil firmy na Facebooku (otwiera się w nowej karcie)"
                   >
                     Opieka i Troska – Krzysztof Prot
                   </a>
@@ -2383,5 +2383,351 @@
       });
     })();
   </script>
+
+  <!-- ADMIN PANEL -->
+  <div id="admin-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:9998;backdrop-filter:blur(3px);"></div>
+
+  <div id="admin-login" style="display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:9999;background:#fff;border-radius:16px;padding:2.5rem 2rem;width:340px;max-width:90vw;box-shadow:0 20px 60px rgba(0,0,0,0.25);font-family:'Lato',sans-serif;">
+    <h2 style="font-family:'Merriweather',serif;color:#7A1C1C;margin-bottom:0.25rem;font-size:1.3rem;">Panel administratora</h2>
+    <p style="color:#888;font-size:0.88rem;margin-bottom:1.5rem;">Wprowadź hasło, aby uzyskać dostęp.</p>
+    <input type="password" id="admin-pw" placeholder="Hasło" style="width:100%;padding:0.75rem 1rem;border:2px solid #E0D8D8;border-radius:8px;font-size:1rem;font-family:'Lato',sans-serif;margin-bottom:0.75rem;box-sizing:border-box;" />
+    <div id="admin-pw-err" style="color:#c0392b;font-size:0.85rem;margin-bottom:0.5rem;display:none;">Nieprawidłowe hasło.</div>
+    <div style="display:flex;gap:0.5rem;">
+      <button onclick="adminSubmit()" style="flex:1;background:#7A1C1C;color:#fff;border:none;border-radius:8px;padding:0.75rem;font-size:1rem;font-weight:700;cursor:pointer;font-family:'Lato',sans-serif;">Zaloguj</button>
+      <button onclick="adminCloseLogin()" style="background:#F5E8E8;color:#7A1C1C;border:none;border-radius:8px;padding:0.75rem 1rem;font-size:1rem;font-weight:700;cursor:pointer;font-family:'Lato',sans-serif;">Anuluj</button>
+    </div>
+  </div>
+
+  <div id="adm" style="display:none;position:fixed;top:0;right:0;bottom:0;z-index:9999;width:440px;max-width:100vw;background:#FAF9F7;box-shadow:-4px 0 40px rgba(0,0,0,0.2);font-family:'Lato',sans-serif;overflow-y:auto;flex-direction:column;">
+    <div style="background:#7A1C1C;padding:1.25rem 1.5rem;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:10;">
+      <div><div style="color:#fff;font-family:'Merriweather',serif;font-size:1.1rem;font-weight:700;">Panel administratora</div><div style="color:rgba(255,255,255,0.7);font-size:0.78rem;">Opieka i Troska – Krzysztof Prot</div></div>
+      <button onclick="document.getElementById('adm').style.display='none'" style="background:rgba(255,255,255,0.15);border:none;color:#fff;border-radius:8px;padding:0.4rem 0.75rem;cursor:pointer;font-size:0.85rem;font-family:'Lato',sans-serif;">✕ Zamknij</button>
+    </div>
+    <div style="background:#fff;border-bottom:1px solid #E0D8D8;padding:0.9rem 1.5rem;display:flex;align-items:center;gap:0.75rem;position:sticky;top:64px;z-index:9;">
+      <button onclick="adminPublish()" id="adm-pub-btn" style="flex:1;background:#3CAA3C;color:#fff;border:none;border-radius:8px;padding:0.65rem 1rem;font-size:0.95rem;font-weight:700;cursor:pointer;font-family:'Lato',sans-serif;">🚀 Opublikuj zmiany na stronie</button>
+      <div id="adm-pub-st" style="font-size:0.82rem;color:#888;min-width:100px;text-align:right;"></div>
+    </div>
+    <div style="background:#FFF8E1;border-bottom:1px solid #FFE082;padding:0.75rem 1.5rem;">
+      <div style="display:flex;justify-content:space-between;align-items:center;cursor:pointer;" onclick="var s=document.getElementById('adm-tok');s.style.display=s.style.display==='none'?'block':'none'">
+        <span style="font-size:0.85rem;font-weight:700;color:#795548;">⚙️ Token GitHub (wymagany do publikacji)</span>
+        <span style="color:#795548;font-size:0.75rem;">▼</span>
+      </div>
+      <div id="adm-tok" style="margin-top:0.75rem;display:none;">
+        <p style="font-size:0.78rem;color:#795548;margin-bottom:0.5rem;">Wpisz token GitHub z uprawnieniem <strong>contents:write</strong>. Zapisywany tylko w tej przeglądarce.</p>
+        <input type="password" id="adm-gh-tok" placeholder="ghp_..." style="width:100%;padding:0.6rem 0.75rem;border:1px solid #FFE082;border-radius:6px;font-size:0.85rem;font-family:'Lato',sans-serif;box-sizing:border-box;margin-bottom:0.5rem;" />
+        <button onclick="localStorage.setItem('adm_tok',document.getElementById('adm-gh-tok').value.trim());document.getElementById('adm-tok-ok').style.display='inline'" style="background:#795548;color:#fff;border:none;border-radius:6px;padding:0.45rem 1rem;font-size:0.82rem;font-weight:700;cursor:pointer;font-family:'Lato',sans-serif;">Zapisz</button>
+        <span id="adm-tok-ok" style="font-size:0.78rem;color:#2D852D;margin-left:0.5rem;display:none;">✓ Zapisano</span>
+      </div>
+    </div>
+    <div style="display:flex;overflow-x:auto;background:#fff;border-bottom:2px solid #E0D8D8;padding:0 0.5rem;" id="adm-tabs">
+      <button class="adm-tab actv" onclick="admTab('hero')"     data-t="hero">🏠 Hero</button>
+      <button class="adm-tab"      onclick="admTab('onas')"     data-t="onas">ℹ️ O nas</button>
+      <button class="adm-tab"      onclick="admTab('uslugi')"   data-t="uslugi">🔧 Usługi</button>
+      <button class="adm-tab"      onclick="admTab('proj')"     data-t="proj">📋 Projekty</button>
+      <button class="adm-tab"      onclick="admTab('zaloz')"    data-t="zaloz">👤 Założyciel</button>
+      <button class="adm-tab"      onclick="admTab('kontakt')"  data-t="kontakt">📞 Kontakt</button>
+    </div>
+    <div style="padding:1.5rem;" id="adm-body">
+
+      <div id="adm-hero">
+        <div class="adm-sh">Sekcja główna (Hero)</div>
+        <label class="adm-lbl">Tytuł – linia 1</label><input class="adm-in" id="f-h1" />
+        <label class="adm-lbl">Tytuł – linia 2 (bordowa)</label><input class="adm-in" id="f-h2" />
+        <label class="adm-lbl">Opis – zdanie 1</label><input class="adm-in" id="f-d1" />
+        <label class="adm-lbl">Opis – zdanie 2</label><textarea class="adm-in" rows="2" id="f-d2"></textarea>
+        <label class="adm-lbl">Statystyka 1 – liczba</label><input class="adm-in" id="f-s1n" />
+        <label class="adm-lbl">Statystyka 1 – opis</label><input class="adm-in" id="f-s1l" />
+        <label class="adm-lbl">Statystyka 2 – liczba</label><input class="adm-in" id="f-s2n" />
+        <label class="adm-lbl">Statystyka 2 – opis</label><input class="adm-in" id="f-s2l" />
+      </div>
+
+      <div id="adm-onas" style="display:none;">
+        <div class="adm-sh">Sekcja „O nas"</div>
+        <label class="adm-lbl">Tytuł sekcji</label><input class="adm-in" id="f-on-title" />
+        <label class="adm-lbl">Opis główny</label><textarea class="adm-in" rows="3" id="f-on-desc"></textarea>
+        <hr class="adm-hr"/>
+        <label class="adm-lbl">Wartość 1 – tytuł</label><input class="adm-in" id="f-v1t" />
+        <label class="adm-lbl">Wartość 1 – opis</label><textarea class="adm-in" rows="2" id="f-v1d"></textarea>
+        <label class="adm-lbl">Wartość 2 – tytuł</label><input class="adm-in" id="f-v2t" />
+        <label class="adm-lbl">Wartość 2 – opis</label><textarea class="adm-in" rows="2" id="f-v2d"></textarea>
+        <label class="adm-lbl">Wartość 3 – tytuł</label><input class="adm-in" id="f-v3t" />
+        <label class="adm-lbl">Wartość 3 – opis</label><textarea class="adm-in" rows="2" id="f-v3d"></textarea>
+      </div>
+
+      <div id="adm-uslugi" style="display:none;">
+        <div class="adm-sh" style="color:#7A1C1C;">Usługi opiekuńcze</div>
+        <label class="adm-lbl">Opis</label><textarea class="adm-in" rows="3" id="f-u1d"></textarea>
+        <label class="adm-lbl">Punkty (każdy w nowej linii)</label><textarea class="adm-in" rows="8" id="f-u1i"></textarea>
+        <hr class="adm-hr"/>
+        <div class="adm-sh" style="color:#3CAA3C;">Specjalistyczne usługi</div>
+        <label class="adm-lbl">Opis</label><textarea class="adm-in" rows="3" id="f-u2d"></textarea>
+        <label class="adm-lbl">Punkty (każdy w nowej linii)</label><textarea class="adm-in" rows="8" id="f-u2i"></textarea>
+      </div>
+
+      <div id="adm-proj" style="display:none;">
+        <div class="adm-sh">Projekt (podgląd na stronie głównej)</div>
+        <label class="adm-lbl">Tytuł projektu</label><input class="adm-in" id="f-pt" />
+        <label class="adm-lbl">Daty realizacji</label><input class="adm-in" id="f-pd" />
+        <label class="adm-lbl">Krótki opis</label><textarea class="adm-in" rows="4" id="f-pp"></textarea>
+      </div>
+
+      <div id="adm-zaloz" style="display:none;">
+        <div class="adm-sh">Sekcja Założyciel</div>
+        <label class="adm-lbl">Imię i nazwisko</label><input class="adm-in" id="f-fn" />
+        <label class="adm-lbl">Rola (pod nazwiskiem)</label><input class="adm-in" id="f-fr" />
+        <label class="adm-lbl">Zdanie wprowadzające</label><textarea class="adm-in" rows="2" id="f-fi"></textarea>
+        <label class="adm-lbl">Akapit 1</label><textarea class="adm-in" rows="3" id="f-fp1"></textarea>
+        <label class="adm-lbl">Akapit 2</label><textarea class="adm-in" rows="3" id="f-fp2"></textarea>
+        <hr class="adm-hr"/>
+        <label class="adm-lbl">Wyróżnienie 1 – tytuł</label><input class="adm-in" id="f-h1t" />
+        <label class="adm-lbl">Wyróżnienie 1 – opis</label><textarea class="adm-in" rows="2" id="f-h1d"></textarea>
+        <label class="adm-lbl">Wyróżnienie 2 – tytuł</label><input class="adm-in" id="f-h2t" />
+        <label class="adm-lbl">Wyróżnienie 2 – opis</label><textarea class="adm-in" rows="2" id="f-h2d"></textarea>
+        <label class="adm-lbl">Wyróżnienie 3 – tytuł</label><input class="adm-in" id="f-h3t" />
+        <label class="adm-lbl">Wyróżnienie 3 – opis</label><textarea class="adm-in" rows="2" id="f-h3d"></textarea>
+      </div>
+
+      <div id="adm-kontakt" style="display:none;">
+        <div class="adm-sh">Dane kontaktowe</div>
+        <label class="adm-lbl">Numer telefonu</label><input class="adm-in" id="f-phone" />
+        <label class="adm-lbl">Adres e-mail</label><input class="adm-in" id="f-email" />
+        <label class="adm-lbl">Link do Facebooka</label><input class="adm-in" id="f-fb" />
+        <label class="adm-lbl">Zasięg działalności</label><input class="adm-in" id="f-area" />
+        <hr class="adm-hr"/>
+        <label class="adm-lbl">Tekst w stopce</label><textarea class="adm-in" rows="2" id="f-foot"></textarea>
+      </div>
+
+    </div>
+  </div>
+
+  <style>
+    .adm-tab{background:none;border:none;padding:0.65rem 0.8rem;font-size:0.8rem;font-weight:700;color:#888;cursor:pointer;font-family:'Lato',sans-serif;white-space:nowrap;border-bottom:3px solid transparent;transition:all 0.2s;}
+    .adm-tab:hover{color:#7A1C1C;}
+    .adm-tab.actv{color:#7A1C1C;border-bottom-color:#7A1C1C;}
+    .adm-lbl{display:block;font-size:0.76rem;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:0.06em;margin:0.85rem 0 0.3rem;}
+    .adm-lbl:first-of-type{margin-top:0;}
+    .adm-in{width:100%;padding:0.6rem 0.75rem;border:2px solid #E0D8D8;border-radius:8px;font-size:0.92rem;font-family:'Lato',sans-serif;color:#1A1A1A;background:#fff;box-sizing:border-box;transition:border-color 0.2s;resize:vertical;}
+    .adm-in:focus{outline:none;border-color:#7A1C1C;box-shadow:0 0 0 3px #F5E8E8;}
+    .adm-hr{border:none;border-top:1px solid #E0D8D8;margin:1.25rem 0;}
+    .adm-sh{font-family:'Merriweather',serif;color:#7A1C1C;margin-bottom:1.25rem;font-size:1rem;font-weight:700;}
+  </style>
+
+  <script>
+    const _PASS='KrzysztofProt', _REPO='louiscmd/opieka-i-troska';
+    let _unlocked=false, _shiftOn=false;
+
+    document.addEventListener('keydown',e=>{
+      if(e.key==='Shift') _shiftOn=true;
+      if(_shiftOn&&e.key==='A'){e.preventDefault();_openLogin();}
+    });
+    document.addEventListener('keyup',e=>{if(e.key==='Shift')_shiftOn=false;});
+
+    function _openLogin(){
+      if(_unlocked){_showPanel();return;}
+      document.getElementById('admin-overlay').style.display='block';
+      document.getElementById('admin-login').style.display='block';
+      document.getElementById('admin-pw').value='';
+      document.getElementById('admin-pw-err').style.display='none';
+      setTimeout(()=>document.getElementById('admin-pw').focus(),50);
+    }
+    document.getElementById('admin-pw').addEventListener('keydown',e=>{if(e.key==='Enter')adminSubmit();});
+    function adminSubmit(){
+      if(document.getElementById('admin-pw').value===_PASS){
+        _unlocked=true;
+        document.getElementById('admin-login').style.display='none';
+        document.getElementById('admin-overlay').style.display='none';
+        _loadSaved();_populateFromPage();_showPanel();
+      } else {
+        document.getElementById('admin-pw-err').style.display='block';
+        document.getElementById('admin-pw').select();
+      }
+    }
+    function adminCloseLogin(){
+      document.getElementById('admin-login').style.display='none';
+      document.getElementById('admin-overlay').style.display='none';
+    }
+    function _showPanel(){
+      document.getElementById('adm').style.display='flex';
+      const t=localStorage.getItem('adm_tok')||'';
+      document.getElementById('adm-gh-tok').value=t;
+    }
+    function admTab(n){
+      ['hero','onas','uslugi','proj','zaloz','kontakt'].forEach(x=>{
+        document.getElementById('adm-'+x).style.display=x===n?'block':'none';
+      });
+      document.querySelectorAll('.adm-tab').forEach(b=>{
+        b.classList.toggle('actv',b.dataset.t===n);
+      });
+    }
+    function _g(id){return(document.getElementById(id)||{}).value||'';}
+    function _s(id,v){const el=document.getElementById(id);if(el)el.value=v;}
+
+    function _populateFromPage(){
+      // Hero
+      const ht=document.querySelector('.hero-title');
+      if(ht){const ln=ht.innerText.split('\n');_s('f-h1',ln[0]||'');_s('f-h2',ln[1]||'');}
+      const hd=document.querySelector('.hero-desc');
+      if(hd){const ln=hd.innerText.split('\n');_s('f-d1',ln[0]||'');_s('f-d2',ln.slice(1).join(' ').trim());}
+      const sns=document.querySelectorAll('.hero-stat-number');
+      const sls=document.querySelectorAll('.hero-stat-label');
+      if(sns[0])_s('f-s1n',sns[0].textContent);if(sls[0])_s('f-s1l',sls[0].textContent);
+      if(sns[1])_s('f-s2n',sns[1].textContent);if(sls[1])_s('f-s2l',sls[1].textContent);
+      // O nas
+      const oh=document.getElementById('onas-heading');if(oh)_s('f-on-title',oh.textContent);
+      const od=document.querySelector('#o-nas .section-subtitle');if(od)_s('f-on-desc',od.textContent.trim());
+      const vt=document.querySelectorAll('.about-value-text h4');
+      const vd=document.querySelectorAll('.about-value-text p');
+      if(vt[0])_s('f-v1t',vt[0].textContent);if(vd[0])_s('f-v1d',vd[0].textContent);
+      if(vt[1])_s('f-v2t',vt[1].textContent);if(vd[1])_s('f-v2d',vd[1].textContent);
+      if(vt[2])_s('f-v3t',vt[2].textContent);if(vd[2])_s('f-v3d',vd[2].textContent);
+      // Usługi
+      const sc=document.querySelectorAll('.service-card > p');
+      if(sc[0])_s('f-u1d',sc[0].textContent.trim());
+      if(sc[1])_s('f-u2d',sc[1].textContent.trim());
+      const sl=document.querySelectorAll('.service-items');
+      if(sl[0])_s('f-u1i',[...sl[0].querySelectorAll('li')].map(l=>l.textContent.trim()).join('\n'));
+      if(sl[1])_s('f-u2i',[...sl[1].querySelectorAll('li')].map(l=>l.textContent.trim()).join('\n'));
+      // Projekt
+      const pt=document.querySelector('.project-title');if(pt)_s('f-pt',pt.textContent.trim());
+      const pd=document.querySelector('.project-dates');if(pd)_s('f-pd',pd.textContent.trim());
+      const pp=document.querySelector('.project-preview-card p');if(pp)_s('f-pp',pp.textContent.trim());
+      // Założyciel
+      const fn=document.querySelector('.avatar-name');if(fn)_s('f-fn',fn.textContent);
+      const fr=document.querySelector('.avatar-title');if(fr)_s('f-fr',fr.textContent);
+      const fi=document.querySelector('.founder-content .section-subtitle');if(fi)_s('f-fi',fi.textContent.trim());
+      const fp=document.querySelectorAll('.founder-content > p');
+      if(fp[0])_s('f-fp1',fp[0].textContent.trim());if(fp[1])_s('f-fp2',fp[1].textContent.trim());
+      const ht2=document.querySelectorAll('.founder-highlight-text h4');
+      const hd2=document.querySelectorAll('.founder-highlight-text p');
+      if(ht2[0])_s('f-h1t',ht2[0].textContent);if(hd2[0])_s('f-h1d',hd2[0].textContent);
+      if(ht2[1])_s('f-h2t',ht2[1].textContent);if(hd2[1])_s('f-h2d',hd2[1].textContent);
+      if(ht2[2])_s('f-h3t',ht2[2].textContent);if(hd2[2])_s('f-h3d',hd2[2].textContent);
+      // Kontakt
+      const ci=document.querySelectorAll('.contact-item');
+      ci.forEach(item=>{
+        const v=item.querySelector('.value');if(!v)return;
+        const svg=item.querySelector('svg');if(!svg)return;
+        const p=svg.querySelector('path');if(!p)return;
+        const d=p.getAttribute('d')||'';
+        if(d.includes('20 21'))_s('f-phone',v.textContent);
+        else if(d.includes('18 2h'))_s('f-fb',v.href||v.textContent);
+        else if(d.includes('10'))_s('f-area',v.textContent);
+      });
+      _s('f-email','prototypek@gmail.com');
+      const fb=document.querySelector('.footer-brand > p');if(fb)_s('f-foot',fb.textContent.trim());
+    }
+
+    function _applyToPage(){
+      // Hero
+      const ht=document.querySelector('.hero-title');
+      if(ht)ht.innerHTML=_g('f-h1')+'<br /><span>'+_g('f-h2')+'</span>';
+      const hd=document.querySelector('.hero-desc');
+      if(hd)hd.innerHTML=_g('f-d1')+'<br />'+_g('f-d2');
+      const sns=document.querySelectorAll('.hero-stat-number');
+      const sls=document.querySelectorAll('.hero-stat-label');
+      if(sns[0])sns[0].textContent=_g('f-s1n');if(sls[0])sls[0].textContent=_g('f-s1l');
+      if(sns[1])sns[1].textContent=_g('f-s2n');if(sls[1])sls[1].textContent=_g('f-s2l');
+      // O nas
+      const oh=document.getElementById('onas-heading');if(oh)oh.textContent=_g('f-on-title');
+      const od=document.querySelector('#o-nas .section-subtitle');if(od)od.textContent=_g('f-on-desc');
+      const vt=document.querySelectorAll('.about-value-text h4');
+      const vd=document.querySelectorAll('.about-value-text p');
+      if(vt[0])vt[0].textContent=_g('f-v1t');if(vd[0])vd[0].textContent=_g('f-v1d');
+      if(vt[1])vt[1].textContent=_g('f-v2t');if(vd[1])vd[1].textContent=_g('f-v2d');
+      if(vt[2])vt[2].textContent=_g('f-v3t');if(vd[2])vd[2].textContent=_g('f-v3d');
+      // Usługi
+      const sc=document.querySelectorAll('.service-card > p');
+      if(sc[0])sc[0].textContent=_g('f-u1d');if(sc[1])sc[1].textContent=_g('f-u2d');
+      const sl=document.querySelectorAll('.service-items');
+      [['f-u1i',sl[0]],['f-u2i',sl[1]]].forEach(([fid,list])=>{
+        if(!list)return;
+        const items=_g(fid).split('\n').filter(x=>x.trim());
+        list.innerHTML=items.map(item=>`<li class="service-item"><span class="service-item-dot" aria-hidden="true"></span>${item.trim()}</li>`).join('');
+      });
+      // Projekt
+      const pt=document.querySelector('.project-title');if(pt)pt.textContent=_g('f-pt');
+      const pd2=document.querySelector('.project-dates');if(pd2)pd2.textContent=_g('f-pd');
+      const pp=document.querySelector('.project-preview-card p');if(pp)pp.textContent=_g('f-pp');
+      // Założyciel
+      document.querySelectorAll('.avatar-name').forEach(e=>e.textContent=_g('f-fn'));
+      const fr=document.querySelector('.avatar-title');if(fr)fr.textContent=_g('f-fr');
+      const fnh2=document.getElementById('prot-heading');if(fnh2)fnh2.textContent=_g('f-fn');
+      const fi=document.querySelector('.founder-content .section-subtitle');if(fi)fi.textContent=_g('f-fi');
+      const fps=document.querySelectorAll('.founder-content > p');
+      if(fps[0])fps[0].textContent=_g('f-fp1');if(fps[1])fps[1].textContent=_g('f-fp2');
+      const ht2=document.querySelectorAll('.founder-highlight-text h4');
+      const hd2=document.querySelectorAll('.founder-highlight-text p');
+      if(ht2[0])ht2[0].textContent=_g('f-h1t');if(hd2[0])hd2[0].textContent=_g('f-h1d');
+      if(ht2[1])ht2[1].textContent=_g('f-h2t');if(hd2[1])hd2[1].textContent=_g('f-h2d');
+      if(ht2[2])ht2[2].textContent=_g('f-h3t');if(hd2[2])hd2[2].textContent=_g('f-h3d');
+      // Kontakt
+      const ci=document.querySelectorAll('.contact-item');
+      ci.forEach(item=>{
+        const v=item.querySelector('.value');if(!v)return;
+        const svg=item.querySelector('svg');if(!svg)return;
+        const p=svg.querySelector('path');if(!p)return;
+        const d=p.getAttribute('d')||'';
+        if(d.includes('20 21'))v.textContent=_g('f-phone');
+        else if(d.includes('18 2h')){v.textContent='Opieka i Troska – Krzysztof Prot';v.href=_g('f-fb');}
+        else if(d.includes('10'))v.textContent=_g('f-area');
+      });
+      const fb=document.querySelector('.footer-brand > p');if(fb)fb.textContent=_g('f-foot');
+      // Save
+      const data={};
+      document.querySelectorAll('[id^="f-"]').forEach(el=>data[el.id]=el.value);
+      localStorage.setItem('adm_data',JSON.stringify(data));
+    }
+
+    function _loadSaved(){
+      try{
+        const d=JSON.parse(localStorage.getItem('adm_data')||'{}');
+        Object.keys(d).forEach(id=>{const el=document.getElementById(id);if(el)el.value=d[id];});
+      }catch(e){}
+    }
+
+    // Live preview on input
+    document.querySelectorAll('[id^="f-"]').forEach(el=>{
+      el.addEventListener('input',_applyToPage);
+    });
+
+    async function adminPublish(){
+      const btn=document.getElementById('adm-pub-btn');
+      const st=document.getElementById('adm-pub-st');
+      const tok=localStorage.getItem('adm_tok')||document.getElementById('adm-gh-tok').value.trim();
+      if(!tok){st.style.color='#c0392b';st.textContent='⚠️ Dodaj token GitHub';return;}
+      btn.disabled=true;btn.textContent='⏳ Publikowanie...';
+      st.style.color='#888';st.textContent='Łączę z GitHub...';
+      try{
+        const fname='index.html';
+        const url=`https://api.github.com/repos/${_REPO}/contents/${fname}`;
+        const r=await fetch(url,{headers:{Authorization:`token ${tok}`,Accept:'application/vnd.github.v3+json'}});
+        if(!r.ok)throw new Error('Błąd pobierania: '+r.status);
+        const fd=await r.json();
+        const html=document.documentElement.outerHTML;
+        const enc=btoa(unescape(encodeURIComponent(html)));
+        const wr=await fetch(url,{method:'PUT',headers:{Authorization:`token ${tok}`,Accept:'application/vnd.github.v3+json','Content-Type':'application/json'},
+          body:JSON.stringify({message:'Admin update via website',content:enc,sha:fd.sha})});
+        if(!wr.ok){const e=await wr.json();throw new Error(e.message||'Błąd zapisu');}
+        btn.textContent='✅ Opublikowano!';btn.style.background='#2D852D';
+        st.style.color='#2D852D';st.textContent='Strona aktualizuje się (~30s)';
+        setTimeout(()=>{btn.disabled=false;btn.textContent='🚀 Opublikuj zmiany na stronie';btn.style.background='#3CAA3C';st.textContent='';},7000);
+      }catch(err){
+        btn.disabled=false;btn.textContent='🚀 Opublikuj zmiany na stronie';
+        st.style.color='#c0392b';st.textContent='❌ '+err.message;
+      }
+    }
+
+    // On page load apply saved content
+    (function(){
+      try{
+        const d=JSON.parse(localStorage.getItem('adm_data')||'{}');
+        if(Object.keys(d).length){
+          Object.keys(d).forEach(id=>{const el=document.getElementById(id);if(el)el.value=d[id];});
+          _applyToPage();
+        }
+      }catch(e){}
+    })();
+  </script>
+
 </body>
 </html>
