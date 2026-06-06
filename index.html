@@ -163,8 +163,7 @@
       display: block;
     }
 
-    /* Push content down to account for both navbar + EU bar */
-    #hero { padding-top: calc(72px + 76px); }
+    /* Push content down to account for both navbar + EU bar (handled in main #hero rule) */
 
     /* ========================================
        TEXT JUSTIFICATION
@@ -481,13 +480,15 @@
        HERO
     ======================================== */
     #hero {
-      padding-top: 72px;
+      padding-top: calc(72px + 76px + 2rem);
+      padding-bottom: 4rem;
       min-height: 100vh;
       display: flex;
       align-items: center;
       background: linear-gradient(135deg, #FDF5F5 0%, #FAF9F7 55%, #F0F8F0 100%);
       position: relative;
       overflow: hidden;
+      box-sizing: border-box;
     }
 
     #hero::before {
@@ -1561,8 +1562,8 @@
         grid-template-columns: 1fr;
         gap: 2rem;
       }
-      /* Tablet: EU bar is same height, just ensure hero clears it */
-      #hero { padding-top: calc(72px + 76px + 1rem) !important; }
+      /* Tablet: ensure hero clears both nav + EU bar */
+      #hero { padding-top: calc(72px + 76px + 2rem) !important; padding-bottom: 3rem !important; min-height: auto !important; }
 
       /* On tablet show photo below text in hero, smaller */
       .hero-visual {
@@ -1621,7 +1622,7 @@
       #a11y-panel { width: calc(100vw - 2.5rem); max-width: 300px; }
 
       /* Hero */
-      #hero { min-height: auto; padding: 6rem 0 3rem; }
+      #hero { min-height: auto !important; padding-top: calc(72px + 76px + 1.5rem) !important; padding-bottom: 3rem !important; }
       .hero-grid { gap: 1.75rem; }
       .hero-title { font-size: 1.8rem; }
       .hero-desc { font-size: 1rem; margin-bottom: 1.75rem; }
