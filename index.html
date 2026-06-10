@@ -1953,23 +1953,7 @@
           </p>
         </div>
 
-        <div class="project-preview-card fade-up">
-          <div class="project-card-top">
-            <div class="project-tag">Aktywny projekt</div>
-            <div class="project-dates">01.07.2025 – 31.08.2026</div>
-          </div>
-          <h3 class="project-title">Najlepsze wsparcie dla seniorów – wsparcie w domu!</h3>
-          <p style="color: var(--text-muted); font-size: var(--font-sm); line-height: 1.75; margin-bottom: 1.5rem;">
-            Projekt realizowany wspólnie przez <strong style="color:var(--text)">Opieka i Troska Krzysztof Prot</strong>
-            oraz <strong style="color:var(--text)">Fundację NIC DWA RAZY</strong>.
-            Celem jest zwiększenie dostępu do usług opiekuńczych i specjalistycznych
-            dla 32 seniorów oraz 15 opiekunów faktycznych z terenu powiatu ostrowskiego.
-            Udział jest całkowicie bezpłatny.
-          </p>
-          <a href="projekty.html" class="btn btn-primary">
-            Zobacz szczegóły projektu
-          </a>
-        </div>
+        <div id="projects-container"></div>
 
       </div>
     </section>
@@ -2470,6 +2454,136 @@
       });
     })();
 
+    // ===== PROJECTS SYSTEM =====
+    const PROJ_KEY = 'adm_projects';
+    const DEFAULT_PROJECTS = [{
+      id: 'proj_default',
+      tag: 'Aktywny projekt',
+      dates: '01.07.2025 – 31.08.2026',
+      title: 'Najlepsze wsparcie dla seniorów – wsparcie w domu!',
+      desc: 'Projekt realizowany wspólnie przez Opieka i Troska Krzysztof Prot oraz Fundację NIC DWA RAZY. Celem jest zwiększenie dostępu do usług opiekuńczych i specjalistycznych dla 32 seniorów oraz 15 opiekunów faktycznych z terenu powiatu ostrowskiego. Udział jest całkowicie bezpłatny.',
+      link: 'projekty.html',
+      btn: 'Zobacz szczegóły projektu'
+    }];
+
+    function projLoad() {
+      try { return JSON.parse(localStorage.getItem(PROJ_KEY)) || DEFAULT_PROJECTS; }
+      catch(e) { return DEFAULT_PROJECTS; }
+    }
+    function projSave(arr) { localStorage.setItem(PROJ_KEY, JSON.stringify(arr)); }
+
+    function projRender() {
+      const container = document.getElementById('projects-container');
+      if (!container) return;
+      const projs = projLoad();
+      container.innerHTML = projs.map(p => `
+        <div class="project-preview-card fade-up" data-proj-id="${p.id}">
+          <div class="project-card-top">
+            <div class="project-tag">${p.tag||'Projekt'}</div>
+            <div class="project-dates">${p.dates||''}</div>
+          </div>
+          <h3 class="project-title">${p.title||''}</h3>
+          <p style="color:var(--text-muted);font-size:var(--font-sm);line-height:1.75;margin-bottom:1.5rem;">${p.desc||''}</p>
+          ${p.link ? `<a href="${p.link}" class="btn btn-primary">${p.btn||'Dowiedz się więcej'}</a>` : ''}
+        </div>`).join('');
+    }
+
+    function admProjRenderList() {
+      const list = document.getElementById('adm-proj-list');
+      if (!list) return;
+      const projs = projLoad();
+      if (projs.length === 0) {
+        list.innerHTML = '<p style="color:#999;font-size:0.85rem;text-align:center;">Brak projektów. Kliknij „Dodaj projekt".</p>';
+        return;
+      }
+      list.innerHTML = projs.map((p,i) => `
+        <div style="background:#fff;border:1px solid #E0D8D8;border-radius:10px;padding:0.75rem 1rem;display:flex;align-items:center;gap:0.5rem;">
+          <div style="flex:1;min-width:0;">
+            <div style="font-weight:700;font-size:0.88rem;color:#1A1A1A;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${p.title||'(bez tytułu)'}</div>
+            <div style="font-size:0.78rem;color:#888;">${p.tag||''} · ${p.dates||''}</div>
+          </div>
+          <button onclick="admProjEdit('${p.id}')" title="Edytuj"
+            style="background:#F5E8E8;color:#7A1C1C;border:none;border-radius:7px;padding:0.4rem 0.7rem;font-size:0.8rem;font-weight:700;cursor:pointer;flex-shrink:0;">✏️</button>
+          <button onclick="admProjDelete('${p.id}')" title="Usuń"
+            style="background:#FEE;color:#c0392b;border:none;border-radius:7px;padding:0.4rem 0.7rem;font-size:0.8rem;font-weight:700;cursor:pointer;flex-shrink:0;">🗑️</button>
+        </div>`).join('');
+    }
+
+    function admProjNew() {
+      document.getElementById('adm-proj-form-title').textContent = 'Nowy projekt';
+      document.getElementById('f-proj-id').value = 'proj_' + Date.now();
+      document.getElementById('f-proj-tag').value = 'Aktywny projekt';
+      document.getElementById('f-proj-dates').value = '';
+      document.getElementById('f-proj-title').value = '';
+      document.getElementById('f-proj-desc').value = '';
+      document.getElementById('f-proj-link').value = 'projekty.html';
+      document.getElementById('f-proj-btn').value = 'Zobacz szczegóły projektu';
+      document.getElementById('adm-proj-form').style.display = 'block';
+      document.getElementById('adm-proj-add-btn').style.display = 'none';
+    }
+
+    function admProjEdit(id) {
+      const projs = projLoad();
+      const p = projs.find(x => x.id === id);
+      if (!p) return;
+      document.getElementById('adm-proj-form-title').textContent = 'Edytuj projekt';
+      document.getElementById('f-proj-id').value = p.id;
+      document.getElementById('f-proj-tag').value = p.tag||'';
+      document.getElementById('f-proj-dates').value = p.dates||'';
+      document.getElementById('f-proj-title').value = p.title||'';
+      document.getElementById('f-proj-desc').value = p.desc||'';
+      document.getElementById('f-proj-link').value = p.link||'';
+      document.getElementById('f-proj-btn').value = p.btn||'';
+      document.getElementById('adm-proj-form').style.display = 'block';
+      document.getElementById('adm-proj-add-btn').style.display = 'none';
+    }
+
+    function admProjSaveForm() {
+      const id = document.getElementById('f-proj-id').value;
+      const updated = {
+        id,
+        tag: document.getElementById('f-proj-tag').value,
+        dates: document.getElementById('f-proj-dates').value,
+        title: document.getElementById('f-proj-title').value,
+        desc: document.getElementById('f-proj-desc').value,
+        link: document.getElementById('f-proj-link').value,
+        btn: document.getElementById('f-proj-btn').value,
+      };
+      let projs = projLoad();
+      const idx = projs.findIndex(x => x.id === id);
+      if (idx >= 0) projs[idx] = updated;
+      else projs.push(updated);
+      projSave(projs);
+      projRender();
+      admProjRenderList();
+      admProjCancelForm();
+    }
+
+    function admProjDelete(id) {
+      if (!confirm('Usunąć ten projekt?')) return;
+      let projs = projLoad().filter(x => x.id !== id);
+      projSave(projs);
+      projRender();
+      admProjRenderList();
+    }
+
+    function admProjCancelForm() {
+      document.getElementById('adm-proj-form').style.display = 'none';
+      document.getElementById('adm-proj-add-btn').style.display = 'flex';
+    }
+
+    // Render projects on page load
+    projRender();
+
+    // Hook into admin panel open to refresh list
+    const _origAdmSection = typeof admSection === 'function' ? admSection : null;
+    // Render list when projekty section is shown
+    document.querySelectorAll('.adm-nav-btn').forEach(btn => {
+      if (btn.dataset.s === 'projekty') {
+        btn.addEventListener('click', () => setTimeout(admProjRenderList, 50));
+      }
+    });
+
     function openPartnerLightbox(src, name) {
       document.getElementById('partner-lightbox-img').src = src;
       document.getElementById('partner-lightbox-img').alt = name;
@@ -2608,10 +2722,45 @@
         <!-- PROJEKTY -->
         <div id="s-projekty" style="display:none;">
           <div class="adm-sh">📋 Projekty</div>
-          <p class="adm-hint">Podgląd projektu widoczny na stronie głównej</p>
-          <label class="adm-lbl">Tytuł projektu</label><input class="adm-in" id="f-pt" />
-          <label class="adm-lbl">Daty realizacji</label><input class="adm-in" id="f-pd" />
-          <label class="adm-lbl">Krótki opis</label><textarea class="adm-in" rows="4" id="f-pp"></textarea>
+          <p class="adm-hint">Projekty widoczne na stronie głównej. Możesz dodawać, edytować i usuwać projekty.</p>
+
+          <!-- Lista projektów -->
+          <div id="adm-proj-list" style="display:flex;flex-direction:column;gap:0.75rem;margin-bottom:1rem;"></div>
+
+          <!-- Przycisk dodaj -->
+          <button onclick="admProjNew()" id="adm-proj-add-btn"
+            style="width:100%;background:#7A1C1C;color:#fff;border:none;border-radius:10px;padding:0.75rem;font-size:0.95rem;font-weight:700;cursor:pointer;font-family:'Lato',sans-serif;display:flex;align-items:center;justify-content:center;gap:0.5rem;transition:background 0.2s;"
+            onmouseover="this.style.background='#5C1414'" onmouseout="this.style.background='#7A1C1C'">
+            + Dodaj projekt
+          </button>
+
+          <!-- Formularz edycji/dodawania -->
+          <div id="adm-proj-form" style="display:none;margin-top:1rem;background:#fff;border:1px solid #E0D8D8;border-radius:12px;padding:1rem;">
+            <div style="font-weight:700;font-size:0.9rem;color:#7A1C1C;margin-bottom:0.75rem;" id="adm-proj-form-title">Nowy projekt</div>
+            <input type="hidden" id="f-proj-id" />
+            <label class="adm-lbl">Tag (np. "Aktywny projekt")</label>
+            <input class="adm-in" id="f-proj-tag" placeholder="Aktywny projekt" />
+            <label class="adm-lbl">Daty realizacji</label>
+            <input class="adm-in" id="f-proj-dates" placeholder="01.01.2025 – 31.12.2025" />
+            <label class="adm-lbl">Tytuł projektu</label>
+            <input class="adm-in" id="f-proj-title" />
+            <label class="adm-lbl">Krótki opis</label>
+            <textarea class="adm-in" rows="4" id="f-proj-desc"></textarea>
+            <label class="adm-lbl">Link przycisku (URL)</label>
+            <input class="adm-in" id="f-proj-link" placeholder="projekty.html" />
+            <label class="adm-lbl">Tekst przycisku</label>
+            <input class="adm-in" id="f-proj-btn" placeholder="Zobacz szczegóły projektu" />
+            <div style="display:flex;gap:0.5rem;margin-top:0.75rem;">
+              <button onclick="admProjSaveForm()"
+                style="flex:1;background:#3CAA3C;color:#fff;border:none;border-radius:8px;padding:0.65rem;font-size:0.9rem;font-weight:700;cursor:pointer;font-family:'Lato',sans-serif;">
+                ✓ Zapisz projekt
+              </button>
+              <button onclick="admProjCancelForm()"
+                style="background:#F5E8E8;color:#7A1C1C;border:none;border-radius:8px;padding:0.65rem 1rem;font-size:0.9rem;font-weight:700;cursor:pointer;font-family:'Lato',sans-serif;">
+                Anuluj
+              </button>
+            </div>
+          </div>
         </div>
 
         <!-- ZAŁOŻYCIEL -->
@@ -2824,9 +2973,7 @@
       if(sl[0])_sv('f-u1i',[...sl[0].querySelectorAll('li')].map(l=>l.textContent.trim()).join('\n'));
       if(sl[1])_sv('f-u2i',[...sl[1].querySelectorAll('li')].map(l=>l.textContent.trim()).join('\n'));
       // Projekty
-      const pt=document.querySelector('.project-title');if(pt)_sv('f-pt',pt.textContent.trim());
-      const pd=document.querySelector('.project-dates');if(pd)_sv('f-pd',pd.textContent.trim());
-      const pp=document.querySelector('.project-preview-card p');if(pp)_sv('f-pp',pp.textContent.trim());
+      // Projekty — obsługiwane przez admProjRenderList()
       // Założyciel
       const fn=document.querySelector('.avatar-name');if(fn)_sv('f-fn',fn.textContent);
       const fr=document.querySelector('.avatar-title');if(fr)_sv('f-fr',fr.textContent);
@@ -2877,10 +3024,7 @@
         const items=_g(fid).split('\n').filter(x=>x.trim());
         list.innerHTML=items.map(it=>`<li class="service-item"><span class="service-item-dot" aria-hidden="true"></span>${it.trim()}</li>`).join('');
       });
-      // Projekty
-      const pt=document.querySelector('.project-title');if(pt)pt.textContent=_g('f-pt');
-      const pd=document.querySelector('.project-dates');if(pd)pd.textContent=_g('f-pd');
-      const pp=document.querySelector('.project-preview-card p');if(pp)pp.textContent=_g('f-pp');
+      // Projekty — obsługiwane przez osobny system projRender()
       // Założyciel
       document.querySelectorAll('.avatar-name').forEach(e=>e.textContent=_g('f-fn'));
       const frt=document.querySelector('.avatar-title');if(frt)frt.textContent=_g('f-fr');
