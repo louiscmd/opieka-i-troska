@@ -2575,14 +2575,6 @@
     // Render projects on page load
     projRender();
 
-    // Hook into admin panel open to refresh list
-    const _origAdmSection = typeof admSection === 'function' ? admSection : null;
-    // Render list when projekty section is shown
-    document.querySelectorAll('.adm-nav-btn').forEach(btn => {
-      if (btn.dataset.s === 'projekty') {
-        btn.addEventListener('click', () => setTimeout(admProjRenderList, 50));
-      }
-    });
 
     function openPartnerLightbox(src, name) {
       document.getElementById('partner-lightbox-img').src = src;
@@ -2945,6 +2937,7 @@
         document.getElementById('s-'+x).style.display=x===n?'block':'none';
       });
       document.querySelectorAll('.adm-nav-btn').forEach(b=>b.classList.toggle('active',b.dataset.s===n));
+      if(n==='projekty') admProjRenderList();
     }
 
     const _g=id=>(document.getElementById(id)||{}).value||'';
