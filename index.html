@@ -2490,7 +2490,7 @@
       if (!container) return;
       const projs = projLoad();
       container.innerHTML = projs.map(p => `
-        <div class="project-preview-card fade-up" data-proj-id="${p.id}">
+        <div class="project-preview-card" data-proj-id="${p.id}">
           <div class="project-card-top">
             <div class="project-tag">${p.tag||'Projekt'}</div>
             <div class="project-dates">${p.dates||''}</div>
