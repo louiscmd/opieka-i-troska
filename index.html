@@ -2467,7 +2467,10 @@
     }];
 
     function projLoad() {
-      try { return JSON.parse(localStorage.getItem(PROJ_KEY)) || DEFAULT_PROJECTS; }
+      try {
+        const stored = JSON.parse(localStorage.getItem(PROJ_KEY));
+        return (stored && stored.length > 0) ? stored : DEFAULT_PROJECTS;
+      }
       catch(e) { return DEFAULT_PROJECTS; }
     }
     function projSave(arr) { localStorage.setItem(PROJ_KEY, JSON.stringify(arr)); }
