@@ -2475,6 +2475,16 @@
     }
     function projSave(arr) { localStorage.setItem(PROJ_KEY, JSON.stringify(arr)); }
 
+    // Auto-fix: if localStorage has empty list, reset to defaults and save
+    (function() {
+      try {
+        const stored = JSON.parse(localStorage.getItem(PROJ_KEY));
+        if (stored && stored.length === 0) {
+          localStorage.setItem(PROJ_KEY, JSON.stringify(DEFAULT_PROJECTS));
+        }
+      } catch(e) {}
+    })();
+
     function projRender() {
       const container = document.getElementById('projects-container');
       if (!container) return;
