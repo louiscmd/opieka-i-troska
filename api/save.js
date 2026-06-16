@@ -5,7 +5,18 @@ export default async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-  const { password, data } = req.body || {};
+  // Parse body manually in case Vercel doesn't auto-parse
+  let body = req.body;
+  if (!body || typeof body === 'string') {
+    try {
+      const chunks = [];
+      for await (const chunk of req) chunks.push(chunk);
+      body = JSON.parse(Buffer.concat(chunks).toString());
+    } catch (e) {
+      return res.status(400).json({ error: 'Invalid JSON body' });
+    }
+  }
+  const { password, data } = body || {};
 
   if (!password || password !== process.env.ADMIN_PASSWORD) {
     return res.status(403).json({ error: 'Unauthorized' });
