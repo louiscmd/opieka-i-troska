@@ -18,8 +18,18 @@ export default async function handler(req, res) {
   }
   const { password, data } = body || {};
 
-  if (!password || password !== process.env.ADMIN_PASSWORD) {
-    return res.status(403).json({ error: 'Unauthorized' });
+  // Temporary debug (remove after confirmed working)
+  const envPw = process.env.ADMIN_PASSWORD;
+  if (!password || password !== envPw) {
+    return res.status(403).json({
+      error: 'Unauthorized',
+      debug: {
+        receivedPasswordLength: password ? password.length : 0,
+        envVarSet: !!envPw,
+        envVarLength: envPw ? envPw.length : 0,
+        bodyKeys: Object.keys(body || {})
+      }
+    });
   }
 
   const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
