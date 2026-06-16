@@ -3171,7 +3171,7 @@
     }
 
     // SAVE
-    function admSave(){
+    async function admSave(){
       _applyToPage();
       // Colors
       const pc=_g('f-col-primary-hex')||'#7A1C1C';
@@ -3197,8 +3197,23 @@
       localStorage.setItem('adm_form_email',_g('f-form-email'));
       // Show confirmation
       const msg=document.getElementById('adm-save-msg');
+      msg.textContent='⏳ Zapisywanie...';
       msg.style.opacity='1';
-      setTimeout(()=>msg.style.opacity='0',2200);
+      // Push to server (GitHub → Vercel auto-deploy)
+      try {
+        const allData={fields:data,projects:projLoad()};
+        const r=await fetch('/api/save',{
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({password:_PW,data:allData})
+        });
+        const j=await r.json();
+        if(!r.ok)throw new Error(j.error||'Błąd serwera');
+        msg.textContent='✅ Zapisano i wdrożono na stronę!';
+      }catch(e){
+        msg.textContent='⚠️ Zapisano lokalnie. Błąd wdrożenia: '+e.message;
+      }
+      setTimeout(()=>{msg.style.opacity='0';setTimeout(()=>msg.textContent='',400);},3500);
     }
 
     function _loadSaved(){
@@ -3264,6 +3279,42 @@
         if(ht&&_g2('f-h1'))ht.innerHTML=_g2('f-h1')+'<br /><span>'+_g2('f-h2')+'</span>';
         const hd=document.querySelector('.hero-desc');
         if(hd&&_g2('f-d1'))hd.innerHTML=_g2('f-d1')+'<br />'+_g2('f-d2');
+      }catch(e){}
+    })();
+
+    // Fetch server-side admin data (admin-data.json committed via GitHub API)
+    // This overrides localStorage so all visitors see the same saved content
+    (async function(){
+      try{
+        const r=await fetch('/admin-data.json?_='+Date.now());
+        if(!r.ok)return;
+        const stored=await r.json();
+        if(stored.fields&&Object.keys(stored.fields).length>0){
+          const d=stored.fields;
+          // Store in localStorage for admin panel display
+          localStorage.setItem('adm_data',JSON.stringify(d));
+          // Apply field values to admin inputs
+          Object.keys(d).forEach(id=>{
+            if(id.startsWith('adm_'))return;
+            const el=document.getElementById(id);if(el)el.value=d[id];
+          });
+          // Apply colors
+          if(d.adm_col_primary){_applyColor('primary',d.adm_col_primary);}
+          if(d.adm_col_accent){_applyColor('accent',d.adm_col_accent);}
+          // Apply banner
+          if(d.adm_baner_on&&d['f-baner-text']){
+            const bar=document.getElementById('ann-bar');
+            if(bar){bar.style.display='flex';bar.style.background=d.adm_baner_col||'#7A1C1C';bar.style.alignItems='center';bar.style.justifyContent='center';}
+            const bt=document.getElementById('ann-text');if(bt)bt.textContent=d['f-baner-text'];
+            _banerCol=d.adm_baner_col||'#7A1C1C';
+          }
+          // Apply all page text
+          _applyToPage();
+        }
+        if(stored.projects&&stored.projects.length>0){
+          localStorage.setItem('adm_projects',JSON.stringify(stored.projects));
+          projRender();
+        }
       }catch(e){}
     })();
 
