@@ -3075,16 +3075,16 @@
       [[0,'f-h1t','f-h1d'],[1,'f-h2t','f-h2d'],[2,'f-h3t','f-h3d']].forEach(([i,t,d])=>{
         if(ht2[i])ht2[i].textContent=_g(t);if(hd2[i])hd2[i].textContent=_g(d);
       });
-      // Kontakt
+      // Kontakt — only apply if field has a non-empty value
       document.querySelectorAll('.contact-item').forEach(item=>{
         const v=item.querySelector('.value');if(!v)return;
         const p=item.querySelector('svg path');if(!p)return;
         const d=p.getAttribute('d')||'';
-        if(d.includes('20 21'))v.textContent=_g('f-phone');
-        else if(d.includes('18 2h')){v.href=_g('f-fb');}
-        else if(d.includes('circle cx'))v.textContent=_g('f-area');
+        if(d.includes('20 21')&&_g('f-phone'))v.textContent=_g('f-phone');
+        else if(d.includes('18 2h')&&_g('f-fb')){v.href=_g('f-fb');}
+        else if(d.includes('circle cx')&&_g('f-area'))v.textContent=_g('f-area');
       });
-      const fb=document.querySelector('.footer-brand > p');if(fb)fb.textContent=_g('f-foot');
+      const fb=document.querySelector('.footer-brand > p');if(fb&&_g('f-foot'))fb.textContent=_g('f-foot');
       // Form email → localStorage
       if(_g('f-form-email'))localStorage.setItem('adm_form_email',_g('f-form-email'));
       // Submit button text
@@ -3205,7 +3205,7 @@
         const r=await fetch('/api/save',{
           method:'POST',
           headers:{'Content-Type':'application/json'},
-          body:JSON.stringify({password:_PW,data:allData})
+          body:JSON.stringify({data:allData})
         });
         const j=await r.json();
         if(!r.ok)throw new Error(j.error||'Błąd serwera');

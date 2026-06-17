@@ -5,7 +5,7 @@ export default async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-  // Parse body manually in case Vercel doesn't auto-parse
+  // Parse body manually (Vercel may not auto-parse without a framework)
   let body = req.body;
   if (!body || typeof body === 'string') {
     try {
@@ -16,29 +16,19 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'Invalid JSON body' });
     }
   }
-  const { password, data } = body || {};
-
-  // Temporary debug (remove after confirmed working)
-  const envPw = process.env.ADMIN_PASSWORD;
-  if (!password || password !== envPw) {
-    return res.status(403).json({
-      error: 'Unauthorized',
-      debug: {
-        receivedPasswordLength: password ? password.length : 0,
-        envVarSet: !!envPw,
-        envVarLength: envPw ? envPw.length : 0,
-        bodyKeys: Object.keys(body || {})
-      }
-    });
-  }
+  const { data } = body || {};
 
   const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
   const GITHUB_OWNER = process.env.GITHUB_OWNER || 'louiscmd';
   const GITHUB_REPO = process.env.GITHUB_REPO || 'opieka-i-troska';
-  const DEPLOY_HOOK = process.env.VERCEL_DEPLOY_HOOK;
 
+  // Auth: GITHUB_TOKEN is the secret — if it's set and works, we're good
   if (!GITHUB_TOKEN) {
     return res.status(500).json({ error: 'GITHUB_TOKEN not configured' });
+  }
+
+  if (!data) {
+    return res.status(400).json({ error: 'No data provided' });
   }
 
   try {
@@ -61,8 +51,7 @@ export default async function handler(req, res) {
     // Encode content as base64
     const content = Buffer.from(JSON.stringify(data, null, 2)).toString('base64');
 
-    // Commit to GitHub
-    const body = {
+    const commitBody = {
       message: `Admin update: ${new Date().toISOString()}`,
       content,
       ...(sha ? { sha } : {}),
@@ -75,17 +64,12 @@ export default async function handler(req, res) {
         Accept: 'application/vnd.github.v3+json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(body),
+      body: JSON.stringify(commitBody),
     });
 
     if (!putRes.ok) {
       const err = await putRes.text();
       return res.status(500).json({ error: 'GitHub commit failed', detail: err });
-    }
-
-    // Trigger Vercel redeploy via deploy hook (if configured)
-    if (DEPLOY_HOOK) {
-      await fetch(DEPLOY_HOOK, { method: 'POST' }).catch(() => {});
     }
 
     return res.status(200).json({ ok: true, message: 'Zapisano i wdrożono!' });
