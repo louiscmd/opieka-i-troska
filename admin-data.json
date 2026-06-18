@@ -20,13 +20,13 @@
     "f-u1i": "Pomoc w utrzymaniu higieny osobistej\nPomoc przy ubieraniu się i rozbieraniu\nWsparcie przy przemieszczaniu się\nZakupy i załatwianie spraw\nPrzygotowanie posiłków\nKarmienie podopiecznych\nTowarzyszenie i wsparcie emocjonalne",
     "f-u2d": "Zapewniamy opiekę realizowaną przez specjalistów z dziedzin medycznych\n              i rehabilitacyjnych, dostosowaną do indywidualnych potrzeb zdrowotnych\n              podopiecznego.",
     "f-u2i": "Fizjoterapia i rehabilitacja\nOpieka pielęgniarska\nTerapia zajęciowa\nWsparcie psychologiczne\nSpecjalistyczne zabiegi pielęgnacyjne\nDoradztwo medyczne\nMonitorowanie stanu zdrowia",
-    "f-proj-id": "",
-    "f-proj-tag": "",
+    "f-proj-id": "proj_1781791524794",
+    "f-proj-tag": "Projekt \"Test\"",
     "f-proj-dates": "",
     "f-proj-title": "",
     "f-proj-desc": "",
-    "f-proj-link": "",
-    "f-proj-btn": "",
+    "f-proj-link": "projekty.html",
+    "f-proj-btn": "Zobacz szczegóły projektu",
     "f-fn": "Krzysztof Prot",
     "f-fr": "Właściciel firmy",
     "f-fi": "Założyciel firmy „Opieka i Troska\" – człowiek, dla którego pomoc\n              innym to nie tylko praca, ale powołanie.",
@@ -62,6 +62,15 @@
       "dates": "01.07.2025 – 31.08.2026",
       "title": "Najlepsze wsparcie dla seniorów – wsparcie w domu!",
       "desc": "Projekt realizowany wspólnie przez Opieka i Troska Krzysztof Prot oraz Fundację NIC DWA RAZY. Celem jest zwiększenie dostępu do usług opiekuńczych i specjalistycznych dla 32 seniorów oraz 15 opiekunów faktycznych z terenu powiatu ostrowskiego. Udział jest całkowicie bezpłatny.",
+      "link": "projekty.html",
+      "btn": "Zobacz szczegóły projektu"
+    },
+    {
+      "id": "proj_1781791524794",
+      "tag": "Projekt \"Test\"",
+      "dates": "",
+      "title": "",
+      "desc": "",
       "link": "projekty.html",
       "btn": "Zobacz szczegóły projektu"
     }
