@@ -49,8 +49,8 @@
     "f-col-accent": "#3caa3c",
     "f-col-accent-hex": "#3CAA3C",
     "f-baner-on": "on",
-    "f-baner-text": "",
-    "adm_baner_on": false,
+    "f-baner-text": "Test",
+    "adm_baner_on": true,
     "adm_baner_col": "#7A1C1C",
     "adm_col_primary": "#7A1C1C",
     "adm_col_accent": "#3CAA3C"
